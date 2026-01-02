@@ -1,11 +1,31 @@
-import './reset.css'
-import './App.css'
+import "./reset.css";
+import { useEffect, useRef } from "react";
+import "./App.css";
+import { Outlet,useLocation } from "react-router";
+import { gsap } from "gsap";
+import { ReactLenis } from "lenis/react";
+import Navbar from "./components/Navbar";
 
 export default function App() {
+  const lenisRef = useRef();
+  const location = useLocation();
+  const hideNavbar = ["/login", "/signup"].includes(location.pathname);
+
+  useEffect(() => {
+    function update(time) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
+
+    gsap.ticker.add(update);
+
+    return () => gsap.ticker.remove(update);
+  }, []);
   return (
-    <>
-      <h1>Upload your files</h1>
-      <input type="file" />
+    <ReactLenis root options={{ autoRaf: false }} ref={lenisRef}>
+      <>
+        {!hideNavbar && <Navbar />}
+        <Outlet />
     </>
-  )
+    </ReactLenis>
+  );
 }
