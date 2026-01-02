@@ -6,6 +6,7 @@ import Signup from '../pages/Signup.jsx'
 import Error from '../pages/Error.jsx';
 import NotAuthorised from '../pages/NotAuthorised.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
+import { Navigate } from 'react-router';
 
 function ConditionalHome() {
     const { user } = useAuth();
@@ -15,6 +16,12 @@ function ConditionalHome() {
     } else {
         return <Home />
     }
+}
+
+function ProtectedAuthRoute({ children }) {
+    const { user, loading } = useAuth();
+    if (loading) return(null);
+    return user ? <Navigate to="/" replace /> : children;
 }
 
 const routes = [
@@ -29,11 +36,11 @@ const routes = [
             },
             {
                 path: '/login',
-                element: <Login />
+                element: <ProtectedAuthRoute><Login /></ProtectedAuthRoute>
             },
             {
                 path: '/signup',
-                element: <Signup />
+                element: <ProtectedAuthRoute><Signup /></ProtectedAuthRoute>
             },
             {
                 path: '/403',
