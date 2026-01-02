@@ -1,4 +1,4 @@
-import App from './App.jsx';
+import App from '../App.jsx';
 import Home from '../pages/Home.jsx'
 import AuthHome from '../pages/AuthHome.jsx'
 

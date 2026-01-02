@@ -1,10 +1,11 @@
 import "./reset.css";
 import { useEffect, useRef } from "react";
 import "./App.css";
-import { Outlet,useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { gsap } from "gsap";
 import { ReactLenis } from "lenis/react";
 import Navbar from "./components/Navbar";
+import { AuthProvider } from "./context/AuthContext";
 
 export default function App() {
   const lenisRef = useRef();
@@ -22,10 +23,12 @@ export default function App() {
   }, []);
   return (
     <ReactLenis root options={{ autoRaf: false }} ref={lenisRef}>
-      <>
-        {!hideNavbar && <Navbar />}
-        <Outlet />
-    </>
+      <AuthProvider>
+        <>
+          {!hideNavbar && <Navbar />}
+          <Outlet />
+        </>
+      </AuthProvider>
     </ReactLenis>
   );
 }
