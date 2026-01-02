@@ -1,0 +1,25 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo{
+    font-size: clamp(30px, 8vw, 90px);
+    cursor: pointer;
+}
+
+.navbarbuttons{
+    display: flex;
+    gap: 1rem;
+}
+
+.navbarbutton{
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    background-color: transparent;
+    font-size: clamp(16px, 18px, 2rem);
+    padding: 0;
+}
