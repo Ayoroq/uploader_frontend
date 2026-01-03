@@ -1,6 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import styles from "./Signup.module.css";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ export default function Signup() {
   };
 
   return (
-    <main>
-      <form onSubmit={handleSubmit}>
+    <main className={styles.signup}>
+      <form onSubmit={handleSubmit} className={styles.signupform}>
         <input
           type="text"
           name="username"
@@ -62,13 +63,13 @@ export default function Signup() {
           required
           minLength={8}
         />
-        <button type="submit">Signup</button>
+        <button type="submit" className={styles.signupbutton}>Signup</button>
       </form>
       <div>{error && <p className="error">{error}</p>}</div>
       <div>
         <p>
           Already have an account?{" "}
-          <span onClick={() => navigate("/login", { replace: true })}>
+          <span onClick={() => navigate("/login", { replace: true })} className={styles.loginSpan}>
             Log in
           </span>
         </p>

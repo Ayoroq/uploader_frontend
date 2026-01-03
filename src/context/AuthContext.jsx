@@ -37,7 +37,7 @@ export function AuthProvider({ children }) {
     checkAuth();
   }, []);
 
-  async function login(email, password) {
+  async function login(username, password) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/auth/login`,
@@ -47,7 +47,7 @@ export function AuthProvider({ children }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ username, password }),
         }
       );
       const data = await response.json();
