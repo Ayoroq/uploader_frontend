@@ -1,11 +1,11 @@
+import styles from './Login.module.css'
 export default function Login(){
     return(
-        <div className="login">
-            <h1>Login</h1>
-            <form>
-                <input type="text" placeholder="Username" />
+        <div className={styles.login}>
+            <form className={styles.loginform}>
+                <input  type="text" placeholder="Username" />
                 <input type="password" placeholder="Password" />
-                <button>Login</button>
+                <button className={styles.loginbutton}>Login</button>
             </form>
         </div>
     )
