@@ -65,7 +65,7 @@ export function AuthProvider({ children }) {
   async function signup(userData) {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/signup`,
+        `${import.meta.env.VITE_API_URL}/auth/register`,
         {
           method: "POST",
           credentials: "include",

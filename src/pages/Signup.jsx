@@ -23,6 +23,7 @@ export default function Signup() {
     const result = await signup({
       username: formData.username,
       password: formData.password,
+      confirmPassword: formData.confirmPassword,
     });
     if (!result.success) {
       console.error(result.error);
@@ -65,7 +66,7 @@ export default function Signup() {
         />
         <button type="submit" className={styles.signupbutton}>Signup</button>
       </form>
-      <div>{error && <p className="error">{error}</p>}</div>
+      <div>{error && <p className={styles.error}>{error}</p>}</div>
       <div>
         <p>
           Already have an account?{" "}
