@@ -1,8 +1,14 @@
 import { useNavigate } from "react-router";
 import styles from "./Navbar.module.css";
+import {useAuth} from '../context/AuthContext'
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const {user, loading} = useAuth();
+  
+  if(loading){
+    return null;
+  }
 
   return (
     <nav className={styles.navbar}>
@@ -10,8 +16,14 @@ export default function Navbar() {
         <p>Uploader</p>
       </div>
       <div className={styles.navbarbuttons}>
-        <button className={`${styles.navbarbutton}`} onClick={() => navigate("/login")}>Login</button>
-        <button className={`${styles.navbarbutton}`} onClick={() => navigate("/signup")}>Signup</button>
+        {user ? (
+          <p>{user.user.username}</p>
+        ) : (
+          <>
+            <button onClick={() => navigate('/login')} className={styles.loginbutton}>Login</button>
+            <button onClick={() => navigate('/signup')} className={styles.signupbutton}>Signup</button>
+          </>
+        )}
       </div>
     </nav>
   );

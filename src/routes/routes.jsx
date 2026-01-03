@@ -9,8 +9,8 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { Navigate } from 'react-router';
 
 function ConditionalHome() {
-    const { user } = useAuth();
-    
+    const { user,loading } = useAuth();
+    if (loading) return(null)
     if (user) {
         return <AuthHome />
     } else {
