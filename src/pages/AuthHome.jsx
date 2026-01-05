@@ -206,8 +206,8 @@ export default function AuthHome() {
               {filesFolders.map((item) => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
-                  <td>{item.size}</td>
-                  <td>{item.modified}</td>
+                  <td>{item.updatedAt}</td>
+                  {item.type === "folder" ? <td>{item._count.files + item._count.subfolders}</td> : <td>{item.size}</td>}
                 </tr>
               ))}
             </tbody>
@@ -276,7 +276,9 @@ export default function AuthHome() {
             onChange={handleFolderNameChange}
             autoFocus
           />
-          {folderNameError && !folderName && <p className={styles.error}>{folderNameError}</p>}
+          {folderNameError && !folderName && (
+            <p className={styles.error}>{folderNameError}</p>
+          )}
         </div>
         <div className={styles.createFolderButtonContainer}>
           <button
