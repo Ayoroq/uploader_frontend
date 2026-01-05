@@ -13,6 +13,16 @@
     flex: 0.8;
 }
 
+.miniNav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.sortView{
+    display: flex;
+    gap: 0.5rem;
+}
+
 .upload, .import{
     cursor: pointer;
 }

@@ -1,5 +1,5 @@
 import styles from "./AuthHome.module.css";
-import { useRef, useState, useEffect} from "react";
+import { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router";
 
 export default function AuthHome() {
@@ -8,8 +8,8 @@ export default function AuthHome() {
   const dialog = useRef(null);
   const [files, setFiles] = useState([]);
   const [filesFolders, setFilesFolders] = useState([]);
-  const [folderNameError, setFolderNameError] = useState(null)
-  const [folderName, setFolderName] = useState("")
+  const [folderNameError, setFolderNameError] = useState(null);
+  const [folderName, setFolderName] = useState("");
 
   function handleFileChange(e) {
     const selectedFiles = Array.from(e.target.files);
@@ -23,7 +23,7 @@ export default function AuthHome() {
   }
 
   function handleFolderNameChange(e) {
-    setFolderName(e.target.value)
+    setFolderName(e.target.value);
   }
 
   useEffect(() => {
@@ -51,10 +51,10 @@ export default function AuthHome() {
       setFolderName("");
       setFolderNameError(null);
     };
-    
+
     if (dialogElement) {
-      dialogElement.addEventListener('close', handleClose);
-      return () => dialogElement.removeEventListener('close', handleClose);
+      dialogElement.addEventListener("close", handleClose);
+      return () => dialogElement.removeEventListener("close", handleClose);
     }
   }, []);
 
@@ -86,7 +86,11 @@ export default function AuthHome() {
   async function handleCreateFolder() {
     if (folderName) {
       try {
-        const uploadUrl = folderId ? `${import.meta.env.VITE_API_URL}/api/folders/create/folder/${folderId}` : `${import.meta.env.VITE_API_URL}/api/folders/create/folder`
+        const uploadUrl = folderId
+          ? `${
+              import.meta.env.VITE_API_URL
+            }/api/folders/create/folder/${folderId}`
+          : `${import.meta.env.VITE_API_URL}/api/folders/create/folder`;
         const response = await fetch(uploadUrl, {
           method: "POST",
           headers: {
@@ -103,14 +107,14 @@ export default function AuthHome() {
         console.error(error);
       }
     } else {
-      setFolderNameError("Folder name is required")
+      setFolderNameError("Folder name is required");
     }
   }
 
   return (
     <main className={styles.authhome}>
       <section className={styles.leftSide}>
-        <button onClick={() => (dialog.current.showModal())}>Folder</button>
+        <button onClick={() => dialog.current.showModal()}>Folder</button>
         <button
           className={styles.import}
           aria-label="Upload files"
@@ -130,13 +134,33 @@ export default function AuthHome() {
       </section>
       <section className={styles.rightSide}>
         <div className={styles.miniNav}>
-            <div>
-                <p>My Files</p>
-            </div>
-            <div>
-                <p>Sort</p>
-                <p>View</p>
-            </div>
+          <div>
+            <p>My Files</p>
+          </div>
+          <div className={styles.sortView}>
+            <p>Sort</p>
+            <p>View</p>
+          </div>
+        </div>
+        <div className={styles.filesFolders}>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Modified</th>
+                <th>File Size</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filesFolders.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.name}</td>
+                  <td>{item.size}</td>
+                  <td>{item.modified}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         <ul>
           {files.map((file, index) => (
@@ -162,15 +186,28 @@ export default function AuthHome() {
       </section>
       <dialog ref={dialog} className={styles.dialog} closedby="any">
         <div>
-            <p>Create a folder</p>
-            <button onClick={() => {dialog.current.close()}}>Cancel</button>
+          <p>Create a folder</p>
+          <button
+            onClick={() => {
+              dialog.current.close();
+            }}
+          >
+            Cancel
+          </button>
         </div>
         <div>
-            <input type="text" placeholder="Enter your folder name" value={folderName} required onChange={handleFolderNameChange} autoFocus />
-            {folderNameError && <p>{folderNameError}</p>}
+          <input
+            type="text"
+            placeholder="Enter your folder name"
+            value={folderName}
+            required
+            onChange={handleFolderNameChange}
+            autoFocus
+          />
+          {folderNameError && <p>{folderNameError}</p>}
         </div>
         <div>
-            <button onClick={handleCreateFolder}>Create</button>
+          <button onClick={handleCreateFolder}>Create</button>
         </div>
       </dialog>
     </main>
