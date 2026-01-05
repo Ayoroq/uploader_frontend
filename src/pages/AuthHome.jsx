@@ -37,6 +37,7 @@ export default function AuthHome() {
         );
         const data = await response.json();
         setFilesFolders(data);
+        console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -108,7 +109,7 @@ export default function AuthHome() {
 
   return (
     <main className={styles.authhome}>
-      <section>
+      <section className={styles.leftSide}>
         <button onClick={() => (dialog.current.showModal())}>Folder</button>
         <button
           className={styles.import}
@@ -127,7 +128,16 @@ export default function AuthHome() {
           onChange={handleFileChange}
         />
       </section>
-      <section>
+      <section className={styles.rightSide}>
+        <div className={styles.miniNav}>
+            <div>
+                <p>My Files</p>
+            </div>
+            <div>
+                <p>Sort</p>
+                <p>View</p>
+            </div>
+        </div>
         <ul>
           {files.map((file, index) => (
             <li key={`${index}-${file.name}`}>
