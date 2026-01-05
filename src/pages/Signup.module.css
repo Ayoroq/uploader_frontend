@@ -1,6 +1,7 @@
 .signup {
   height: 100vh;
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -66,6 +67,7 @@ input {
   .signup{
     flex-direction: column-reverse;
     justify-content: flex-end;
+     gap: 2rem;
   }
   .signupsvg{
     max-width: 300px;
