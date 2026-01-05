@@ -9,7 +9,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { Navigate } from 'react-router';
 
 function ConditionalHome() {
-    const { user,loading } = useAuth();
+    const { user, loading } = useAuth();
     if (loading) return(null)
     if (user) {
         return <AuthHome />
@@ -24,6 +24,12 @@ function ProtectedAuthRoute({ children }) {
     return user ? <Navigate to="/" replace /> : children;
 }
 
+function ProtectedRoute({ children }) {
+    const { user, loading } = useAuth();
+    if (loading) return(null);
+    return user ? children : <Navigate to="/login" replace />;
+}
+
 const routes = [
     {
         path: '/',
@@ -33,6 +39,14 @@ const routes = [
             {
                 index: true,
                 element: <ConditionalHome />
+            },
+            {
+                path: '/folder',
+                element: <Navigate to="/" replace />
+            },
+            {
+                path: '/folder/:folderId',
+                element: <ProtectedRoute><AuthHome /></ProtectedRoute>
             },
             {
                 path: '/login',

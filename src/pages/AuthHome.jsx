@@ -1,6 +1,9 @@
 import styles from "./AuthHome.module.css";
 import { useRef, useState } from "react";
+import { useParams } from "react-router";
+
 export default function AuthHome() {
+  const { folderId } = useParams();
   const fileInput = useRef(null);
   const [files, setFiles] = useState([]);
 
@@ -24,11 +27,14 @@ export default function AuthHome() {
       });
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/upload`, {
+        const uploadUrl = folderId 
+          ? `${import.meta.env.VITE_API_URL}/upload/${folderId}`
+          : `${import.meta.env.VITE_API_URL}/upload`;
+        
+        const response = await fetch(uploadUrl, {
           method: "POST",
           body: formData,
           credentials: "include",
-
         });
         const data = await response.json();
         console.log(data);
@@ -75,7 +81,11 @@ export default function AuthHome() {
         </ul>
       </section>
       <section>
-        {files.length > 0 && <button className={styles.upload} onClick={handleUpload}>Upload</button>}
+        {files.length > 0 && (
+          <button className={styles.upload} onClick={handleUpload}>
+            Upload
+          </button>
+        )}
       </section>
     </main>
   );
