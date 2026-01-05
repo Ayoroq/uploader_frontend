@@ -1,8 +1,9 @@
 import styles from "./AuthHome.module.css";
 import { useRef, useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 
 export default function AuthHome() {
+  const navigate = useNavigate();
   const { folderId } = useParams();
   const fileInput = useRef(null);
   const dialog = useRef(null);
@@ -58,7 +59,23 @@ export default function AuthHome() {
     }
   }, []);
 
-  async function handleUpload() {
+  async function handleFolderClick(folderId) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`,
+        {
+          credentials: "include",
+        }
+      );
+      const data = await response.json();
+      setFilesFolders(data)
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleFileUpload() {
     if (files) {
       const formData = new FormData();
       files.forEach((file) => {
@@ -194,24 +211,35 @@ export default function AuthHome() {
           </div>
         </div>
         <div className={styles.filesFolders}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Modified</th>
-                <th>File Size</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filesFolders.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>{item.updatedAt}</td>
-                  {item.type === "folder" ? <td>{item._count.files + item._count.subfolders}</td> : <td>{item.size}</td>}
+          {filesFolders.length > 0 ? (
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Modified</th>
+                  <th>File Size</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filesFolders.map((item) => (
+                  <tr key={item.id}>
+                    <td onClick={() => handleFolderClick(item.id)}>{item.name}</td>
+                    <td>{item.updatedAt}</td>
+                    {item.type === "folder" ? (
+                      <td>{item._count.files + item._count.subfolders}</td>
+                    ) : (
+                      <td>{item.size}</td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className={styles.emptyState}>
+              <p>The Folder is empty</p>
+              <p>Upload files or create folders to access them from any device</p>
+            </div>
+          )}
         </div>
         <ul>
           {files.map((file, index) => (
