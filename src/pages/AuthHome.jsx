@@ -8,6 +8,9 @@ export default function AuthHome() {
   const dialog = useRef(null);
   const [files, setFiles] = useState([]);
   const [filesFolders, setFilesFolders] = useState([]);
+  const [folderNameError, setFolderNameError] = useState(null)
+  const [folderName, setFolderName] = useState("")
+
   function handleFileChange(e) {
     const selectedFiles = Array.from(e.target.files);
     setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
@@ -17,6 +20,10 @@ export default function AuthHome() {
 
   function handleFileRemove(index) {
     setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  }
+
+  function handleFolderNameChange(e) {
+    setFolderName(e.target.value)
   }
 
   useEffect(() => {
@@ -35,6 +42,19 @@ export default function AuthHome() {
       }
     }
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const dialogElement = dialog.current;
+    const handleClose = () => {
+      setFolderName("");
+      setFolderNameError(null);
+    };
+    
+    if (dialogElement) {
+      dialogElement.addEventListener('close', handleClose);
+      return () => dialogElement.removeEventListener('close', handleClose);
+    }
   }, []);
 
   async function handleUpload() {
@@ -111,13 +131,14 @@ export default function AuthHome() {
           </button>
         )}
       </section>
-      <dialog ref={dialog} className={styles.dialog}>
+      <dialog ref={dialog} className={styles.dialog} closedby="any">
         <div>
             <p>Create a folder</p>
-            <button onClick={() => dialog.current.close()}>Cancel</button>
+            <button onClick={() => {dialog.current.close()}}>Cancel</button>
         </div>
         <div>
-            <input type="text" placeholder="Enter your folder name" required />
+            <input type="text" placeholder="Enter your folder name" value={folderName} required onChange={handleFolderNameChange} autoFocus />
+            {folderNameError && <p>{folderNameError}</p>}
         </div>
         <div>
             <button onClick={handleCreateFolder}>Create</button>
