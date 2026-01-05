@@ -11,15 +11,36 @@ export default function AuthHome() {
     e.target.value = null;
   }
 
-  function handleFileRemove(index){
+  function handleFileRemove(index) {
     setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  }
+
+  async function handleUpload() {
+    // Handle file upload logic here
+    if (files) {
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("files", file);
+      });
+
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/`, {
+          method: "POST",
+          body: formData,
+        });
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   return (
     <main className={styles.authhome}>
       <section>
         <button
-          className={styles.upload}
+          className={styles.import}
           aria-label="Upload files"
           onClick={() => fileInput.current.click()}
         >
@@ -41,10 +62,18 @@ export default function AuthHome() {
             <li key={`${index}-${file.name}`}>
               <p>{file.name}</p>
               <p>{file.size} bytes</p>
-              <button className={styles.delete} onClick={() => handleFileRemove(index)}>x</button>
+              <button
+                className={styles.delete}
+                onClick={() => handleFileRemove(index)}
+              >
+                x
+              </button>
             </li>
           ))}
         </ul>
+      </section>
+      <section>
+        {files.length > 0 && <button className={styles.upload}>Upload</button>}
       </section>
     </main>
   );
