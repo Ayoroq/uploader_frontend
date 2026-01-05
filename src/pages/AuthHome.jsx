@@ -1,5 +1,5 @@
 import styles from "./AuthHome.module.css";
-import { useRef, useState, useEffect, use } from "react";
+import { useRef, useState, useEffect} from "react";
 import { useParams } from "react-router";
 
 export default function AuthHome() {
@@ -58,7 +58,6 @@ export default function AuthHome() {
   }, []);
 
   async function handleUpload() {
-    // Handle file upload logic here
     if (files) {
       const formData = new FormData();
       files.forEach((file) => {
@@ -84,7 +83,27 @@ export default function AuthHome() {
   }
 
   async function handleCreateFolder() {
-    
+    if (folderName) {
+      try {
+        const uploadUrl = folderId ? `${import.meta.env.VITE_API_URL}/api/folders/create/folder/${folderId}` : `${import.meta.env.VITE_API_URL}/api/folders/create/folder`
+        const response = await fetch(uploadUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ folderName }),
+          credentials: "include",
+        });
+        const data = await response.json();
+        console.log(data);
+        setFolderName("");
+        dialog.current.close();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setFolderNameError("Folder name is required")
+    }
   }
 
   return (
