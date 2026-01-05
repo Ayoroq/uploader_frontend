@@ -24,9 +24,11 @@ export default function AuthHome() {
       });
 
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/upload`, {
           method: "POST",
           body: formData,
+          credentials: "include",
+
         });
         const data = await response.json();
         console.log(data);
@@ -73,7 +75,7 @@ export default function AuthHome() {
         </ul>
       </section>
       <section>
-        {files.length > 0 && <button className={styles.upload}>Upload</button>}
+        {files.length > 0 && <button className={styles.upload} onClick={handleUpload}>Upload</button>}
       </section>
     </main>
   );
