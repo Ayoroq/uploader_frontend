@@ -1,32 +1,72 @@
-.authhome{
-    display: flex;
+:root {
+  background-color: #f5f5f5;
+}
+.authhome {
+  display: flex;
+  justify-content: space-between;
 }
 
-.leftSide{
-    flex: 0.2;
-    display: flex;
-    flex-direction: column;
-
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  padding: 1rem 1rem 0 0;
 }
 
-.rightSide{
-    flex: 0.8;
+.rightSide {
+  width: 100%;
+  padding-left: 1rem;
 }
 
-.miniNav{
-    display: flex;
-    justify-content: space-between;
+.miniNav {
+  display: flex;
+  justify-content: space-between;
 }
 
-.sortView{
-    display: flex;
-    gap: 0.5rem;
+.sortView {
+  display: flex;
+  gap: 0.5rem;
 }
 
-.upload, .import{
-    cursor: pointer;
+.leftNavButton {
+  display: flex;
+  align-items: center;
+  border: none;
+  gap: 0.5rem;
+  min-width: max-content;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
 }
 
-.fileInput{
+.leftNavButton:hover {
+  background-color: white;
+}
+
+.fileInput {
+  display: none;
+}
+
+.folderIcon,
+.fileUploadIcon {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.table {
+  width: 100%;
+  background-color: white;
+}
+
+@media (max-width: 900px) {
+  .leftSide {
+    width: fit-content;
+  }
+  .leftNavText {
     display: none;
+  }
 }
