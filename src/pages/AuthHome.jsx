@@ -1,10 +1,11 @@
 import styles from "./AuthHome.module.css";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, use } from "react";
 import { useParams } from "react-router";
 
 export default function AuthHome() {
   const { folderId } = useParams();
   const fileInput = useRef(null);
+  const dialog = useRef(null);
   const [files, setFiles] = useState([]);
   const [filesFolders, setFilesFolders] = useState([]);
   function handleFileChange(e) {
@@ -62,9 +63,14 @@ export default function AuthHome() {
     }
   }
 
+  async function handleCreateFolder() {
+    
+  }
+
   return (
     <main className={styles.authhome}>
       <section>
+        <button onClick={() => (dialog.current.showModal())}>Folder</button>
         <button
           className={styles.import}
           aria-label="Upload files"
@@ -105,6 +111,18 @@ export default function AuthHome() {
           </button>
         )}
       </section>
+      <dialog ref={dialog} className={styles.dialog}>
+        <div>
+            <p>Create a folder</p>
+            <button onClick={() => dialog.current.close()}>Cancel</button>
+        </div>
+        <div>
+            <input type="text" placeholder="Enter your folder name" required />
+        </div>
+        <div>
+            <button onClick={handleCreateFolder}>Create</button>
+        </div>
+      </dialog>
     </main>
   );
 }
