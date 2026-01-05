@@ -1,12 +1,12 @@
 import styles from "./AuthHome.module.css";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router";
 
 export default function AuthHome() {
   const { folderId } = useParams();
   const fileInput = useRef(null);
   const [files, setFiles] = useState([]);
-
+  const [filesFolders, setFilesFolders] = useState([]);
   function handleFileChange(e) {
     const selectedFiles = Array.from(e.target.files);
     setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
@@ -18,6 +18,24 @@ export default function AuthHome() {
     setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/all`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setFilesFolders(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
+
   async function handleUpload() {
     // Handle file upload logic here
     if (files) {
@@ -27,10 +45,10 @@ export default function AuthHome() {
       });
 
       try {
-        const uploadUrl = folderId 
+        const uploadUrl = folderId
           ? `${import.meta.env.VITE_API_URL}/upload/${folderId}`
           : `${import.meta.env.VITE_API_URL}/upload`;
-        
+
         const response = await fetch(uploadUrl, {
           method: "POST",
           body: formData,
