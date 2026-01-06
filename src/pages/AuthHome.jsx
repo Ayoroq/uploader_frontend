@@ -69,6 +69,12 @@ export default function AuthHome() {
     }
   }, []);
 
+  // this is used to handle folder click to navigate to the subfolder
+  async function handleFolderClick(folderId) {
+    if (folderId === "null") return;
+    navigate(`/folders/${folderId}`);
+  }
+
   // This is used for the file upload management
   async function handleFileUpload() {
     if (files) {
@@ -187,7 +193,7 @@ export default function AuthHome() {
               <tbody>
                 {filesFolders.map((item) => (
                   <tr key={item.id}>
-                    <td onClick={() => handleFolderClick(item.id, item.name)}>
+                    <td onClick={() => handleFolderClick(item.id)}>
                       {item.name}
                     </td>
                     <td>{item.updatedAt}</td>
