@@ -33,17 +33,21 @@ export default function AuthHome() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const requests = [fetch(
-          folderId
-            ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`
-            : `${import.meta.env.VITE_API_URL}/api/all`,
-          { credentials: "include" }
-        )];
+        const requests = [
+          fetch(
+            folderId
+              ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`
+              : `${import.meta.env.VITE_API_URL}/api/all`,
+            { credentials: "include" }
+          ),
+        ];
 
         if (folderId) {
           requests.push(
             fetch(
-              `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}/path`,
+              `${
+                import.meta.env.VITE_API_URL
+              }/api/folders/folder/${folderId}/path`,
               { credentials: "include" }
             )
           );
@@ -70,7 +74,7 @@ export default function AuthHome() {
           const pathData = await pathResponse.json();
           setFolderPath(pathData.path);
         }
-        
+
         folderId
           ? setFilesFolders(data.filesAndFolders)
           : setFilesFolders(data);
@@ -270,6 +274,29 @@ export default function AuthHome() {
       </section>
       <section className={styles.rightSide}>
         <div className={styles.miniNav}>
+          <div className={styles.folderPath}>
+            <div>
+              {!folderPath && <p>My Files</p>}
+              {folderPath && (
+                <div className={styles.folderPath}>
+                  <span onClick={() => navigate("/")}>
+                    My Files
+                    {folderPath.length > 0 && <span> / </span>}
+                  </span>
+                  {folderPath.map((item, index) => (
+                    <span
+                      key={index}
+                      onClick={() => handleFolderClick(item.id)}
+                    >
+                      {item.name}
+
+                      {index < folderPath.length - 1 && <span> / </span>}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
           <div className={styles.sortView}>
             <p>Sort</p>
             <p>View</p>
