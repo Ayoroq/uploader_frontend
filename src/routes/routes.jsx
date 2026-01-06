@@ -45,7 +45,7 @@ const routes = [
                 element: <Navigate to="/" replace />
             },
             {
-                path: '/folder/:folderId',
+                path: '/folders/:folderId',
                 element: <ProtectedRoute><AuthHome /></ProtectedRoute>
             },
             {

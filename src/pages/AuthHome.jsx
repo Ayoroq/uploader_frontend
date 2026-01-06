@@ -77,7 +77,8 @@ export default function AuthHome() {
         ...prevCrumbs,
         { name: folderName, id: folderId },
       ]);
-      setFilesFolders(data);
+      setFilesFolders(data.filesAndFolders);
+      navigate(`/folders/${folderId}`)
     } catch (error) {
       console.error(error);
     }
@@ -93,13 +94,12 @@ export default function AuthHome() {
           }
         );
         const data = await response.json();
-        setFilesFolders(data);
+        setFilesFolders(data.filesAndFolders);
         const crumbIndex = crumbs.indexOf(crumb);
         setCrumbs((prevCrumbs) =>
           prevCrumbs.filter((_, index) => index <= crumbIndex)
         );
-        navigate(`/folder/${crumb.id}`);
-        console.log(crumb);
+        navigate(`/folders/${crumb.id}`);
       } catch (error) {
         console.error(error);
       }
@@ -153,11 +153,12 @@ export default function AuthHome() {
 
   async function handleCreateFolder() {
     if (folderName) {
+      const activeFolderId = crumbs.at(-1).id;
       try {
-        const uploadUrl = folderId
+        const uploadUrl = activeFolderId
           ? `${
               import.meta.env.VITE_API_URL
-            }/api/folders/create/folder/${folderId}`
+            }/api/folders/create/folder/${activeFolderId}`
           : `${import.meta.env.VITE_API_URL}/api/folders/create/folder`;
         const response = await fetch(uploadUrl, {
           method: "POST",
@@ -168,7 +169,6 @@ export default function AuthHome() {
           credentials: "include",
         });
         const data = await response.json();
-        console.log(data);
         setFolderName("");
         dialog.current.close();
       } catch (error) {
