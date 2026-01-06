@@ -11,10 +11,12 @@ export default function AuthHome() {
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
   const [folderName, setFolderName] = useState("");
-  const [crumbs, setCrumbs] = useState([{
-    name: "My Files",
-    id: null
-  }])
+  const [crumbs, setCrumbs] = useState([
+    {
+      name: "My Files",
+      id: null,
+    },
+  ]);
 
   function handleFileChange(e) {
     const selectedFiles = Array.from(e.target.files);
@@ -42,7 +44,6 @@ export default function AuthHome() {
         );
         const data = await response.json();
         setFilesFolders(data);
-        console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -72,15 +73,18 @@ export default function AuthHome() {
         }
       );
       const data = await response.json();
-      setCrumbs((prevCrumbs) => [...prevCrumbs, {name: folderName, id: folderId}])
-      setFilesFolders(data)
+      setCrumbs((prevCrumbs) => [
+        ...prevCrumbs,
+        { name: folderName, id: folderId },
+      ]);
+      setFilesFolders(data);
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function handleCrumbsClick(crumb){
-    if(crumb.id && crumbs.at(-1) !== crumb){
+  async function handleCrumbsClick(crumb) {
+    if (crumb.id && crumbs.at(-1).id !== crumb.id) {
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/folders/folder/${crumb.id}`,
@@ -89,14 +93,36 @@ export default function AuthHome() {
           }
         );
         const data = await response.json();
-        setFilesFolders(data)
-        const crumbIndex = crumbs.indexOf(crumb)
-        setCrumbs((prevCrumbs) => prevCrumbs.filter((_,index) => index < crumbIndex))
+        setFilesFolders(data);
+        const crumbIndex = crumbs.indexOf(crumb);
+        setCrumbs((prevCrumbs) =>
+          prevCrumbs.filter((_, index) => index <= crumbIndex)
+        );
+        navigate(`/folder/${crumb.id}`);
+        console.log(crumb);
       } catch (error) {
         console.error(error);
       }
-    } else {
-      navigate("/")
+    } else if (!crumb.id) {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/all`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setFilesFolders(data);
+        setCrumbs([
+          {
+            name: "My Files",
+            id: null,
+          },
+        ]);
+        navigate("/");
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 
@@ -228,14 +254,16 @@ export default function AuthHome() {
       <section className={styles.rightSide}>
         <div className={styles.miniNav}>
           <div>
-            {crumbs && <div>
+            {crumbs && (
+              <div>
                 {crumbs.map((crumb, index) => (
                   <span key={index}>
-                    {crumb.name}
+                    <p onClick={() => handleCrumbsClick(crumb)}>{crumb.name}</p>
                     {index !== crumbs.length - 1 && <span> {`->`} </span>}
                   </span>
                 ))}
-                </div>}
+              </div>
+            )}
           </div>
           <div className={styles.sortView}>
             <p>Sort</p>
@@ -255,7 +283,9 @@ export default function AuthHome() {
               <tbody>
                 {filesFolders.map((item) => (
                   <tr key={item.id}>
-                    <td onClick={() => handleFolderClick(item.id,item.name)}>{item.name}</td>
+                    <td onClick={() => handleFolderClick(item.id, item.name)}>
+                      {item.name}
+                    </td>
                     <td>{item.updatedAt}</td>
                     {item.type === "folder" ? (
                       <td>{item._count.files + item._count.subfolders}</td>
@@ -269,7 +299,9 @@ export default function AuthHome() {
           ) : (
             <div className={styles.emptyState}>
               <p>The Folder is empty</p>
-              <p>Upload files or create folders to access them from any device</p>
+              <p>
+                Upload files or create folders to access them from any device
+              </p>
             </div>
           )}
         </div>
