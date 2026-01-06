@@ -11,6 +11,10 @@ export default function AuthHome() {
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
   const [folderName, setFolderName] = useState("");
+  const [crumbs, setCrumbs] = useState([{
+    name: "My Files",
+    id: null
+  }])
 
   function handleFileChange(e) {
     const selectedFiles = Array.from(e.target.files);
@@ -59,7 +63,7 @@ export default function AuthHome() {
     }
   }, []);
 
-  async function handleFolderClick(folderId) {
+  async function handleFolderClick(folderId, folderName) {
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`,
@@ -68,10 +72,31 @@ export default function AuthHome() {
         }
       );
       const data = await response.json();
+      setCrumbs((prevCrumbs) => [...prevCrumbs, {name: folderName, id: folderId}])
       setFilesFolders(data)
-      console.log(data);
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  async function handleCrumbsClick(crumb){
+    if(crumb.id && crumbs.at(-1) !== crumb){
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/folders/folder/${crumb.id}`,
+          {
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+        setFilesFolders(data)
+        const crumbIndex = crumbs.indexOf(crumb)
+        setCrumbs((prevCrumbs) => prevCrumbs.filter((_,index) => index < crumbIndex))
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      navigate("/")
     }
   }
 
@@ -203,7 +228,14 @@ export default function AuthHome() {
       <section className={styles.rightSide}>
         <div className={styles.miniNav}>
           <div>
-            <p>My Files</p>
+            {crumbs && <div>
+                {crumbs.map((crumb, index) => (
+                  <span key={index}>
+                    {crumb.name}
+                    {index !== crumbs.length - 1 && <span> {`->`} </span>}
+                  </span>
+                ))}
+                </div>}
           </div>
           <div className={styles.sortView}>
             <p>Sort</p>
@@ -223,7 +255,7 @@ export default function AuthHome() {
               <tbody>
                 {filesFolders.map((item) => (
                   <tr key={item.id}>
-                    <td onClick={() => handleFolderClick(item.id)}>{item.name}</td>
+                    <td onClick={() => handleFolderClick(item.id,item.name)}>{item.name}</td>
                     <td>{item.updatedAt}</td>
                     {item.type === "folder" ? (
                       <td>{item._count.files + item._count.subfolders}</td>
