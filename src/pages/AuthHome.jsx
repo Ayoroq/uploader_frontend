@@ -33,20 +33,27 @@ export default function AuthHome() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/all`,
-          {
-            credentials: "include",
-          }
-        );
+        const url = folderId ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}` : `${import.meta.env.VITE_API_URL}/api/all`;
+        const response = await fetch(url, {
+          credentials: "include",
+        });
+        if (response.status === 401) {
+          navigate("/login");
+        }
+        if (response.status === 403) {
+          navigate("/403");
+        }
+        if (response.status === 404) {
+          navigate("/404");
+        }
         const data = await response.json();
-        setFilesFolders(data);
+        folderId ? setFilesFolders(data.filesAndFolders) :  setFilesFolders(data);
       } catch (error) {
         console.error(error);
       }
     }
     fetchData();
-  }, [folderId]);
+  }, [folderId, navigate]);
 
   // This is for the closing of the dialog for folder name
   useEffect(() => {
