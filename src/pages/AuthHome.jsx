@@ -12,6 +12,7 @@ export default function AuthHome() {
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
   const [folderName, setFolderName] = useState("");
+  const [folderPath, setFolderPath] = useState(null);
 
   // This is for when trying to upload files
   function handleFileChange(e) {
@@ -29,26 +30,47 @@ export default function AuthHome() {
     setFolderName(e.target.value);
   }
 
-  // This is for fetching data when navigating to the page
   useEffect(() => {
     async function fetchData() {
       try {
-        const url = folderId
-          ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`
-          : `${import.meta.env.VITE_API_URL}/api/all`;
-        const response = await fetch(url, {
-          credentials: "include",
-        });
-        if (response.status === 401) {
+        const requests = [fetch(
+          folderId
+            ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`
+            : `${import.meta.env.VITE_API_URL}/api/all`,
+          { credentials: "include" }
+        )];
+
+        if (folderId) {
+          requests.push(
+            fetch(
+              `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}/path`,
+              { credentials: "include" }
+            )
+          );
+        }
+
+        const responses = await Promise.all(requests);
+        const [dataResponse, pathResponse] = responses;
+
+        if (dataResponse.status === 401 || pathResponse?.status === 401) {
           navigate("/login");
+          return;
         }
-        if (response.status === 403) {
+        if (dataResponse.status === 403 || pathResponse?.status === 403) {
           navigate("/403");
+          return;
         }
-        if (response.status === 404) {
+        if (dataResponse.status === 404 || pathResponse?.status === 404) {
           navigate("/404");
+          return;
         }
-        const data = await response.json();
+
+        const data = await dataResponse.json();
+        if (pathResponse) {
+          const pathData = await pathResponse.json();
+          setFolderPath(pathData.path);
+        }
+        
         folderId
           ? setFilesFolders(data.filesAndFolders)
           : setFilesFolders(data);
@@ -77,24 +99,25 @@ export default function AuthHome() {
   async function handleFolderClick(folderId) {
     if (folderId === "null") return;
     try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}/path`,
-          {
-            credentials: "include",
-          }
-        );
-        if (response.status === 401) {
-          navigate("/login");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}/path`,
+        {
+          credentials: "include",
         }
-        if (response.status === 403) {
-          navigate("/403");
-        }
-        if (response.status === 404) {
-          navigate("/404");
-        }
-        const data = await response.json();
+      );
+      if (response.status === 401) {
+        navigate("/login");
+      }
+      if (response.status === 403) {
+        navigate("/403");
+      }
+      if (response.status === 404) {
+        navigate("/404");
+      }
+      const data = await response.json();
+      setFolderPath(data.path);
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
     navigate(`/folders/${folderId}`);
   }
@@ -140,7 +163,7 @@ export default function AuthHome() {
       setFolderName("");
       setFolderNameError(null);
       data._count = { files: 0, subfolders: 0 };
-      data.type = 'folder'
+      data.type = "folder";
       setFilesFolders((prevFilesFolders) => [...prevFilesFolders, data]);
     } catch (error) {
       console.error(error);
