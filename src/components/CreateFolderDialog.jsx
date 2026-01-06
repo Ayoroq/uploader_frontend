@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import styles from "../pages/AuthHome.module.css";
 
-const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNameChange },ref) => {
+const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNameChange, onFolderCreate },ref) => {
     return (
       <dialog ref={ref} className={styles.dialog} closedby="any">
         <div className={styles.dialogHeader}>
@@ -56,6 +56,7 @@ const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNa
         <div className={styles.createFolderButtonContainer}>
           <button
             className={styles.createFolderButton}
+            onClick={onFolderCreate}
           >
             Create
           </button>

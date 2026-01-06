@@ -33,7 +33,9 @@ export default function AuthHome() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const url = folderId ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}` : `${import.meta.env.VITE_API_URL}/api/all`;
+        const url = folderId
+          ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`
+          : `${import.meta.env.VITE_API_URL}/api/all`;
         const response = await fetch(url, {
           credentials: "include",
         });
@@ -47,7 +49,9 @@ export default function AuthHome() {
           navigate("/404");
         }
         const data = await response.json();
-        folderId ? setFilesFolders(data.filesAndFolders) :  setFilesFolders(data);
+        folderId
+          ? setFilesFolders(data.filesAndFolders)
+          : setFilesFolders(data);
       } catch (error) {
         console.error(error);
       }
@@ -73,6 +77,54 @@ export default function AuthHome() {
   async function handleFolderClick(folderId) {
     if (folderId === "null") return;
     navigate(`/folders/${folderId}`);
+  }
+
+  // This is used to create a new folder
+  async function handleCreateFolder() {
+    if (!folderName) {
+      setFolderNameError("Folder name is required");
+      return;
+    }
+
+    try {
+      const url = folderId
+        ? `${
+            import.meta.env.VITE_API_URL
+          }/api/folders/create/folder/${folderId}`
+        : `${import.meta.env.VITE_API_URL}/api/folders/create/folder`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          folderName: folderName,
+          parentFolderId: folderId,
+        }),
+        credentials: "include",
+      });
+
+      if (response.status === 401) {
+        navigate("/login");
+      }
+      if (response.status === 403) {
+        navigate("/403");
+      }
+      if (response.status === 404) {
+        navigate("/404");
+      }
+
+      let data = await response.json();
+      data = data.folder;
+      dialog.current.close();
+      setFolderName("");
+      setFolderNameError(null);
+      data._count = { files: 0, subfolders: 0 };
+      data.type = 'folder'
+      setFilesFolders((prevFilesFolders) => [...prevFilesFolders, data]);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   // This is used for the file upload management
@@ -235,6 +287,7 @@ export default function AuthHome() {
         folderName={folderName}
         folderNameError={folderNameError}
         onFolderNameChange={handleFolderNameChange}
+        onFolderCreate={handleCreateFolder}
       />
     </main>
   );
