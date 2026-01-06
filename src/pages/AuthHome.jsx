@@ -18,6 +18,7 @@ export default function AuthHome() {
     },
   ]);
 
+  // This is for when trying to upload files
   function handleFileChange(e) {
     const selectedFiles = Array.from(e.target.files);
     setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
@@ -33,6 +34,7 @@ export default function AuthHome() {
     setFolderName(e.target.value);
   }
 
+  // This is for fetching data when navigating to the page
   useEffect(() => {
     async function fetchData() {
       try {
@@ -51,6 +53,7 @@ export default function AuthHome() {
     fetchData();
   }, []);
 
+  // This is for the closing of the dialog for folder name
   useEffect(() => {
     const dialogElement = dialog.current;
     const handleClose = () => {
@@ -84,6 +87,7 @@ export default function AuthHome() {
     }
   }
 
+  // This is used to handle breadcrumb navigation 
   async function handleCrumbsClick(crumb) {
     if (crumb.id && crumbs.at(-1).id !== crumb.id) {
       try {
@@ -126,6 +130,8 @@ export default function AuthHome() {
     }
   }
 
+
+  // This is used for the file upload management
   async function handleFileUpload() {
     if (files) {
       const formData = new FormData();
@@ -151,6 +157,7 @@ export default function AuthHome() {
     }
   }
 
+  // This is used for the creation of folders 
   async function handleCreateFolder() {
     if (folderName) {
       const activeFolderId = crumbs.at(-1).id;
