@@ -1,6 +1,7 @@
 import styles from "./AuthHome.module.css";
 import { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import CreateFolderDialog from "../components/CreateFolderDialog";
 
 export default function AuthHome() {
   const navigate = useNavigate();
@@ -61,11 +62,6 @@ export default function AuthHome() {
     }
   }, []);
 
-  async function handleFolderClick(folderId, folderName) {
-   
-  }
-
-
   // This is used for the file upload management
   async function handleFileUpload() {
     if (files) {
@@ -91,8 +87,6 @@ export default function AuthHome() {
       }
     }
   }
-
-  // This is used for the creation of folders 
 
   return (
     <main className={styles.authhome}>
@@ -223,67 +217,12 @@ export default function AuthHome() {
           ))}
         </ul>
       </section>
-      <dialog ref={dialog} className={styles.dialog} closedby="any">
-        <div className={styles.dialogHeader}>
-          <p>Create a folder</p>
-          <button
-            onClick={() => {
-              dialog.current.close();
-            }}
-            className={styles.closeDialogButton}
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 10 10"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g id="Group 5">
-                <line
-                  id="Line 10"
-                  x1="0.5"
-                  y1="8.58782"
-                  x2="8.58782"
-                  y2="0.5"
-                  stroke="black"
-                  strokeLinecap="round"
-                />
-                <line
-                  id="Line 11"
-                  x1="1.20711"
-                  y1="0.5"
-                  x2="9.29492"
-                  y2="8.58782"
-                  stroke="black"
-                  strokeLinecap="round"
-                />
-              </g>
-            </svg>
-          </button>
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Enter your folder name"
-            value={folderName}
-            required
-            onChange={handleFolderNameChange}
-            autoFocus
-          />
-          {folderNameError && !folderName && (
-            <p className={styles.error}>{folderNameError}</p>
-          )}
-        </div>
-        <div className={styles.createFolderButtonContainer}>
-          <button
-            className={styles.createFolderButton}
-
-          >
-            Create
-          </button>
-        </div>
-      </dialog>
+      <CreateFolderDialog
+        ref={dialog}
+        folderName={folderName}
+        folderNameError={folderNameError}
+        onFolderNameChange={handleFolderNameChange}
+      />
     </main>
   );
 }
