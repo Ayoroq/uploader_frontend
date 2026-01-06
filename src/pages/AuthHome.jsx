@@ -11,12 +11,6 @@ export default function AuthHome() {
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
   const [folderName, setFolderName] = useState("");
-  const [crumbs, setCrumbs] = useState([
-    {
-      name: "My Files",
-      id: null,
-    },
-  ]);
 
   // This is for when trying to upload files
   function handleFileChange(e) {
@@ -51,7 +45,7 @@ export default function AuthHome() {
       }
     }
     fetchData();
-  }, []);
+  }, [folderId]);
 
   // This is for the closing of the dialog for folder name
   useEffect(() => {
@@ -68,66 +62,7 @@ export default function AuthHome() {
   }, []);
 
   async function handleFolderClick(folderId, folderName) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`,
-        {
-          credentials: "include",
-        }
-      );
-      const data = await response.json();
-      setCrumbs((prevCrumbs) => [
-        ...prevCrumbs,
-        { name: folderName, id: folderId },
-      ]);
-      setFilesFolders(data.filesAndFolders);
-      navigate(`/folders/${folderId}`)
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  // This is used to handle breadcrumb navigation 
-  async function handleCrumbsClick(crumb) {
-    if (crumb.id && crumbs.at(-1).id !== crumb.id) {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/folders/folder/${crumb.id}`,
-          {
-            credentials: "include",
-          }
-        );
-        const data = await response.json();
-        setFilesFolders(data.filesAndFolders);
-        const crumbIndex = crumbs.indexOf(crumb);
-        setCrumbs((prevCrumbs) =>
-          prevCrumbs.filter((_, index) => index <= crumbIndex)
-        );
-        navigate(`/folders/${crumb.id}`);
-      } catch (error) {
-        console.error(error);
-      }
-    } else if (!crumb.id) {
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/all`,
-          {
-            credentials: "include",
-          }
-        );
-        const data = await response.json();
-        setFilesFolders(data);
-        setCrumbs([
-          {
-            name: "My Files",
-            id: null,
-          },
-        ]);
-        navigate("/");
-      } catch (error) {
-        console.error(error);
-      }
-    }
+   
   }
 
 
@@ -158,33 +93,6 @@ export default function AuthHome() {
   }
 
   // This is used for the creation of folders 
-  async function handleCreateFolder() {
-    if (folderName) {
-      const activeFolderId = crumbs.at(-1).id;
-      try {
-        const uploadUrl = activeFolderId
-          ? `${
-              import.meta.env.VITE_API_URL
-            }/api/folders/create/folder/${activeFolderId}`
-          : `${import.meta.env.VITE_API_URL}/api/folders/create/folder`;
-        const response = await fetch(uploadUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ folderName }),
-          credentials: "include",
-        });
-        const data = await response.json();
-        setFolderName("");
-        dialog.current.close();
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      setFolderNameError("Folder name is required");
-    }
-  }
 
   return (
     <main className={styles.authhome}>
@@ -260,18 +168,6 @@ export default function AuthHome() {
       </section>
       <section className={styles.rightSide}>
         <div className={styles.miniNav}>
-          <div>
-            {crumbs && (
-              <div>
-                {crumbs.map((crumb, index) => (
-                  <span key={index}>
-                    <p onClick={() => handleCrumbsClick(crumb)}>{crumb.name}</p>
-                    {index !== crumbs.length - 1 && <span> {`->`} </span>}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
           <div className={styles.sortView}>
             <p>Sort</p>
             <p>View</p>
@@ -382,7 +278,7 @@ export default function AuthHome() {
         <div className={styles.createFolderButtonContainer}>
           <button
             className={styles.createFolderButton}
-            onClick={handleCreateFolder}
+
           >
             Create
           </button>
