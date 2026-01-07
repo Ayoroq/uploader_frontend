@@ -1,7 +1,7 @@
 import { forwardRef, useEffect } from "react";
 import styles from "../pages/AuthHome.module.css";
 
-const UploadFileDialog = forwardRef(({ files, handleFileRemove,setFiles }, ref) => {
+const UploadFileDialog = forwardRef(({ files, handleFileRemove,setFiles,handleUpload }, ref) => {
   useEffect(() => {
     if (files.length === 0) {
       ref.current.close();
@@ -20,10 +20,11 @@ const UploadFileDialog = forwardRef(({ files, handleFileRemove,setFiles }, ref) 
     }
   }, [ref, setFiles]);
   return (
-    <dialog closedby="any" ref={ref}>
-      <ul>
+    <dialog closedby="any" ref={ref} className={`${styles.fileUploadDialog} ${styles.dialog}`}>
+        <h2 className={styles.fileUploadTitle}>Upload Files</h2>
+      <ul className={styles.fileList}>
         {files.map((file, index) => (
-          <li key={`${index}-${file.name}`}>
+          <li key={`${index}-${file.name}`} className={styles.fileItem}>
             <p>{file.name}</p>
             <p>{file.size} bytes</p>
             <button
@@ -35,6 +36,9 @@ const UploadFileDialog = forwardRef(({ files, handleFileRemove,setFiles }, ref) 
           </li>
         ))}
       </ul>
+       <button className={styles.upload} onClick={handleUpload}>
+            Upload
+          </button>
     </dialog>
   );
 });
