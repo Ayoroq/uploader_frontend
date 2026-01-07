@@ -1,6 +1,7 @@
 import styles from "./AuthHome.module.css";
 import { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
+import UploadFileDialog from "../components/UploadFileDialog";
 import CreateFolderDialog from "../components/CreateFolderDialog";
 
 export default function AuthHome() {
@@ -8,6 +9,7 @@ export default function AuthHome() {
   const { folderId } = useParams();
   const fileInput = useRef(null);
   const dialog = useRef(null);
+  const fileDialog = useRef(null);
   const [files, setFiles] = useState([]);
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
@@ -18,7 +20,8 @@ export default function AuthHome() {
   function handleFileChange(e) {
     const selectedFiles = Array.from(e.target.files);
     setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
-
+    fileDialog.current.showModal()
+    
     e.target.value = null;
   }
 
@@ -281,7 +284,7 @@ export default function AuthHome() {
                 <div className={styles.folderPath}>
                   <span onClick={() => navigate("/")}>
                     My Files
-                    {folderPath.length > 0 && <span> / </span>}
+                    {folderPath.length > 0 && <span> {'-->'} </span>}
                   </span>
                   {folderPath.map((item, index) => (
                     <span
@@ -290,7 +293,7 @@ export default function AuthHome() {
                     >
                       {item.name}
 
-                      {index < folderPath.length - 1 && <span> / </span>}
+                      {index < folderPath.length - 1 && <span> {'-->'} </span>}
                     </span>
                   ))}
                 </div>
@@ -337,21 +340,8 @@ export default function AuthHome() {
             </div>
           )}
         </div>
-        <ul>
-          {files.map((file, index) => (
-            <li key={`${index}-${file.name}`}>
-              <p>{file.name}</p>
-              <p>{file.size} bytes</p>
-              <button
-                className={styles.delete}
-                onClick={() => handleFileRemove(index)}
-              >
-                x
-              </button>
-            </li>
-          ))}
-        </ul>
       </section>
+      <UploadFileDialog ref={fileDialog} files={files} handleFileRemove={handleFileRemove} />
       <CreateFolderDialog
         ref={dialog}
         folderName={folderName}
