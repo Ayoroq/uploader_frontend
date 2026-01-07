@@ -341,7 +341,7 @@ export default function AuthHome() {
           )}
         </div>
       </section>
-      <UploadFileDialog ref={fileDialog} files={files} handleFileRemove={handleFileRemove} />
+      <UploadFileDialog ref={fileDialog} files={files} handleFileRemove={handleFileRemove} setFiles={setFiles} />
       <CreateFolderDialog
         ref={dialog}
         folderName={folderName}

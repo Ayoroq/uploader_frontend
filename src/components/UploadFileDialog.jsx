@@ -1,12 +1,24 @@
 import { forwardRef, useEffect } from "react";
 import styles from "../pages/AuthHome.module.css";
 
-const UploadFileDialog = forwardRef(({ files, handleFileRemove }, ref) => {
+const UploadFileDialog = forwardRef(({ files, handleFileRemove,setFiles }, ref) => {
   useEffect(() => {
     if (files.length === 0) {
       ref.current.close();
     }
   }, [files, ref]);
+
+  useEffect(() => {
+    const dialogElement = ref.current;
+   function handleClose() {
+      setFiles([]);
+    }   
+    
+    if (dialogElement) {
+      dialogElement.addEventListener('close', handleClose);
+      return () => dialogElement.removeEventListener('close', handleClose);
+    }
+  }, [ref, setFiles]);
   return (
     <dialog closedby="any" ref={ref}>
       <ul>
