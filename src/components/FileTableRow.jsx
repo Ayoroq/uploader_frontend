@@ -33,6 +33,24 @@ function getFileExtension(filename) {
   return fileIcons[ext] || fileIcons.default;
 }
 
+function convertDate(date){
+  const dateObj = new Date(date);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return dateObj.toLocaleDateString('en-US', options);
+}
+
+function formatFileSize(size) {
+  if (size < 1024) {
+    return size + " B";
+  } else if (size < 1024 * 1024) {
+    return (size / 1024).toFixed(2) + " KB";
+  } else if (size < 1024 * 1024 * 1024) {
+    return (size / (1024 * 1024)).toFixed(2) + " MB";
+  } else {
+    return (size / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+  }
+}
+
 export default function FileTableRow({ item, onFolderClick }) {
   return (
     <tr key={item.id} className={styles.row}>
@@ -53,11 +71,11 @@ export default function FileTableRow({ item, onFolderClick }) {
         )}
         {item.name}
       </td>
-      <td>{item.updatedAt}</td>
+      <td>{convertDate(item.updatedAt)}</td>
       {item.type === "folder" ? (
         <td>{item._count.files + item._count.subfolders}</td>
       ) : (
-        <td>{item.size}</td>
+        <td>{formatFileSize(item.size)}</td>
       )}
     </tr>
   );
