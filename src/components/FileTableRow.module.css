@@ -6,7 +6,23 @@
 }
 
 th, td {
-  padding: 10px;
+  padding: 12px 10px;
+}
+
+th{
+    border-bottom: 1px solid;
+}
+
+td{
+    border-bottom: 1px #F5F5F5;
+}
+
+
+.row{
+transition: background-color 0.3s ease;
+}
+.row:hover{
+    background-color: var(--hover);
 }
 
 .rowItem{
