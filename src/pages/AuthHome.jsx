@@ -208,7 +208,6 @@ export default function AuthHome() {
             fileDialog.current.close()
             setFiles([])
             const data = await response.json()
-            console.log(data)
            setFilesFolders((prevFilesFolders) => [...prevFilesFolders, ...data.files.map(fileObj => fileObj.file)]);
         }
       } catch (error) {
@@ -332,7 +331,10 @@ export default function AuthHome() {
               <tbody>
                 {filesFolders.map((item) => (
                   <tr key={item.id}>
-                    <td onClick={() => handleFolderClick(item.id)}>
+                    <td 
+                      onClick={item.type === "folder" ? () => handleFolderClick(item.id) : undefined}
+                      className={item.type === "folder" ? styles.folder : styles.file}
+                    >
                       {item.name}
                     </td>
                     <td>{item.updatedAt}</td>
