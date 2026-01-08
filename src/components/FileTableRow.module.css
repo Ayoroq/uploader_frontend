@@ -1,0 +1,21 @@
+.icon {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+}
+
+th, td {
+  padding: 10px;
+}
+
+.rowItem{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* The items */
+.folder,.file{
+    cursor: pointer;
+}
