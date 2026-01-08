@@ -187,16 +187,30 @@ export default function AuthHome() {
 
       try {
         const uploadUrl = folderId
-          ? `${import.meta.env.VITE_API_URL}/upload/${folderId}`
-          : `${import.meta.env.VITE_API_URL}/upload`;
+          ? `${import.meta.env.VITE_API_URL}/api/upload/${folderId}`
+          : `${import.meta.env.VITE_API_URL}/api/upload`;
 
         const response = await fetch(uploadUrl, {
           method: "POST",
           body: formData,
           credentials: "include",
         });
-        const data = await response.json();
-        console.log(data);
+        if (response.status === 401) {
+          navigate("/login");
+        }
+        if (response.status === 403) {
+          navigate("/403");
+        }
+        if (response.status === 404) {
+          navigate("/404");
+        }
+        if(response.ok){
+            fileDialog.current.close()
+            setFiles([])
+            const data = await response.json()
+            console.log(data)
+           setFilesFolders((prevFilesFolders) => [...prevFilesFolders, ...data.files.map(fileObj => fileObj.file)]);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -341,7 +355,7 @@ export default function AuthHome() {
           )}
         </div>
       </section>
-      <UploadFileDialog ref={fileDialog} files={files} handleFileRemove={handleFileRemove} setFiles={setFiles} />
+      <UploadFileDialog ref={fileDialog} files={files} handleFileRemove={handleFileRemove} setFiles={setFiles} handleUpload={handleFileUpload} />
       <CreateFolderDialog
         ref={dialog}
         folderName={folderName}
