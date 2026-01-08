@@ -164,6 +164,11 @@
   color: red;
 }
 
+/* The items */
+.folder,.file{
+    cursor: pointer;
+}
+
 @media (max-width: 900px) {
   .leftSide {
     width: fit-content;

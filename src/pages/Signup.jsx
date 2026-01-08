@@ -16,7 +16,6 @@ export default function Signup() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      console.error("Passwords do not match");
       setError("Passwords do not match");
       return;
     }
@@ -26,7 +25,6 @@ export default function Signup() {
       confirmPassword: formData.confirmPassword,
     });
     if (!result.success) {
-      console.error(result.error);
       setError(result.error);
     }
   }

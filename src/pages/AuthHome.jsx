@@ -20,8 +20,8 @@ export default function AuthHome() {
   function handleFileChange(e) {
     const selectedFiles = Array.from(e.target.files);
     setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
-    fileDialog.current.showModal()
-    
+    fileDialog.current.showModal();
+
     e.target.value = null;
   }
 
@@ -35,13 +35,14 @@ export default function AuthHome() {
 
   useEffect(() => {
     async function fetchData() {
-      try {
+      try {        
         const requests = [
           fetch(
             folderId
               ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`
               : `${import.meta.env.VITE_API_URL}/api/all`,
-            { credentials: "include" }
+            { credentials: "include"
+             }
           ),
         ];
 
@@ -51,7 +52,8 @@ export default function AuthHome() {
               `${
                 import.meta.env.VITE_API_URL
               }/api/folders/folder/${folderId}/path`,
-              { credentials: "include" }
+              { credentials: "include",
+               }
             )
           );
         }
@@ -59,16 +61,8 @@ export default function AuthHome() {
         const responses = await Promise.all(requests);
         const [dataResponse, pathResponse] = responses;
 
-        if (dataResponse.status === 401 || pathResponse?.status === 401) {
-          navigate("/login");
-          return;
-        }
-        if (dataResponse.status === 403 || pathResponse?.status === 403) {
-          navigate("/403");
-          return;
-        }
-        if (dataResponse.status === 404 || pathResponse?.status === 404) {
-          navigate("/404");
+        if (!dataResponse.ok || (pathResponse && !pathResponse.ok)) {
+          console.error('API request failed:', dataResponse.status, pathResponse?.status);
           return;
         }
 
@@ -86,6 +80,7 @@ export default function AuthHome() {
       }
     }
     fetchData();
+
   }, [folderId, navigate]);
 
   // This is for the closing of the dialog for folder name
@@ -204,11 +199,14 @@ export default function AuthHome() {
         if (response.status === 404) {
           navigate("/404");
         }
-        if(response.ok){
-            fileDialog.current.close()
-            setFiles([])
-            const data = await response.json()
-           setFilesFolders((prevFilesFolders) => [...prevFilesFolders, ...data.files.map(fileObj => fileObj.file)]);
+        if (response.ok) {
+          fileDialog.current.close();
+          setFiles([]);
+          const data = await response.json();
+          setFilesFolders((prevFilesFolders) => [
+            ...prevFilesFolders,
+            ...data.files.map((fileObj) => fileObj.file),
+          ]);
         }
       } catch (error) {
         console.error(error);
@@ -297,7 +295,7 @@ export default function AuthHome() {
                 <div className={styles.folderPath}>
                   <span onClick={() => navigate("/")}>
                     My Files
-                    {folderPath.length > 0 && <span> {'-->'} </span>}
+                    {folderPath.length > 0 && <span> {"-->"} </span>}
                   </span>
                   {folderPath.map((item, index) => (
                     <span
@@ -306,7 +304,7 @@ export default function AuthHome() {
                     >
                       {item.name}
 
-                      {index < folderPath.length - 1 && <span> {'-->'} </span>}
+                      {index < folderPath.length - 1 && <span> {"-->"} </span>}
                     </span>
                   ))}
                 </div>
@@ -331,9 +329,15 @@ export default function AuthHome() {
               <tbody>
                 {filesFolders.map((item) => (
                   <tr key={item.id}>
-                    <td 
-                      onClick={item.type === "folder" ? () => handleFolderClick(item.id) : undefined}
-                      className={item.type === "folder" ? styles.folder : styles.file}
+                    <td
+                      onClick={
+                        item.type === "folder"
+                          ? () => handleFolderClick(item.id)
+                          : undefined
+                      }
+                      className={
+                        item.type === "folder" ? styles.folder : styles.file
+                      }
                     >
                       {item.name}
                     </td>
@@ -357,7 +361,13 @@ export default function AuthHome() {
           )}
         </div>
       </section>
-      <UploadFileDialog ref={fileDialog} files={files} handleFileRemove={handleFileRemove} setFiles={setFiles} handleUpload={handleFileUpload} />
+      <UploadFileDialog
+        ref={fileDialog}
+        files={files}
+        handleFileRemove={handleFileRemove}
+        setFiles={setFiles}
+        handleUpload={handleFileUpload}
+      />
       <CreateFolderDialog
         ref={dialog}
         folderName={folderName}
