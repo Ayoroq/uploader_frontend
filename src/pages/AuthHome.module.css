@@ -75,6 +75,15 @@
     text-align: center;
 }
 
+.emptyText{
+    font-size: clamp(1rem,28px,30px);
+    font-weight: bold;
+}
+
+.emptyLottie{
+    max-width: 500px;
+}
+
 .table {
   width: 100%;
   text-align: left;

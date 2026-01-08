@@ -4,7 +4,8 @@ import { useParams, useNavigate } from "react-router";
 import UploadFileDialog from "../components/UploadFileDialog";
 import CreateFolderDialog from "../components/CreateFolderDialog";
 import FileTableRow from "../components/FileTableRow";
-import folderIcon from '/assets/Folder.svg';
+import folderIcon from "/assets/Folder.svg";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function AuthHome() {
   const navigate = useNavigate();
@@ -37,14 +38,13 @@ export default function AuthHome() {
 
   useEffect(() => {
     async function fetchData() {
-      try {        
+      try {
         const requests = [
           fetch(
             folderId
               ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}`
               : `${import.meta.env.VITE_API_URL}/api/all`,
-            { credentials: "include"
-             }
+            { credentials: "include" }
           ),
         ];
 
@@ -54,8 +54,7 @@ export default function AuthHome() {
               `${
                 import.meta.env.VITE_API_URL
               }/api/folders/folder/${folderId}/path`,
-              { credentials: "include",
-               }
+              { credentials: "include" }
             )
           );
         }
@@ -64,7 +63,11 @@ export default function AuthHome() {
         const [dataResponse, pathResponse] = responses;
 
         if (!dataResponse.ok || (pathResponse && !pathResponse.ok)) {
-          console.error('API request failed:', dataResponse.status, pathResponse?.status);
+          console.error(
+            "API request failed:",
+            dataResponse.status,
+            pathResponse?.status
+          );
           return;
         }
 
@@ -82,7 +85,6 @@ export default function AuthHome() {
       }
     }
     fetchData();
-
   }, [folderId, navigate]);
 
   // This is for the closing of the dialog for folder name
@@ -309,17 +311,22 @@ export default function AuthHome() {
               </thead>
               <tbody>
                 {filesFolders.map((item) => (
-                  <FileTableRow 
+                  <FileTableRow
                     key={item.id}
-                    item={item} 
-                    onFolderClick={handleFolderClick} 
+                    item={item}
+                    onFolderClick={handleFolderClick}
                   />
                 ))}
               </tbody>
             </table>
           ) : (
             <div className={styles.emptyState}>
-              <p>The Folder is empty</p>
+              <p className={styles.emptyText}>The Folder is empty</p>
+              <DotLottieReact
+                src="/assets/empty.lottie"
+                autoplay={true}
+                className={styles.emptyLottie}
+              />
               <p>
                 Upload files or create folders to access them from any device
               </p>
