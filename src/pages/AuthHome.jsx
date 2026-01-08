@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import UploadFileDialog from "../components/UploadFileDialog";
 import CreateFolderDialog from "../components/CreateFolderDialog";
+import FileTableRow from "../components/FileTableRow";
 
 export default function AuthHome() {
   const navigate = useNavigate();
@@ -328,26 +329,11 @@ export default function AuthHome() {
               </thead>
               <tbody>
                 {filesFolders.map((item) => (
-                  <tr key={item.id}>
-                    <td
-                      onClick={
-                        item.type === "folder"
-                          ? () => handleFolderClick(item.id)
-                          : undefined
-                      }
-                      className={
-                        item.type === "folder" ? styles.folder : styles.file
-                      }
-                    >
-                      {item.name}
-                    </td>
-                    <td>{item.updatedAt}</td>
-                    {item.type === "folder" ? (
-                      <td>{item._count.files + item._count.subfolders}</td>
-                    ) : (
-                      <td>{item.size}</td>
-                    )}
-                  </tr>
+                  <FileTableRow 
+                    key={item.id}
+                    item={item} 
+                    onFolderClick={handleFolderClick} 
+                  />
                 ))}
               </tbody>
             </table>
