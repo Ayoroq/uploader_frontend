@@ -246,6 +246,20 @@
   color: red;
 }
 
+/* Mobile View */
+.mobileView{
+  display: none;
+}
+
+@media (max-width:620px) {
+  .mobileView{
+    display: flex;
+  }
+  .authhome{
+    display: none;
+  }
+}
+
 @media (max-width: 900px) {
   .leftSide {
     width: fit-content;
