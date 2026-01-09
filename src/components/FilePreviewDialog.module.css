@@ -30,6 +30,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
+  border-bottom: 1px solid #D1D1D1;
 }
 
 .iconContainer {
@@ -85,6 +86,11 @@
 }
 
 @media (max-width: 500px) {
+  .deleteIcon,
+  .downloadIcon {
+    width: 20px;
+    height: 20px;
+  }
   .shareIcon {
     transition: transform 0.3s ease;
   }
