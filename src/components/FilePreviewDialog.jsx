@@ -1,4 +1,5 @@
 import { forwardRef, useEffect } from "react";
+import styles from "./FilePreviewDialog.module.css";
 
 const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) => {
   // Handle dialog close events
@@ -23,6 +24,7 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) =>
         <img
           src={file.signedUrl}
           alt={file.name}
+          className={styles.contentItem}
         />
       );
     }
@@ -32,6 +34,7 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) =>
         <iframe
           src={file.signedUrl}
           title={file.name}
+          className={styles.contentItem}
         />
       );
     }
@@ -41,17 +44,18 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) =>
         <video
           controls
           src={file.signedUrl}
+          className={styles.contentItem}
         />
       );
     }
 
     if (file.mimeType.startsWith("audio/")) {
-      return <audio controls src={file.signedUrl} />;
+      return <audio controls src={file.signedUrl} className={styles.contentItem} />;
     }
 
     //unsupported files
     return (
-      <div>
+      <div className={styles.unsupportedFile}>
         <p>Preview not available for this file type.</p>
         <a href={file.signedUrl} target="_blank" rel="noopener noreferrer">
           Open in new tab
@@ -61,17 +65,13 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) =>
   };
 
   return (
-    <dialog ref={ref} className="file-preview-dialog" closedby="any">
-      {/* Header */}
+    <dialog ref={ref} className={styles.previewDialog} closedby="any">
       <header>
-        <h2></h2>
-        <button onClick={onClose}>✕</button>
+        <button className={styles.closeButton} onClick={onClose}>✕</button>
       </header>
 
-      {/* Preview content */}
-      <section className="preview-content">{renderPreview()}</section>
+      <section className={styles.content}>{renderPreview()}</section>
 
-      {/* Footer */}
       <footer></footer>
     </dialog>
   );
