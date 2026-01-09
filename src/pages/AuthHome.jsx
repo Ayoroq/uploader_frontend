@@ -18,6 +18,7 @@ export default function AuthHome() {
   const [folderNameError, setFolderNameError] = useState(null);
   const [folderName, setFolderName] = useState("");
   const [folderPath, setFolderPath] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // This is for when trying to upload files
   function handleFileChange(e) {
@@ -39,6 +40,7 @@ export default function AuthHome() {
   useEffect(() => {
     async function fetchData() {
       try {
+        setLoading(true);
         const requests = [
           fetch(
             folderId
@@ -59,6 +61,7 @@ export default function AuthHome() {
           );
         }
 
+        setLoading(true);
         const responses = await Promise.all(requests);
         const [dataResponse, pathResponse] = responses;
 
@@ -80,8 +83,10 @@ export default function AuthHome() {
         folderId
           ? setFilesFolders(data.filesAndFolders)
           : setFilesFolders(data);
+        setLoading(false);
       } catch (error) {
         console.error(error);
+        setLoading(false);
       }
     }
     fetchData();
@@ -276,11 +281,19 @@ export default function AuthHome() {
               {!folderPath && <p className={styles.myFilesRoot}>My Files</p>}
               {folderPath && (
                 <div className={styles.breadCrumbs}>
-                  <button className={styles.breadCrumbsButton} onClick={() => navigate("/")}>My Files</button>
+                  <button
+                    className={styles.breadCrumbsButton}
+                    onClick={() => navigate("/")}
+                  >
+                    My Files
+                  </button>
                   {folderPath.length > 0 && <span> {">"} </span>}
                   {folderPath.map((item, index) => (
                     <>
-                      <button className={styles.breadCrumbsButton} onClick={() => handleFolderClick(item.id)}>
+                      <button
+                        className={styles.breadCrumbsButton}
+                        onClick={() => handleFolderClick(item.id)}
+                      >
                         {item.name}
                       </button>
                       {index < folderPath.length - 1 && <span> {">"} </span>}
@@ -295,8 +308,17 @@ export default function AuthHome() {
             <p>View</p>
           </div>
         </div>
-        <div className={styles.filesFolders}>
-          {filesFolders.length > 0 ? (
+        <div className={styles.container}>
+          {loading ? (
+            <div className={styles.loading}>
+                <DotLottieReact
+                  src="/assets/loading.lottie"
+                  loop={true}
+                  autoplay={true}
+                  className={styles.loadingLottie}
+                />
+            </div>
+          ) : filesFolders.length > 0 ? (
             <table className={styles.table}>
               <thead>
                 <tr>
@@ -347,3 +369,7 @@ export default function AuthHome() {
     </main>
   );
 }
+// TODO: add file preview
+// TODO: add the edit, delete and share functionality
+// TODO: add the sort and filter
+//TODO: Add checks and better error handling e.t.c

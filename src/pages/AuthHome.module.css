@@ -105,6 +105,18 @@
     min-height: 100vh;
 }
 
+.loading{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadingLottie{
+    max-width: 300px;
+}
+
 .emptyState{
     height: 80vh;
     display: flex;
