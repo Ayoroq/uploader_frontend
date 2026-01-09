@@ -4,6 +4,7 @@
 .authhome {
   display: flex;
   justify-content: space-between;
+  cursor: default;
 }
 
 .leftSide {
@@ -58,6 +59,45 @@
   height: 30px;
   min-width: 30px;
   min-height: 30px;
+}
+
+/* the nav */
+.myFilesRoot{
+    cursor: default;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.breadCrumbs{
+    display: flex;
+    align-items: center;
+}
+
+.breadCrumbsButton{
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+
+.breadCrumbsButton:last-child{
+    cursor: default;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.breadCrumbs span{
+    padding: 0 3px;
+}
+
+.breadCrumbsButton:hover{
+    background-color: rgb(224, 224, 224);
+}
+
+.breadCrumbsButton:last-child:hover{
+    background-color: transparent;
 }
 
 .filesFolders{
@@ -197,6 +237,13 @@
     width: fit-content;
   }
   .leftNavText {
+    display: none;
+  }
+  .breadCrumbs{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .breadCrumbs span{
     display: none;
   }
 }

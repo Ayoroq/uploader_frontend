@@ -273,22 +273,18 @@ export default function AuthHome() {
         <div className={styles.miniNav}>
           <div className={styles.folderPath}>
             <div>
-              {!folderPath && <p>My Files</p>}
+              {!folderPath && <p className={styles.myFilesRoot}>My Files</p>}
               {folderPath && (
-                <div className={styles.folderPath}>
-                  <span onClick={() => navigate("/")}>
-                    My Files
-                    {folderPath.length > 0 && <span> {"-->"} </span>}
-                  </span>
+                <div className={styles.breadCrumbs}>
+                  <button className={styles.breadCrumbsButton} onClick={() => navigate("/")}>My Files</button>
+                  {folderPath.length > 0 && <span> {">"} </span>}
                   {folderPath.map((item, index) => (
-                    <span
-                      key={index}
-                      onClick={() => handleFolderClick(item.id)}
-                    >
-                      {item.name}
-
-                      {index < folderPath.length - 1 && <span> {"-->"} </span>}
-                    </span>
+                    <>
+                      <button className={styles.breadCrumbsButton} onClick={() => handleFolderClick(item.id)}>
+                        {item.name}
+                      </button>
+                      {index < folderPath.length - 1 && <span> {">"} </span>}
+                    </>
                   ))}
                 </div>
               )}
