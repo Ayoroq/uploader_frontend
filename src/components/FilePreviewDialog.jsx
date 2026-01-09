@@ -53,6 +53,18 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) =>
       return <audio controls src={file.signedUrl} className={styles.contentItem} />;
     }
 
+    if (file.mimeType.startsWith("text/") || 
+        file.mimeType === "application/json" ||
+        file.mimeType === "application/javascript") {
+      return (
+        <iframe
+          src={file.signedUrl}
+          title={file.name}
+          className={styles.contentItem}
+        />
+      );
+    }
+
     //unsupported files
     return (
       <div className={styles.unsupportedFile}>
