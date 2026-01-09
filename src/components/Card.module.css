@@ -1,17 +1,34 @@
-.card{
+.card {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.details {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.file,
+.folder {
+  width: 25px;
+  height: 25px;
+}
+
+.moreContainer{
     display: flex;
-    width: 100%;
-    justify-content: space-between;
     align-items: center;
 }
 
-.details{
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+.more {
+  padding: 0;
+  border: none;
+  background-color: transparent;
 }
-
-.file,.folder{
-    width: 25px;
-    height: 25px;
+.moreIcon{
+    width: 30px;
+    height: 30px;
 }
