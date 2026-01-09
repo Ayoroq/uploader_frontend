@@ -51,14 +51,14 @@ function formatFileSize(size) {
   }
 }
 
-export default function FileTableRow({ item, onFolderClick }) {
+export default function FileTableRow({ item, onFolderClick, onFilePreview }) {
   return (
     <tr key={item.id} className={styles.row}>
       <td
         onClick={
           item.type === "folder"
             ? () => onFolderClick(item.id)
-            : undefined
+            : () => onFilePreview(item.id)
         }
         className={
           `${item.type === "folder" ? styles.folder : styles.file} ${styles.rowItem}`

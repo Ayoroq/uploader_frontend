@@ -116,14 +116,10 @@ export default function AuthHome() {
           credentials: "include",
         }
       );
-      if (response.status === 401) {
-        navigate("/login");
-      }
-      if (response.status === 403) {
-        navigate("/403");
-      }
-      if (response.status === 404) {
-        navigate("/404");
+      const statusRoutes = { 401: "/login", 403: "/403", 404: "/404" };
+      if (statusRoutes[response.status]) {
+        navigate(statusRoutes[response.status]);
+        return;
       }
       const data = await response.json();
       setFolderPath(data.path);
@@ -158,14 +154,10 @@ export default function AuthHome() {
         credentials: "include",
       });
 
-      if (response.status === 401) {
-        navigate("/login");
-      }
-      if (response.status === 403) {
-        navigate("/403");
-      }
-      if (response.status === 404) {
-        navigate("/404");
+      const statusRoutes = { 401: "/login", 403: "/403", 404: "/404" };
+      if (statusRoutes[response.status]) {
+        navigate(statusRoutes[response.status]);
+        return;
       }
 
       let data = await response.json();
@@ -179,6 +171,20 @@ export default function AuthHome() {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  // This is used to preview a file
+  async function previewFile(id){
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/files/${id}/preview`, {
+      credentials: "include",
+    });
+    const statusRoutes = { 401: "/login", 403: "/403", 404: "/404" };
+    if (statusRoutes[response.status]) {
+      navigate(statusRoutes[response.status]);
+      return;
+    }
+    const data = await response.json();
+    window.open(data.url.signedUrl, "_blank");
   }
 
   // This is used for the file upload management
@@ -199,14 +205,10 @@ export default function AuthHome() {
           body: formData,
           credentials: "include",
         });
-        if (response.status === 401) {
-          navigate("/login");
-        }
-        if (response.status === 403) {
-          navigate("/403");
-        }
-        if (response.status === 404) {
-          navigate("/404");
+        const statusRoutes = { 401: "/login", 403: "/403", 404: "/404" };
+        if (statusRoutes[response.status]) {
+          navigate(statusRoutes[response.status]);
+          return;
         }
         if (response.ok) {
           fileDialog.current.close();
@@ -333,6 +335,7 @@ export default function AuthHome() {
                     key={item.id}
                     item={item}
                     onFolderClick={handleFolderClick}
+                    onFilePreview={previewFile}
                   />
                 ))}
               </tbody>
