@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import UploadFileDialog from "../components/UploadFileDialog";
 import CreateFolderDialog from "../components/CreateFolderDialog";
+import FilePreviewDialog from "../components/FilePreviewDialog";
 import FileTableRow from "../components/FileTableRow";
 import folderIcon from "/assets/Folder.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
@@ -13,12 +14,15 @@ export default function AuthHome() {
   const fileInput = useRef(null);
   const dialog = useRef(null);
   const fileDialog = useRef(null);
+  const previewDialog = useRef(null)
   const [files, setFiles] = useState([]);
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
   const [folderName, setFolderName] = useState("");
   const [folderPath, setFolderPath] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [previewData, setPreviewData] = useState(null);
+
 
   // This is for when trying to upload files
   function handleFileChange(e) {
@@ -184,7 +188,13 @@ export default function AuthHome() {
       return;
     }
     const data = await response.json();
-    window.open(data.url.signedUrl, "_blank");
+    setPreviewData(data.url);
+    if(previewDialog.current){
+        previewDialog.current.showModal()
+    }
+    else {
+      console.warn("previewDialog ref is not attached to a DOM element.");
+    }
   }
 
   // This is used for the file upload management
@@ -369,6 +379,12 @@ export default function AuthHome() {
         onFolderNameChange={handleFolderNameChange}
         onFolderCreate={handleCreateFolder}
       />
+      <FilePreviewDialog
+        ref={previewDialog}
+        file={previewData}
+        onClose={() => previewDialog.current.close()}
+        setPreviewData={setPreviewData}
+      />    
     </main>
   );
 }
