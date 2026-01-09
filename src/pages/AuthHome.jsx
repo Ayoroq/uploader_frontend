@@ -289,7 +289,7 @@ export default function AuthHome() {
                   </button>
                   {folderPath.length > 0 && <span> {">"} </span>}
                   {folderPath.map((item, index) => (
-                    <>
+                    <div key={item.id}>
                       <button
                         className={styles.breadCrumbsButton}
                         onClick={() => handleFolderClick(item.id)}
@@ -297,7 +297,7 @@ export default function AuthHome() {
                         {item.name}
                       </button>
                       {index < folderPath.length - 1 && <span> {">"} </span>}
-                    </>
+                    </div>
                   ))}
                 </div>
               )}

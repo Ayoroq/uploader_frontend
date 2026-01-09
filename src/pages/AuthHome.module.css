@@ -80,12 +80,14 @@
     transition: background-color 0.3s ease;
     font-size: 1.2rem;
     border-radius: 5px;
+    color: #F99F1B;
 }
 
 .breadCrumbsButton:last-child{
     cursor: default;
     font-weight: bold;
     font-size: larger;
+    color: black;
 }
 
 .breadCrumbs span{
