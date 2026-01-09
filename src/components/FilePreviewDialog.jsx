@@ -5,7 +5,7 @@ import downloadIcon from '/assets/download.svg'
 import deleteIcon from '/assets/delete.svg'
 import cancelIcon from '/assets/cancel.svg'
 
-const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) => {
+const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData, onDownload }, ref) => {
   // Handle dialog close events
   useEffect(() => {
     const dialogElement = ref.current;
@@ -17,24 +17,6 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) =>
       return () => dialogElement.removeEventListener("close", handleClose);
     }
   }, [ref, setPreviewData]);
-
-  async function handleDownload(){
-    try {
-      const response = await fetch(file.signedUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', file.name);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Download failed:', error);
-      window.open(file.signedUrl, '_blank');
-    }
-  }
 
 
   const renderPreview = () => {
@@ -101,7 +83,7 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) =>
     <dialog ref={ref} className={styles.previewDialog} closedby="any">
       <header className={styles.header}>
         <div className={styles.iconContainer}>
-            <img onClick={() => handleDownload()} className={`${styles.icon} ${styles.downloadIcon}`} src={downloadIcon} alt="Download File Icon" />
+            <img onClick={() => onDownload(file.signedUrl, file.name)} className={`${styles.icon} ${styles.downloadIcon}`} src={downloadIcon} alt="Download File Icon" />
             <img className={`${styles.icon} ${styles.deleteIcon}`} src={deleteIcon} alt="Delete File Icon" />
         </div>
         <div className={styles.title}>
