@@ -3,6 +3,7 @@ import styles from "./FilePreviewDialog.module.css";
 import shareIcon from '/assets/share.svg'
 import downloadIcon from '/assets/download.svg'
 import deleteIcon from '/assets/delete.svg'
+import cancelIcon from '/assets/cancel.svg'
 
 const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) => {
   // Handle dialog close events
@@ -94,7 +95,9 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) =>
                 <img className={`${styles.icon} ${styles.shareIcon}`} src={shareIcon} alt="Share File Icon" />
                 <span className={styles.shareText}>Share</span>
             </p>
-            <button className={styles.closeButton} onClick={onClose}>✕</button>
+            <button className={styles.closeButton} onClick={onClose}>
+                <img className={`${styles.icon} ${styles.cancelIcon}`} src={cancelIcon} alt="Cancel Icon" />
+            </button>
         </div>
       </header>
 
