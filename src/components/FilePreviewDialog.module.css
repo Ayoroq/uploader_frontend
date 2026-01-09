@@ -1,38 +1,102 @@
-.previewDialog:open{
-    height: 95vh;
-    width: 95vh;
-    display: flex;
-    flex-direction: column;
-    border: none;
+.previewDialog:open {
+  height: 100vh;
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  border: none;
 }
 
-.content{
-    flex: 1;
+.content {
+  flex: 1;
 }
 
-.contentItem{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.contentItem {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.unsupportedFile{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+.unsupportedFile {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* header */
-.closeButton{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
 }
 
-.closeButton:hover{
-    background-color: rgb(225, 225, 225);
+.iconContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.shareButton {
+  display: flex;
+  gap: 0.5rem;
+  border: 0.5px solid;
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.closeButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+
+.closeButton:hover,
+.shareButton:hover {
+  background-color: rgb(225, 225, 225);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.deleteIcon,
+.downloadIcon {
+  width: 25px;
+  height: 25px;
+  transition: transform 0.3s ease;
+}
+
+.deleteIcon:hover,
+.downloadIcon:hover {
+  transform: scale(1.1);
+}
+
+.titleText {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  .shareIcon {
+    transition: transform 0.3s ease;
+  }
+
+  .shareIcon:hover {
+    transform: scale(1.1);
+  }
+
+  .shareText {
+    display: none;
+  }
+  .shareButton {
+    border: none;
+  }
 }

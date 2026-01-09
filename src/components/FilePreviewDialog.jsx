@@ -1,5 +1,8 @@
 import { forwardRef, useEffect } from "react";
 import styles from "./FilePreviewDialog.module.css";
+import shareIcon from '/assets/share.svg'
+import downloadIcon from '/assets/download.svg'
+import deleteIcon from '/assets/delete.svg'
 
 const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) => {
   // Handle dialog close events
@@ -78,8 +81,21 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData }, ref) =>
 
   return (
     <dialog ref={ref} className={styles.previewDialog} closedby="any">
-      <header>
-        <button className={styles.closeButton} onClick={onClose}>✕</button>
+      <header className={styles.header}>
+        <div className={styles.iconContainer}>
+            <img className={`${styles.icon} ${styles.downloadIcon}`} src={downloadIcon} alt="Download File Icon" />
+            <img className={`${styles.icon} ${styles.deleteIcon}`} src={deleteIcon} alt="Delete File Icon" />
+        </div>
+        <div className={styles.title}>
+            <p className={styles.titleText}>{file?.name}</p>
+        </div>
+        <div className={styles.iconContainer}>
+            <p className={styles.shareButton}>
+                <img className={`${styles.icon} ${styles.shareIcon}`} src={shareIcon} alt="Share File Icon" />
+                <span className={styles.shareText}>Share</span>
+            </p>
+            <button className={styles.closeButton} onClick={onClose}>✕</button>
+        </div>
       </header>
 
       <section className={styles.content}>{renderPreview()}</section>
