@@ -1,0 +1,17 @@
+.card{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.file,.folder{
+    width: 25px;
+    height: 25px;
+}

@@ -290,7 +290,7 @@ export default function AuthHome() {
     </>
   );
 }
-// TODO: add file preview
+// TODO: complete the mobile view implementation
 // TODO: add the edit, delete and share functionality
 // TODO: add the sort and filter
 //TODO: Add checks and better error handling e.t.c
