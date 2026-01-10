@@ -34,7 +34,15 @@ export default function AuthHome() {
 
   function handleInputChange(e) {
     setSearchTerm(e.target.value)
-    console.log(searchTerm)
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (searchTerm.trim() === "") {
+        return;
+      }
+    }
   }
 
   function handleFileRemove(index) {
@@ -284,6 +292,7 @@ export default function AuthHome() {
         previewFile={previewFile}
         searchTerm={searchTerm}
         handleInputChange={handleInputChange}
+        handleKeyDown={handleKeyDown}
       />
       <UploadFileDialog
         ref={fileDialog}
