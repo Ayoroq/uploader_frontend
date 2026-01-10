@@ -4,7 +4,7 @@ import filterIcon from "/assets/filter.svg";
 import backIcon from "/assets/back.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useState } from "react";
-import addIcon from '/assets/add.svg'
+import addIcon from "/assets/add.svg";
 export default function MobileView({
   className,
   fileInput,
@@ -18,7 +18,7 @@ export default function MobileView({
   previewFile,
   searchTerm,
   handleInputChange,
-  handleKeyDown
+  handleKeyDown,
 }) {
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
@@ -34,7 +34,16 @@ export default function MobileView({
           </div>
         </>
       )}
-      {filesFolders.length > 0 ? (
+      {loading ? (
+        <div className={styles.loading}>
+          <DotLottieReact
+            src="/assets/loading.lottie"
+            loop={true}
+            autoplay={true}
+            className={styles.loadingLottie}
+          />
+        </div>
+      ) : filesFolders.length > 0 ? (
         <nav className={styles.nav}>
           <div>
             <button className={styles.name}>Name</button>
@@ -85,7 +94,14 @@ export default function MobileView({
         })}
       </div>
       <div className={styles.addContainer}>
-        <input type="search" className={styles.search} placeholder="Search your files" value={searchTerm} onChange={handleInputChange} onKeyDown={handleKeyDown} />
+        <input
+          type="search"
+          className={styles.search}
+          placeholder="Search your files"
+          value={searchTerm}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+        />
         <button className={styles.addButton} onClick={fileInput}>
           <img className={styles.addIcon} src={addIcon} alt="Add" />
         </button>
