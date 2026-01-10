@@ -203,16 +203,16 @@ export default function AuthHome() {
       const response = await fetch(fileUrl);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.setAttribute('download', fileName);
+      link.setAttribute("download", fileName);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error('Download failed:', error);
-      window.open(fileUrl, '_blank');
+      console.error("Download failed:", error);
+      window.open(fileUrl, "_blank");
     }
   }
   async function handleFileUpload() {
@@ -265,7 +265,18 @@ export default function AuthHome() {
         filesFolders={filesFolders}
         previewFile={previewFile}
       />
-      <MobileView className={styles.mobileView} filesFolders={filesFolders} />
+      <MobileView
+        className={styles.mobileView}
+        fileInput={fileInput}
+        dialog={dialog}
+        handleFileChange={handleFileChange}
+        folderPath={folderPath}
+        navigate={navigate}
+        handleFolderClick={handleFolderClick}
+        loading={loading}
+        filesFolders={filesFolders}
+        previewFile={previewFile}
+      />
       <UploadFileDialog
         ref={fileDialog}
         files={files}

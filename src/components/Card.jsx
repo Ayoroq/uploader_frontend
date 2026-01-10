@@ -27,8 +27,8 @@ export default function Card({
   };
 
   return (
-    <div className={styles.card} onClick={handleClick}>
-      <div className={styles.details}>
+    <div className={styles.card}>
+      <div className={styles.details} onClick={handleClick}>
         <div className={styles.icon}>
           {fileFolder.type === "folder" ? (
             <img className={styles.folder} src={folderIcon} alt="Folder" />
