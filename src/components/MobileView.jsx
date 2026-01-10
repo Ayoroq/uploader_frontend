@@ -16,8 +16,9 @@ export default function MobileView({
   loading,
   filesFolders,
   previewFile,
+  searchTerm,
+  handleInputChange
 }) {
-  const [searchTerm, setSearchTerm] = useState(null);
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
       {folderPath && (
@@ -83,7 +84,7 @@ export default function MobileView({
         })}
       </div>
       <div className={styles.addContainer}>
-        <input type="search" className={styles.search} placeholder="Search your files" value={searchTerm} />
+        <input type="search" className={styles.search} placeholder="Search your files" value={searchTerm} onChange={handleInputChange} />
         <button className={styles.addButton} onClick={fileInput}>
           <img className={styles.addIcon} src={addIcon} alt="Add" />
         </button>

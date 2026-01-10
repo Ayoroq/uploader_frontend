@@ -14,6 +14,7 @@ export default function AuthHome() {
   const dialog = useRef(null);
   const fileDialog = useRef(null);
   const previewDialog = useRef(null);
+  const [searchTerm, setSearchTerm] = useState('')
   const [files, setFiles] = useState([]);
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
@@ -29,6 +30,11 @@ export default function AuthHome() {
     fileDialog.current.showModal();
 
     e.target.value = null;
+  }
+
+  function handleInputChange(e) {
+    setSearchTerm(e.target.value)
+    console.log(searchTerm)
   }
 
   function handleFileRemove(index) {
@@ -276,6 +282,8 @@ export default function AuthHome() {
         loading={loading}
         filesFolders={filesFolders}
         previewFile={previewFile}
+        searchTerm={searchTerm}
+        handleInputChange={handleInputChange}
       />
       <UploadFileDialog
         ref={fileDialog}
