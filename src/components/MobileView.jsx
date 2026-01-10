@@ -1,6 +1,7 @@
 import styles from "./MobileView.module.css";
 import Card from "./Card.jsx";
 import filterIcon from "/assets/filter.svg";
+import backIcon from "/assets/back.svg";
 export default function MobileView({
   className,
   fileInput,
@@ -15,7 +16,14 @@ export default function MobileView({
 }) {
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
-      <nav className={styles.nav}>
+        {folderPath && (<header>
+            <div>
+                <button className={styles.backButton} onClick={() => navigate(-1)}>
+                    <img className={styles.backIcon} src={backIcon} alt="back" />
+                </button>
+            </div>
+        </header>)}
+      {filesFolders.length > 0 && <nav className={styles.nav}>
         <div>
           <button className={styles.name}>Name</button>
           <div className={styles.dropDown}>
@@ -36,7 +44,7 @@ export default function MobileView({
             <button>Table</button>
           </div>
         </div>
-      </nav>
+      </nav>}
       <div className={styles.cards}>
         {filesFolders.map((fileFolder, index) => {
           return (
