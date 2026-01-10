@@ -3,6 +3,7 @@ import Card from "./Card.jsx";
 import filterIcon from "/assets/filter.svg";
 import backIcon from "/assets/back.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { useState } from "react";
 export default function MobileView({
   className,
   fileInput,
@@ -15,6 +16,7 @@ export default function MobileView({
   filesFolders,
   previewFile,
 }) {
+  const [searchTerm, setSearchTerm] = useState(null);
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
       {folderPath && (
@@ -78,6 +80,12 @@ export default function MobileView({
             />
           );
         })}
+      </div>
+      <div className={styles.addContainer}>
+        <input type="search" placeholder="Search your files" value={searchTerm} />
+        <button className={styles.addButton} onClick={fileInput}>
+          +
+        </button>
       </div>
     </main>
   );
