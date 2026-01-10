@@ -19,13 +19,14 @@ export default function MobileView({
   searchTerm,
   handleInputChange,
   handleKeyDown,
+  handleMobileNav,
 }) {
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
       {folderPath && (
         <>
           <div className={styles.backButtonContainer}>
-            <button className={styles.backButton} onClick={() => navigate(-1)}>
+            <button className={styles.backButton} onClick={() => handleMobileNav()}>
               <img className={styles.backIcon} src={backIcon} alt="back" />
             </button>
           </div>

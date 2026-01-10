@@ -14,7 +14,7 @@ export default function AuthHome() {
   const dialog = useRef(null);
   const fileDialog = useRef(null);
   const previewDialog = useRef(null);
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState("");
   const [files, setFiles] = useState([]);
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
@@ -33,7 +33,7 @@ export default function AuthHome() {
   }
 
   function handleInputChange(e) {
-    setSearchTerm(e.target.value)
+    setSearchTerm(e.target.value);
   }
 
   function handleKeyDown(e) {
@@ -143,6 +143,15 @@ export default function AuthHome() {
       console.error(error);
     }
     navigate(`/folders/${folderId}`);
+  }
+
+  function handleMobileNav() {
+    if (folderPath.length > 1) {
+      const parentFolderId = folderPath[folderPath.length - 2].id;
+      navigate(`/folders/${parentFolderId}`);
+    } else {
+      navigate(`/`);
+    }
   }
 
   // This is used to create a new folder
@@ -293,6 +302,7 @@ export default function AuthHome() {
         searchTerm={searchTerm}
         handleInputChange={handleInputChange}
         handleKeyDown={handleKeyDown}
+        handleMobileNav={handleMobileNav}
       />
       <UploadFileDialog
         ref={fileDialog}
