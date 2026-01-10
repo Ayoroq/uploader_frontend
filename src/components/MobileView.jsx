@@ -4,6 +4,7 @@ import filterIcon from "/assets/filter.svg";
 import backIcon from "/assets/back.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useState } from "react";
+import addIcon from '/assets/add.svg'
 export default function MobileView({
   className,
   fileInput,
@@ -82,9 +83,9 @@ export default function MobileView({
         })}
       </div>
       <div className={styles.addContainer}>
-        <input type="search" placeholder="Search your files" value={searchTerm} />
+        <input type="search" className={styles.search} placeholder="Search your files" value={searchTerm} />
         <button className={styles.addButton} onClick={fileInput}>
-          +
+          <img className={styles.addIcon} src={addIcon} alt="Add" />
         </button>
       </div>
     </main>
