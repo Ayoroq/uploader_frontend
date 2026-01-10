@@ -1,3 +1,45 @@
+.mobileView{
+    display: flex;
+    flex-direction: column;
+}
+
+.nav{
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name{
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.name:hover{
+    background-color: #D1D1D1;
+}
+
+.filter{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.filterIcon{
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s ease;
+}
+
+.filterIcon:hover{
+    transform: scale(1.1);
+}
+
+.dropDown{display: none;}
+
 .cards{
     width: 100%;
     display: flex;
