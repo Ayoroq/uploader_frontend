@@ -68,6 +68,11 @@
     background-color: #d1d1d1;;
 }
 
+.folderName{
+    text-align: center;
+    font-size: 2rem;
+}
+
 @media (max-width: 620px) {
   .mobileView {
     display: flex;

@@ -16,13 +16,19 @@ export default function MobileView({
 }) {
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
-        {folderPath && (<header>
+        {folderPath && (<>
             <div>
                 <button className={styles.backButton} onClick={() => navigate(-1)}>
                     <img className={styles.backIcon} src={backIcon} alt="back" />
                 </button>
             </div>
-        </header>)}
+            <div>
+                <p className={styles.folderName}>{folderPath.at(-1).name}</p>
+            </div>
+        </>)}
+        {
+            
+        }
       {filesFolders.length > 0 && <nav className={styles.nav}>
         <div>
           <button className={styles.name}>Name</button>
