@@ -51,6 +51,10 @@
 }
 
 /* header */
+.backButtonContainer{
+    padding-top: 2rem;
+}
+
 .backButton {
   padding: 0;
   background-color: transparent;
@@ -71,6 +75,20 @@
 .folderName{
     text-align: center;
     font-size: 2rem;
+}
+
+.mobileEmptyState{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5rem;
+    text-align: center;
+}
+
+.emptyLottie{
+    max-width: 500px;
 }
 
 @media (max-width: 620px) {
