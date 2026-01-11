@@ -169,6 +169,7 @@
 .fileUploadContainer{
     display: flex;
     justify-content: center;
+    align-items: center;
     height: 300px;
     border-radius: 10px 10px 0 0;
 }
