@@ -1,7 +1,11 @@
-import { forwardRef } from "react";
+import { forwardRef, useCallback } from "react";
 import styles from "../pages/AuthHome.module.css";
 
 const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNameChange, onFolderCreate },ref) => {
+    const handleClose = useCallback(() => {
+      ref.current.close();
+    }, [ref]);
+
     return (
       <dialog ref={ref} className={styles.dialog} closedby="any">
         <div className={styles.dialogHeader}>

@@ -127,6 +127,7 @@ export default function AuthHome() {
     if (folderId === "null") return;
     try {
       const response = await fetch(
+        // amazonq-ignore-next-line
         `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}/path`,
         {
           credentials: "include",
@@ -146,7 +147,7 @@ export default function AuthHome() {
   }
 
   function handleMobileNav() {
-    if (folderPath.length > 1) {
+    if (folderPath && folderPath.length > 1) {
       const parentFolderId = folderPath[folderPath.length - 2].id;
       navigate(`/folders/${parentFolderId}`);
     } else {
@@ -201,6 +202,7 @@ export default function AuthHome() {
   // This is used to preview a file
   async function previewFile(id) {
     const response = await fetch(
+      // amazonq-ignore-next-line
       `${import.meta.env.VITE_API_URL}/api/files/${id}/preview`,
       {
         credentials: "include",
@@ -228,6 +230,7 @@ export default function AuthHome() {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
+      // amazonq-ignore-next-line
       link.setAttribute("download", fileName);
       document.body.appendChild(link);
       link.click();

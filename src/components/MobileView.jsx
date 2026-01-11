@@ -36,7 +36,7 @@ export default function MobileView({
             </button>
           </div>
           <div>
-            <p className={styles.folderName}>{folderPath.at(-1).name}</p>
+            <p className={styles.folderName}>{folderPath?.length > 0 ? folderPath.at(-1).name : ''}</p>
           </div>
         </>
       )}
@@ -91,7 +91,7 @@ export default function MobileView({
         {filesFolders.map((fileFolder, index) => {
           return (
             <Card
-              key={index}
+              key={fileFolder.id}
               fileFolder={fileFolder}
               onFolderClick={handleFolderClick}
               onFilePreview={previewFile}
@@ -99,7 +99,7 @@ export default function MobileView({
           );
         })}
       </div>
-      <div className={styles.comtainer}>
+      <div className={styles.container}>
         <div className={styles.addContainer}>
           <input
             type="search"
@@ -109,7 +109,7 @@ export default function MobileView({
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
           />
-          <button className={styles.addButton} onClick={fileInput}>
+          <button className={styles.addButton} onClick={() => fileInput.current.click()}>
             <img className={styles.addIcon} src={addIcon} alt="Add" />
           </button>
         </div>
