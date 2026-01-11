@@ -3,8 +3,9 @@ import Card from "./Card.jsx";
 import filterIcon from "/assets/filter.svg";
 import backIcon from "/assets/back.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { useState } from "react";
+import folderIcon from '/assets/Folder.svg';
 import addIcon from "/assets/add.svg";
+
 export default function MobileView({
   className,
   fileInput,
@@ -26,7 +27,10 @@ export default function MobileView({
       {folderPath && (
         <>
           <div className={styles.backButtonContainer}>
-            <button className={styles.backButton} onClick={() => handleMobileNav()}>
+            <button
+              className={styles.backButton}
+              onClick={() => handleMobileNav()}
+            >
               <img className={styles.backIcon} src={backIcon} alt="back" />
             </button>
           </div>
@@ -94,18 +98,46 @@ export default function MobileView({
           );
         })}
       </div>
-      <div className={styles.addContainer}>
-        <input
-          type="search"
-          className={styles.search}
-          placeholder="Search your files"
-          value={searchTerm}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-        />
-        <button className={styles.addButton} onClick={fileInput}>
-          <img className={styles.addIcon} src={addIcon} alt="Add" />
-        </button>
+      <div className={styles.comtainer}>
+        <div className={styles.addContainer}>
+          <input
+            type="search"
+            className={styles.search}
+            placeholder="Search your files"
+            value={searchTerm}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+          />
+          <button className={styles.addButton} onClick={fileInput}>
+            <img className={styles.addIcon} src={addIcon} alt="Add" />
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={() => dialog.current.showModal()}
+            className={`${styles.leftNavButton} ${styles.fileUploadButton}`}
+          >
+            <img src={folderIcon} alt="Folder" className={styles.folderIcon} />
+            <p className={styles.leftNavText}>Folder</p>
+          </button>
+          <button
+            className={`${styles.leftNavButton} ${styles.fileUploadButton}`}
+            aria-label="Upload files"
+            onClick={() => fileInput.current.click()}
+          >
+            
+            <p className={styles.leftNavText}>Files Upload</p>
+          </button>
+          <input
+            type="file"
+            id="fileInput"
+            name="fileInput"
+            ref={fileInput}
+            className={styles.fileInput}
+            multiple
+            onChange={handleFileChange}
+          />
+        </div>
       </div>
     </main>
   );
