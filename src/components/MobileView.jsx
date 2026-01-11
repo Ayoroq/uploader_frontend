@@ -5,6 +5,7 @@ import backIcon from "/assets/back.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import folderIcon from '/assets/Folder.svg';
 import addIcon from "/assets/add.svg";
+import addFileIcon from '/assets/add-file.svg';
 
 export default function MobileView({
   className,
@@ -112,20 +113,20 @@ export default function MobileView({
             <img className={styles.addIcon} src={addIcon} alt="Add" />
           </button>
         </div>
-        <div>
+        <div className={styles.fileUploadContainer}>
           <button
             onClick={() => dialog.current.showModal()}
-            className={`${styles.leftNavButton} ${styles.fileUploadButton}`}
+            className={`${styles.containerButton} ${styles.fileUploadButton}`}
           >
             <img src={folderIcon} alt="Folder" className={styles.folderIcon} />
             <p className={styles.leftNavText}>Folder</p>
           </button>
           <button
-            className={`${styles.leftNavButton} ${styles.fileUploadButton}`}
+            className={`${styles.containerButton} ${styles.fileUploadButton}`}
             aria-label="Upload files"
             onClick={() => fileInput.current.click()}
           >
-            
+            <img src={addFileIcon} alt={"Add File Icon"} className={styles.fileUploadIcon} />
             <p className={styles.leftNavText}>Files Upload</p>
           </button>
           <input
