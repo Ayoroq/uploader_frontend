@@ -77,7 +77,7 @@ export default function DesktopView({
             <p>View</p>
           </div>
         </div>
-        <div className={styles.container}>
+        <div className={styles.contentContainer}>
           {loading ? (
             <div className={styles.loading}>
               <DotLottieReact

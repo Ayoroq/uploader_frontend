@@ -20,6 +20,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  min-height: 80vh;
 }
 
 .miniNav {
@@ -62,88 +63,93 @@
 }
 
 /* the nav */
-.myFilesRoot{
-    cursor: default;
-    font-weight: bold;
-    font-size: larger;
+.myFilesRoot {
+  cursor: default;
+  font-weight: bold;
+  font-size: larger;
 }
 
-.breadCrumbs{
-    display: flex;
-    align-items: center;
+.breadCrumbs {
+  display: flex;
+  align-items: center;
 }
 
-.breadCrumbsButton{
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    color: #F99F1B;
+.breadCrumbsButton {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  color: #f99f1b;
 }
 
-.breadCrumbsButton:last-child{
-    cursor: default;
-    font-weight: bold;
-    font-size: larger;
-    color: black;
+.breadCrumbsButton:last-child {
+  cursor: default;
+  font-weight: bold;
+  font-size: larger;
+  color: black;
 }
 
-.breadCrumbs span{
-    padding: 0 3px;
+.breadCrumbs span {
+  padding: 0 3px;
 }
 
-.breadCrumbsButton:hover{
-    background-color: rgb(224, 224, 224);
+.breadCrumbsButton:hover {
+  background-color: rgb(224, 224, 224);
 }
 
-.breadCrumbsButton:last-child:hover{
-    background-color: transparent;
+.breadCrumbsButton:last-child:hover {
+  background-color: transparent;
 }
 
-.filesFolders{
-    background-color: white;
-    min-height: 100vh;
+.filesFolders {
+  background-color: white;
+  min-height: 100vh;
 }
 
-.loading{
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.contentContainer{
+  background-color: white;
+  border-radius: 5px;
+  flex: 1;
+  padding: 1rem;
 }
 
-.loadingLottie{
-    max-width: 300px;
+.loading {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.emptyState{
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0.25rem;
-    text-align: center;
+.loadingLottie {
+  max-width: 300px;
 }
 
-.emptyText{
-    font-size: clamp(1rem,28px,30px);
-    font-weight: bold;
+.emptyState {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem;
+  text-align: center;
 }
 
-.emptyLottie{
-    max-width: 500px;
+.emptyText {
+  font-size: clamp(1rem, 28px, 30px);
+  font-weight: bold;
+}
+
+.emptyLottie {
+  max-width: 500px;
 }
 
 .table {
   width: 100%;
   text-align: left;
   border-collapse: collapse;
-  background-color: white;
-  border-radius: 5px;
 }
 
 .dialog:open {
@@ -192,8 +198,8 @@
 
 /* File upload dialog */
 
-.fileUploadDialog{
-    gap: 1rem;
+.fileUploadDialog {
+  gap: 1rem;
 }
 
 .fileList {
@@ -239,8 +245,8 @@
   transform: translateY(-3px);
 }
 
-.delete:hover{
-    background-color:rgb(254, 106, 106);
+.delete:hover {
+  background-color: rgb(254, 106, 106);
   transform: translateY(-3px);
 }
 
@@ -248,9 +254,8 @@
   color: red;
 }
 
-
-@media (max-width:620px) {
-  .authhome{
+@media (max-width: 620px) {
+  .authhome {
     display: none;
   }
 }
@@ -262,11 +267,11 @@
   .leftNavText {
     display: none;
   }
-  .breadCrumbs{
+  .breadCrumbs {
     flex-direction: column;
     align-items: flex-start;
   }
-  .breadCrumbs span{
+  .breadCrumbs span {
     display: none;
   }
 }

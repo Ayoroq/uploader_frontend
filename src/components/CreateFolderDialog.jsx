@@ -11,7 +11,7 @@ const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNa
         <div className={styles.dialogHeader}>
           <p>Create a folder</p>
           <button
-            onClick={() => ref.current.close()}
+            onClick={handleClose}
             className={styles.closeDialogButton}
           >
             <svg
