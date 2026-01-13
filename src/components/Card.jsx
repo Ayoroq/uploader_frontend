@@ -12,7 +12,7 @@ export default function Card({
   onFilePreview,
   onFileDownload,
   setIsMoreDialogOpen,
-  isMoreDialogOpen,
+  setContent
 }) {
   function handleClick() {
     if (fileFolder.type === "folder") {
@@ -24,6 +24,7 @@ export default function Card({
 
   function handleMoreClick() {
     setIsMoreDialogOpen(true);
+    setContent(fileFolder);
   }
 
   return (

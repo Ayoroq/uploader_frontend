@@ -26,6 +26,7 @@ export default function MobileView({
 }) {
   const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
   const moreDialogRef = useRef(null);
+  const [content, setContent] = useState(null)
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -34,6 +35,7 @@ export default function MobileView({
         !moreDialogRef.current.contains(event.target)
       ) {
         setIsMoreDialogOpen(null);
+        setContent(null);
       }
     }
 
@@ -123,8 +125,8 @@ export default function MobileView({
               fileFolder={fileFolder}
               onFolderClick={handleFolderClick}
               onFilePreview={previewFile}
-              isMoreDialogOpen={isMoreDialogOpen}
               setIsMoreDialogOpen={setIsMoreDialogOpen}
+              setMoreDialogContent={setContent}
             />
           );
         })}
@@ -178,10 +180,9 @@ export default function MobileView({
         </div>
       </div>
       <dialog className={styles.moreDialog} ref={moreDialogRef} closedby="any">
-        <p>
-          This contains information about the files and the different folders
-        </p>
-        <p>This is also a test</p>
+        {content && (<div>
+            {content.name}
+            </div>)}
       </dialog>
     </main>
   );
