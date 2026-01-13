@@ -8,6 +8,7 @@
 .logo{
     font-size: clamp(30px, 8vw, 90px);
     cursor: pointer;
+    color: #0F6CBD;
 }
 
 .navbarbuttons{
