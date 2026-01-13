@@ -127,7 +127,6 @@ export default function AuthHome() {
     if (folderId === "null") return;
     try {
       const response = await fetch(
-        // amazonq-ignore-next-line
         `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}/path`,
         {
           credentials: "include",
@@ -199,10 +198,9 @@ export default function AuthHome() {
     }
   }
 
-  // This is used to preview a file
-  async function previewFile(id) {
+  // This is used to get signed URL for a file
+  async function getSignedUrl(id) {
     const response = await fetch(
-      // amazonq-ignore-next-line
       `${import.meta.env.VITE_API_URL}/api/files/${id}/preview`,
       {
         credentials: "include",
@@ -211,14 +209,22 @@ export default function AuthHome() {
     const statusRoutes = { 401: "/login", 403: "/403", 404: "/404" };
     if (statusRoutes[response.status]) {
       navigate(statusRoutes[response.status]);
-      return;
+      return null;
     }
     const data = await response.json();
-    setPreviewData(data.url);
-    if (previewDialog.current) {
-      previewDialog.current.showModal();
-    } else {
-      console.warn("previewDialog ref is not attached to a DOM element.");
+    return data.url;
+  }
+
+  // This is used to preview a file
+  async function previewFile(id) {
+    const fileData = await getSignedUrl(id);
+    if (fileData) {
+      setPreviewData(fileData);
+      if (previewDialog.current) {
+        previewDialog.current.showModal();
+      } else {
+        console.warn("previewDialog ref is not attached to a DOM element.");
+      }
     }
   }
 
@@ -230,7 +236,6 @@ export default function AuthHome() {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      // amazonq-ignore-next-line
       link.setAttribute("download", fileName);
       document.body.appendChild(link);
       link.click();
@@ -306,6 +311,7 @@ export default function AuthHome() {
         handleInputChange={handleInputChange}
         handleKeyDown={handleKeyDown}
         handleMobileNav={handleMobileNav}
+        handleDownload={handleFileDownload}
       />
       <UploadFileDialog
         ref={fileDialog}

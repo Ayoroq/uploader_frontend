@@ -23,6 +23,7 @@ export default function MobileView({
   handleInputChange,
   handleKeyDown,
   handleMobileNav,
+  handleDownload
 }) {
   const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
   const moreDialogRef = useRef(null);
@@ -218,7 +219,7 @@ export default function MobileView({
             <div className={styles.moreDialogButtons}>
                 <button className={`${styles.shareButton} ${styles.moreDialogButton}`}>Share</button>
                 <button className={`${styles.deleteButton} ${styles.moreDialogButton}`}>Delete</button>
-                <button className={`${styles.downloadButton} ${styles.moreDialogButton}`}>Download</button>
+                <button onClick={() => handleDownload()} className={`${styles.downloadButton} ${styles.moreDialogButton}`}>Download</button>
                 <button className={`${styles.renameButton} ${styles.moreDialogButton}`}>Rename</button>
               </div>
           </div>
