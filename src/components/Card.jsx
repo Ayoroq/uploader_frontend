@@ -24,7 +24,10 @@ export default function Card({
 
   function handleMoreClick() {
     setIsMoreDialogOpen(true);
-    setContent(fileFolder);
+    const src = getFileExtension(fileFolder.name)
+    const adjustedDate = convertDate(fileFolder.updatedAt)
+    const adjustedSize = formatFileSize(fileFolder.size)
+    setContent({...fileFolder, src,adjustedDate,adjustedSize});
   }
 
   return (
@@ -44,13 +47,13 @@ export default function Card({
         <div>
           {fileFolder.name}
           <p className={styles.info}>
-            Modified <span>{convertDate(fileFolder.updatedAt)}</span>.
+            Modified <span>{convertDate(fileFolder.updatedAt)}</span> .
             {fileFolder.type === "folder" ? (
               <span>
                 {fileFolder._count.files + fileFolder._count.subfolders} items
               </span>
             ) : (
-              <span>{formatFileSize(fileFolder.size)}</span>
+              <span> {formatFileSize(fileFolder.size)}</span>
             )}
           </p>
         </div>

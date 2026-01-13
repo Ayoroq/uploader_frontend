@@ -126,7 +126,7 @@ export default function MobileView({
               onFolderClick={handleFolderClick}
               onFilePreview={previewFile}
               setIsMoreDialogOpen={setIsMoreDialogOpen}
-              setMoreDialogContent={setContent}
+              setContent={setContent}
             />
           );
         })}
@@ -180,10 +180,25 @@ export default function MobileView({
         </div>
       </div>
       <dialog className={styles.moreDialog} ref={moreDialogRef} closedby="any">
-        {content && (<div>
-            {content.name}
+        {content && (<div className={styles.moreDialogContainer}>
+            <div>
+                {content.type === "folder" ? (
+                <img src={folderIcon} className={styles.moreDialogIcon} alt="Folder icon" />
+            ) : (
+                <img src={content.src} className={styles.moreDialogIcon} alt="File Icon" />
+            )}
+            <div>
+                {content.name}
+            </div>
+            <div>
+                <p>
+                    {content.adjustedDate}{" . "}{content.type === "folder" ? `${(content._count.files + content._count.subfolders)} Items` : content.adjustedSize}
+                </p>
+            </div>
+            </div>
+            <div></div>
             </div>)}
-      </dialog>
+        </dialog>
     </main>
   );
 }
