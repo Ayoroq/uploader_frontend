@@ -176,6 +176,12 @@
   border-radius: 10px 10px 0 0;
 }
 
+/* More dialog */
+.moreDialogIcon{
+    width: 30px;
+    height: 30px;
+}
+
 @media (max-width: 620px) {
   .mobileView {
     display: flex;

@@ -195,6 +195,20 @@ export default function MobileView({
                     {content.adjustedDate}{" . "}{content.type === "folder" ? `${(content._count.files + content._count.subfolders)} Items` : content.adjustedSize}
                 </p>
             </div>
+            <div>
+                <button>
+                    Share
+                </button>
+                <button>
+                    Delete
+                </button>
+                <button>
+                    Download
+                </button>
+                <button>
+                    Rename
+                </button>
+            </div>
             </div>
             <div></div>
             </div>)}
