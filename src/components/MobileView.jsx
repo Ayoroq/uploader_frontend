@@ -3,9 +3,10 @@ import Card from "./Card.jsx";
 import filterIcon from "/assets/filter.svg";
 import backIcon from "/assets/back.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import folderIcon from '/assets/Folder.svg';
+import folderIcon from "/assets/Folder.svg";
 import addIcon from "/assets/add.svg";
-import addFileIcon from '/assets/add-file.svg';
+import addFileIcon from "/assets/add-file.svg";
+import { useRef, useState, useEffect } from "react";
 
 export default function MobileView({
   className,
@@ -23,6 +24,31 @@ export default function MobileView({
   handleKeyDown,
   handleMobileNav,
 }) {
+  const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
+  const moreDialogRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        moreDialogRef.current &&
+        !moreDialogRef.current.contains(event.target)
+      ) {
+        setIsMoreDialogOpen(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [moreDialogRef]);
+
+  useEffect(() => {
+    if (isMoreDialogOpen) {
+        moreDialogRef.current.showModal()
+    }
+  }, [isMoreDialogOpen])
+
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
       {folderPath && (
@@ -36,7 +62,9 @@ export default function MobileView({
             </button>
           </div>
           <div>
-            <p className={styles.folderName}>{folderPath?.length > 0 ? folderPath.at(-1).name : ''}</p>
+            <p className={styles.folderName}>
+              {folderPath?.length > 0 ? folderPath.at(-1).name : ""}
+            </p>
           </div>
         </>
       )}
@@ -95,6 +123,8 @@ export default function MobileView({
               fileFolder={fileFolder}
               onFolderClick={handleFolderClick}
               onFilePreview={previewFile}
+              isMoreDialogOpen={isMoreDialogOpen}
+              setIsMoreDialogOpen={setIsMoreDialogOpen}
             />
           );
         })}
@@ -109,7 +139,10 @@ export default function MobileView({
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
           />
-          <button className={styles.addButton} onClick={() => fileInput.current.click()}>
+          <button
+            className={styles.addButton}
+            onClick={() => fileInput.current.click()}
+          >
             <img className={styles.addIcon} src={addIcon} alt="Add" />
           </button>
         </div>
@@ -126,7 +159,11 @@ export default function MobileView({
             aria-label="Upload files"
             onClick={() => fileInput.current.click()}
           >
-            <img src={addFileIcon} alt={"Add File Icon"} className={styles.fileUploadIcon} />
+            <img
+              src={addFileIcon}
+              alt={"Add File Icon"}
+              className={styles.fileUploadIcon}
+            />
             <p className={styles.leftNavText}>Files Upload</p>
           </button>
           <input
@@ -140,6 +177,12 @@ export default function MobileView({
           />
         </div>
       </div>
+      <dialog className={styles.moreDialog} ref={moreDialogRef} closedby="any">
+        <p>
+          This contains information about the files and the different folders
+        </p>
+        <p>This is also a test</p>
+      </dialog>
     </main>
   );
 }
