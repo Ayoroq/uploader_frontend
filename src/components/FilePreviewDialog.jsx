@@ -19,7 +19,7 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData, onDownloa
   }, [ref, setPreviewData]);
 
 
-  const renderPreview = () => {
+  function renderPreview() {
     if (!file) return <p>No file selected</p>;
     
     if (file.mimeType.startsWith("image/")) {

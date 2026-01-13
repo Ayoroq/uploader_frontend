@@ -229,8 +229,13 @@ export default function AuthHome() {
   }
 
   // This is used to download a file
-  async function handleFileDownload(fileUrl, fileName) {
+  async function handleFileDownload(id, fileUrl=null, fileName=null) {
     try {
+      if(id && (!fileUrl || !fileName)) {
+        const signedUrl = await getSignedUrl(id);
+        fileUrl = signedUrl.url;
+        fileName = signedUrl.fileName;
+      }
       const response = await fetch(fileUrl);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -246,6 +251,7 @@ export default function AuthHome() {
       window.open(fileUrl, "_blank");
     }
   }
+
   async function handleFileUpload() {
     if (files) {
       const formData = new FormData();
