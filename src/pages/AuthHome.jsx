@@ -312,6 +312,7 @@ export default function AuthHome() {
         handleFolderClick={handleFolderClick}
         loading={loading}
         filesFolders={filesFolders}
+        setFileFolders={setFilesFolders}
         previewFile={previewFile}
         searchTerm={searchTerm}
         handleInputChange={handleInputChange}

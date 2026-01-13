@@ -6,6 +6,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import folderIcon from "/assets/Folder.svg";
 import addIcon from "/assets/add.svg";
 import addFileIcon from "/assets/add-file.svg";
+import RenameDialog from "./RenameDialog.jsx";
 import { useRef, useState, useEffect } from "react";
 
 export default function MobileView({
@@ -18,6 +19,7 @@ export default function MobileView({
   handleFolderClick,
   loading,
   filesFolders,
+  setFileFolders,
   previewFile,
   searchTerm,
   handleInputChange,
@@ -27,6 +29,7 @@ export default function MobileView({
 }) {
   const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
   const moreDialogRef = useRef(null);
+  const renameRef = useRef(null)
   const [content, setContent] = useState(null);
 
   useEffect(() => {
@@ -220,11 +223,12 @@ export default function MobileView({
                 <button className={`${styles.shareButton} ${styles.moreDialogButton}`}>Share</button>
                 <button className={`${styles.deleteButton} ${styles.moreDialogButton}`}>Delete</button>
                 <button onClick={() => handleDownload(content.id)} className={`${styles.downloadButton} ${styles.moreDialogButton}`}>Download</button>
-                <button className={`${styles.renameButton} ${styles.moreDialogButton}`}>Rename</button>
+                <button onClick={() => {moreDialogRef.current.close(); renameRef.current.showModal()}} className={`${styles.renameButton} ${styles.moreDialogButton}`}>Rename</button>
               </div>
           </div>
         )}
       </dialog>
+      <RenameDialog content={content} ref={renameRef} fileFolders={filesFolders} setFileFolders={setFileFolders} />
     </main>
   );
 }
