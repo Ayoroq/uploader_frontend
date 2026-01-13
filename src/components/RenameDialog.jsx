@@ -1,12 +1,15 @@
 import { useState, useEffect, forwardRef } from 'react'
 
 const RenameDialog = forwardRef(({ content,filesFolders, setFilesFolders }, ref) => {
-    const [newName, setNewName] = useState(content?.name || '')
+    const extension = content?.name?.split('.').pop() || '';
+    const nameWithoutExtension = content?.name?.split('.').slice(0, -1).join('.') || content?.name || '';
+    const [newName, setNewName] = useState(nameWithoutExtension)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
       if (content?.name) {
-        setNewName(content.name);
+        const nameOnly = content.name.split('.').slice(0, -1).join('.') || content.name;
+        setNewName(nameOnly);
       }
     }, [content]);
 
@@ -26,7 +29,7 @@ const RenameDialog = forwardRef(({ content,filesFolders, setFilesFolders }, ref)
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name: newName }),
+          body: JSON.stringify({ name: {} }),
         }
       );
 
@@ -34,8 +37,9 @@ const RenameDialog = forwardRef(({ content,filesFolders, setFilesFolders }, ref)
         const data = await response.json();
         
         // Update the specific item in fileFolder array
+        const finalName = extension ? `${newName}.${extension}` : newName;
         const updatedFileFolder = filesFolders.map(item => 
-          item.id === content.id ? { ...item, name: newName } : item
+          item.id === content.id ? { ...item, name: finalName } : item
         );
         setFilesFolders(updatedFileFolder);
         
