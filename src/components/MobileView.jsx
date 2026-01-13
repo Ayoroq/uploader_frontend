@@ -26,7 +26,7 @@ export default function MobileView({
 }) {
   const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
   const moreDialogRef = useRef(null);
-  const [content, setContent] = useState(null)
+  const [content, setContent] = useState(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -47,9 +47,9 @@ export default function MobileView({
 
   useEffect(() => {
     if (isMoreDialogOpen) {
-        moreDialogRef.current.showModal()
+      moreDialogRef.current.showModal();
     }
-  }, [isMoreDialogOpen])
+  }, [isMoreDialogOpen]);
 
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
@@ -131,88 +131,100 @@ export default function MobileView({
           );
         })}
       </div>
-      <div className={styles.container}>
-        <div className={styles.addContainer}>
-          <input
-            type="search"
-            className={styles.search}
-            placeholder="Search your files"
-            value={searchTerm}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-          />
-          <button
-            className={styles.addButton}
-            onClick={() => fileInput.current.click()}
-          >
-            <img className={styles.addIcon} src={addIcon} alt="Add" />
-          </button>
-        </div>
-        <div className={styles.fileUploadContainer}>
-          <button
-            onClick={() => dialog.current.showModal()}
-            className={`${styles.containerButton} ${styles.fileUploadButton}`}
-          >
-            <img src={folderIcon} alt="Folder" className={styles.folderIcon} />
-            <p className={styles.leftNavText}>Folder</p>
-          </button>
-          <button
-            className={`${styles.containerButton} ${styles.fileUploadButton}`}
-            aria-label="Upload files"
-            onClick={() => fileInput.current.click()}
-          >
-            <img
-              src={addFileIcon}
-              alt={"Add File Icon"}
-              className={styles.fileUploadIcon}
-            />
-            <p className={styles.leftNavText}>Files Upload</p>
-          </button>
-          <input
-            type="file"
-            id="fileInput"
-            name="fileInput"
-            ref={fileInput}
-            className={styles.fileInput}
-            multiple
-            onChange={handleFileChange}
-          />
-        </div>
+      <div className={styles.addContainer}>
+        <input
+          type="search"
+          className={styles.search}
+          placeholder="Search your files"
+          value={searchTerm}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+        />
+        <button
+          className={styles.addButton}
+          onClick={() => fileInput.current.click()}
+        >
+          <img className={styles.addIcon} src={addIcon} alt="Add" />
+        </button>
       </div>
+      <dialog>
+        <div className={styles.container}>
+          <div className={styles.fileUploadContainer}>
+            <button
+              onClick={() => dialog.current.showModal()}
+              className={`${styles.containerButton} ${styles.fileUploadButton}`}
+            >
+              <img
+                src={folderIcon}
+                alt="Folder"
+                className={styles.folderIcon}
+              />
+              <p className={styles.leftNavText}>Folder</p>
+            </button>
+            <button
+              className={`${styles.containerButton} ${styles.fileUploadButton}`}
+              aria-label="Upload files"
+              onClick={() => fileInput.current.click()}
+            >
+              <img
+                src={addFileIcon}
+                alt={"Add File Icon"}
+                className={styles.fileUploadIcon}
+              />
+              <p className={styles.leftNavText}>Files Upload</p>
+            </button>
+            <input
+              type="file"
+              id="fileInput"
+              name="fileInput"
+              ref={fileInput}
+              className={styles.fileInput}
+              multiple
+              onChange={handleFileChange}
+            />
+          </div>
+        </div>
+      </dialog>
       <dialog className={styles.moreDialog} ref={moreDialogRef} closedby="any">
-        {content && (<div className={styles.moreDialogContainer}>
+        {content && (
+          <div className={styles.moreDialogContainer}>
             <div>
-                {content.type === "folder" ? (
-                <img src={folderIcon} className={styles.moreDialogIcon} alt="Folder icon" />
-            ) : (
-                <img src={content.src} className={styles.moreDialogIcon} alt="File Icon" />
-            )}
-            <div>
-                {content.name}
-            </div>
-            <div>
+              {content.type === "folder" ? (
+                <img
+                  src={folderIcon}
+                  className={styles.moreDialogIcon}
+                  alt="Folder icon"
+                />
+              ) : (
+                <img
+                  src={content.src}
+                  className={styles.moreDialogIcon}
+                  alt="File Icon"
+                />
+              )}
+              <div>{content.name}</div>
+              <div>
                 <p>
-                    {content.adjustedDate}{" . "}{content.type === "folder" ? `${(content._count.files + content._count.subfolders)} Items` : content.adjustedSize}
+                  {content.adjustedDate}
+                  {" . "}
+                  {content.type === "folder"
+                    ? `${
+                        content._count.files + content._count.subfolders
+                      } Items`
+                    : content.adjustedSize}
                 </p>
-            </div>
-            <div>
-                <button>
-                    Share
-                </button>
-                <button>
-                    Delete
-                </button>
-                <button>
-                    Download
-                </button>
-                <button>
-                    Rename
-                </button>
-            </div>
+              </div>
+              <div>
+                <button>Share</button>
+                <button>Delete</button>
+                <button>Download</button>
+                <button>Rename</button>
+              </div>
             </div>
             <div></div>
-            </div>)}
-        </dialog>
+          </div>
+        )}
+      </dialog>
     </main>
   );
 }
