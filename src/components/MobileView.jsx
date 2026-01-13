@@ -188,7 +188,7 @@ export default function MobileView({
       <dialog className={styles.moreDialog} ref={moreDialogRef} closedby="any">
         {content && (
           <div className={styles.moreDialogContainer}>
-            <div>
+            <div className={styles.moreDialogHeader}>
               {content.type === "folder" ? (
                 <img
                   src={folderIcon}
@@ -214,14 +214,13 @@ export default function MobileView({
                     : content.adjustedSize}
                 </p>
               </div>
-              <div>
-                <button>Share</button>
-                <button>Delete</button>
-                <button>Download</button>
-                <button>Rename</button>
-              </div>
             </div>
-            <div></div>
+            <div className={styles.moreDialogButtons}>
+                <button className={`${styles.shareButton} ${styles.moreDialogButton}`}>Share</button>
+                <button className={`${styles.deleteButton} ${styles.moreDialogButton}`}>Delete</button>
+                <button className={`${styles.downloadButton} ${styles.moreDialogButton}`}>Download</button>
+                <button className={`${styles.renameButton} ${styles.moreDialogButton}`}>Rename</button>
+              </div>
           </div>
         )}
       </dialog>
