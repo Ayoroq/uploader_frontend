@@ -232,9 +232,9 @@ export default function AuthHome() {
   async function handleFileDownload(id, fileUrl=null, fileName=null) {
     try {
       if(id && (!fileUrl || !fileName)) {
-        const signedUrl = await getSignedUrl(id);
-        fileUrl = signedUrl.url;
-        fileName = signedUrl.fileName;
+        const response = await getSignedUrl(id);
+        fileUrl = response.signedUrl;
+        fileName = response.name;
       }
       const response = await fetch(fileUrl);
       const blob = await response.blob();

@@ -83,7 +83,7 @@ const FilePreviewDialog = forwardRef(({ file, onClose, setPreviewData, onDownloa
     <dialog ref={ref} className={styles.previewDialog} closedby="any">
       <header className={styles.header}>
         <div className={styles.iconContainer}>
-            <img onClick={() => onDownload(file.signedUrl, file.name)} className={`${styles.icon} ${styles.downloadIcon}`} src={downloadIcon} alt="Download File Icon" />
+            <img onClick={() => onDownload(null,file.signedUrl, file.name)} className={`${styles.icon} ${styles.downloadIcon}`} src={downloadIcon} alt="Download File Icon" />
             <img className={`${styles.icon} ${styles.deleteIcon}`} src={deleteIcon} alt="Delete File Icon" />
         </div>
         <div className={styles.title}>
