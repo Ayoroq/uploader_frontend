@@ -173,7 +173,7 @@ export default function AuthHome() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          folderName: folderName,
+          name: folderName,
           parentFolderId: folderId,
         }),
         credentials: "include",

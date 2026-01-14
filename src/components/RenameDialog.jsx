@@ -36,7 +36,6 @@ const RenameDialog = forwardRef(
     }, [ref]);
 
     async function handleRename() {
-      console.log("content:", content);
       if (!content?.id || !newName.trim()) return;
 
       setLoading(true);
@@ -48,7 +47,7 @@ const RenameDialog = forwardRef(
           : newName;
       const url =
         content?.type === "folder"
-          ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${content.id}`
+          ? `${import.meta.env.VITE_API_URL}/api/folders/update/folder/${content.id}`
           : `${import.meta.env.VITE_API_URL}/api/files/${content.id}`;
 
       const response = await fetch(url, {
