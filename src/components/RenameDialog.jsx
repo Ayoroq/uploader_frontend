@@ -3,10 +3,7 @@ import { useNavigate } from "react-router";
 
 const RenameDialog = forwardRef(
   ({ content, filesFolders, setFilesFolders }, ref) => {
-    const extension = content?.name?.split(".").pop() || "";
-    const nameWithoutExtension =
-      content?.name?.split(".").slice(0, -1).join(".") || content?.name || "";
-    const [newName, setNewName] = useState(nameWithoutExtension);
+    const [newName, setNewName] = useState("");
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
@@ -23,12 +20,32 @@ const RenameDialog = forwardRef(
       setNewName(e.target.value);
     };
 
+    useEffect(() => {
+      const dialogElement = ref.current;
+      
+      function handleClose() {
+        setLoading(false);
+        setErrors({});
+        setNewName("");
+      }
+      
+      if (dialogElement) {
+        dialogElement.addEventListener("close", handleClose);
+        return () => dialogElement.removeEventListener("close", handleClose);
+      }
+    }, [ref]);
+
     async function handleRename() {
-      if (!newName.trim()) return;
+      console.log("content:", content);
+      if (!content?.id || !newName.trim()) return;
 
       setLoading(true);
 
-      const finalName = extension ? `${newName}.${extension}` : newName;
+      const extension = content.name?.split(".").pop() || "";
+      const finalName =
+        extension && content.name.includes(".")
+          ? `${newName}.${extension}`
+          : newName;
       const url =
         content?.type === "folder"
           ? `${import.meta.env.VITE_API_URL}/api/folders/folder/${content.id}`
@@ -56,8 +73,9 @@ const RenameDialog = forwardRef(
       }
       if (response.status === 401) navigate("/login");
       if (response.status === 403) navigate("/403");
-      if(!response.ok){
-        setErrors(await response.json())
+      if (!response.ok) {
+        const data = await response.json();
+        setErrors(data.message);
       }
       setLoading(false);
     }

@@ -39,7 +39,6 @@ export default function MobileView({
         !moreDialogRef.current.contains(event.target)
       ) {
         setIsMoreDialogOpen(null);
-        setContent(null);
       }
     }
 
@@ -228,7 +227,7 @@ export default function MobileView({
           </div>
         )}
       </dialog>
-      <RenameDialog content={content} ref={renameRef} fileFolders={filesFolders} setFileFolders={setFileFolders} />
+      <RenameDialog content={content} ref={renameRef} filesFolders={filesFolders} setFilesFolders={setFileFolders} />
     </main>
   );
 }
