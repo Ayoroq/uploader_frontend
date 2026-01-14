@@ -21,6 +21,7 @@ export default function AuthHome() {
   const [folderName, setFolderName] = useState("");
   const [folderPath, setFolderPath] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [deleteLoading,setDeleteLoading] = useState(true)
   const [previewData, setPreviewData] = useState(null);
 
   // This is for when trying to upload files
@@ -255,7 +256,7 @@ export default function AuthHome() {
   async function handleFileFolderDelete(fileFolder){
     try {
       if(!fileFolder?.id) return;
-      setLoading(true);
+      setDeleteLoading(true);
       const url =
         fileFolder?.type === "folder"
           ? `${import.meta.env.VITE_API_URL}/api/folders/delete/folder/${
@@ -281,10 +282,10 @@ export default function AuthHome() {
       if (!response.ok) {
         const data = await response.json();
       }
-      setLoading(false);
+      setDeleteLoading(false);
     } catch (error) {
       console.error(error);
-      setLoading(false);
+      setDeleteLoading(false);
     }
   }
 
