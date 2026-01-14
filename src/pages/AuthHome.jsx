@@ -252,6 +252,42 @@ export default function AuthHome() {
     }
   }
 
+  async function handleFileFolderDelete(fileFolder){
+    try {
+      if(!fileFolder?.id) return;
+      setLoading(true);
+      const url =
+        fileFolder?.type === "folder"
+          ? `${import.meta.env.VITE_API_URL}/api/folders/delete/folder/${
+              fileFolder.id
+            }`
+          : `${import.meta.env.VITE_API_URL}/api/files/${fileFolder.id}`;
+      const response = await fetch(url, {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const updatedFileFolder = filesFolders.filter(
+          (item) => item.id !== fileFolder.id
+        );
+        setFilesFolders(updatedFileFolder);
+      }
+      if (response.status === 401) navigate("/login");
+      if (response.status === 403) navigate("/403");
+      if (!response.ok) {
+        const data = await response.json();
+      }
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  }
+
   async function handleFileUpload() {
     if (files) {
       const formData = new FormData();
@@ -319,6 +355,7 @@ export default function AuthHome() {
         handleKeyDown={handleKeyDown}
         handleMobileNav={handleMobileNav}
         handleDownload={handleFileDownload}
+        handleDelete={handleFileFolderDelete}
       />
       <UploadFileDialog
         ref={fileDialog}

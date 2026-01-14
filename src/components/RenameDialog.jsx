@@ -22,13 +22,13 @@ const RenameDialog = forwardRef(
 
     useEffect(() => {
       const dialogElement = ref.current;
-      
+
       function handleClose() {
         setLoading(false);
         setErrors({});
         setNewName("");
       }
-      
+
       if (dialogElement) {
         dialogElement.addEventListener("close", handleClose);
         return () => dialogElement.removeEventListener("close", handleClose);
@@ -47,7 +47,9 @@ const RenameDialog = forwardRef(
           : newName;
       const url =
         content?.type === "folder"
-          ? `${import.meta.env.VITE_API_URL}/api/folders/update/folder/${content.id}`
+          ? `${import.meta.env.VITE_API_URL}/api/folders/update/folder/${
+              content.id
+            }`
           : `${import.meta.env.VITE_API_URL}/api/files/${content.id}`;
 
       const response = await fetch(url, {

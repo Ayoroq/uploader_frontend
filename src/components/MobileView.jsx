@@ -25,7 +25,8 @@ export default function MobileView({
   handleInputChange,
   handleKeyDown,
   handleMobileNav,
-  handleDownload
+  handleDownload,
+  handleDelete
 }) {
   const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
   const moreDialogRef = useRef(null);
@@ -220,8 +221,8 @@ export default function MobileView({
             </div>
             <div className={styles.moreDialogButtons}>
                 <button className={`${styles.shareButton} ${styles.moreDialogButton}`}>Share</button>
-                <button className={`${styles.deleteButton} ${styles.moreDialogButton}`}>Delete</button>
-                <button onClick={() => handleDownload(content.id)} className={`${styles.downloadButton} ${styles.moreDialogButton}`}>Download</button>
+                <button onClick={() => {handleDelete(content); moreDialogRef.current.close()}} className={`${styles.deleteButton} ${styles.moreDialogButton}`}>Delete</button>
+                <button onClick={() => {handleDownload(content.id); moreDialogRef.current.close()}} className={`${styles.downloadButton} ${styles.moreDialogButton}`}>Download</button>
                 <button onClick={() => {moreDialogRef.current.close(); renameRef.current.showModal()}} className={`${styles.renameButton} ${styles.moreDialogButton}`}>Rename</button>
               </div>
           </div>
