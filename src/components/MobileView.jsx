@@ -277,7 +277,7 @@ function toggleDropdown(){
               >
                 Delete
               </button>
-              <button
+              {content.type === 'file' && ( <button
                 onClick={async () => {
                   try {
                     await handleDownload(content.id);
@@ -289,7 +289,7 @@ function toggleDropdown(){
                 className={`${styles.downloadButton} ${styles.moreDialogButton}`}
               >
                 Download
-              </button>
+              </button>)}
               <button
                 onClick={() => {
                   moreDialogRef.current.close();

@@ -51,7 +51,7 @@ export default function FileTableRow({ item, onFolderClick, onFilePreview, onRen
               <button onClick={() => { onShare(item.id); setShowMenu(false); }}>Share</button>
             )}
             <button onClick={() => { onRename(item); setShowMenu(false); }}>Rename</button>
-            <button onClick={() => { onDownload(item.id); setShowMenu(false); }}>Download</button>
+            {item.type === "folder" ? null : <button onClick={() => { onDownload(item.id); setShowMenu(false); }}>Download</button>}
             <button onClick={() => { onDelete(item); setShowMenu(false); }}>Delete</button>
           </div>
         )}
