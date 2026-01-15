@@ -7,7 +7,7 @@ import folderIcon from "/assets/Folder.svg";
 import addIcon from "/assets/add.svg";
 import addFileIcon from "/assets/add-file.svg";
 import RenameDialog from "./RenameDialog.jsx";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, use } from "react";
 
 export default function MobileView({
   className,
@@ -34,6 +34,8 @@ export default function MobileView({
   const renameRef = useRef(null);
   const addItemRef = useRef(null)
   const [content, setContent] = useState(null);
+  const [isDropDownOpen,setIsDropDownOpen] = useState(false)
+  const dropDownRef = useRef(null)
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -69,6 +71,37 @@ export default function MobileView({
     }
   }
 
+  function toggleDropdown(){
+    if(isDropDownOpen){
+      setIsDropDownOpen(false)
+      dropDownRef.current.style.display = 'none'
+    }else{
+      setIsDropDownOpen(true)
+      dropDownRef.current.style.display = 'flex'
+    }
+  }
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        dropDownRef.current &&
+        !dropDownRef.current.contains(event.target) &&
+        !event.target.closest(`.${styles.name}`)
+      ) {
+        setIsDropDownOpen(false);
+        dropDownRef.current.style.display = 'none'
+      }
+    }
+
+    if (isDropDownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropDownOpen]);
+
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
       {folderPath && (
@@ -99,28 +132,15 @@ export default function MobileView({
         </div>
       ) : filesFolders.length > 0 ? (
         <nav className={styles.nav}>
-          <div>
-            <button className={styles.name}>Name</button>
-            <div className={styles.dropDown}>
+          <div className={styles.sortContainer}>
+            <button onClick={toggleDropdown} className={styles.name}>Name</button>
+            <div className={styles.dropDown} ref={dropDownRef}>
               <button className={styles.sort}>File Size</button>
               <button className={styles.sort}>Date Modified</button>
               <button className={styles.sort}>Date Created</button>
               <hr />
-              <button className={styles.sort}>A - Z</button>
-              <button className={styles.sort}> Z - A</button>
-            </div>
-          </div>
-          <div>
-            <button className={styles.filter}>
-              <img
-                className={styles.filterIcon}
-                src={filterIcon}
-                alt="filter"
-              />
-            </button>
-            <div className={styles.dropDown}>
-              <button>Grid</button>
-              <button>Table</button>
+              <button className={styles.sort}>ASC - DESC</button>
+              <button className={styles.sort}> DESC - ASC</button>
             </div>
           </div>
         </nav>

@@ -13,6 +13,25 @@
   justify-content: space-between;
 }
 
+.sortContainer{
+  position: relative
+}
+
+.dropDown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  width: max-content;
+  top: 150%;
+}
+
+.dropDown button{
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+
+}
+
 .name {
   background-color: transparent;
   border: none;
@@ -41,10 +60,6 @@
 
 .filterIcon:hover {
   transform: scale(1.1);
-}
-
-.dropDown {
-  display: none;
 }
 
 .cards {
