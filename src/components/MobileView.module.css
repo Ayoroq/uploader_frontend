@@ -81,6 +81,16 @@
   font-size: 2rem;
 }
 
+.loading{
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingLottie{width: 50px;
+height: 50px;}
+
 .mobileEmptyState {
   height: 80vh;
   display: flex;
@@ -100,13 +110,14 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  position: absolute;
-  bottom: 20px;
+  position: sticky;
   width: 100%;
+  bottom: 50px;
 }
 
 .addButton {
   display: flex;
+  justify-self: end;
   justify-content: center;
   align-items: center;
   width: 50px;
@@ -131,11 +142,13 @@
 }
 
 .search {
+  /* display: none; */
   flex: 1;
   padding: 0 15px;
   height: 50px;
   max-width: 400px;
   border-radius: 20px;
+  border: 1px solid black;
 }
 
 /* The add folder/file */

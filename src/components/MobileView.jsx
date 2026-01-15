@@ -135,7 +135,7 @@ export default function MobileView({
         </div>
       )}
       <div className={styles.cards}>
-        {filesFolders.map((fileFolder, index) => {
+        {filesFolders.map((fileFolder) => {
           return (
             <Card
               key={fileFolder.id}
