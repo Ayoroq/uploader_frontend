@@ -1,13 +1,14 @@
 import styles from "./MobileView.module.css";
 import Card from "./Card.jsx";
-import filterIcon from "/assets/filter.svg";
 import backIcon from "/assets/back.svg";
+import asc from "/assets/asc.svg";
+import desc from "/assets/desc.svg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import folderIcon from "/assets/Folder.svg";
 import addIcon from "/assets/add.svg";
 import addFileIcon from "/assets/add-file.svg";
 import RenameDialog from "./RenameDialog.jsx";
-import { useRef, useState, useEffect, use } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function MobileView({
   className,
@@ -36,6 +37,7 @@ export default function MobileView({
   const [content, setContent] = useState(null);
   const [isDropDownOpen,setIsDropDownOpen] = useState(false)
   const dropDownRef = useRef(null)
+  const [sortDirection, setSortDirection] = useState('asc')
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -133,7 +135,14 @@ export default function MobileView({
       ) : filesFolders.length > 0 ? (
         <nav className={styles.nav}>
           <div className={styles.sortContainer}>
-            <button onClick={toggleDropdown} className={styles.name}>Name</button>
+            <button onClick={toggleDropdown} className={styles.sortButton}>
+              {sortDirection === 'asc' ? (
+                <img src={asc} className={styles.sortIcon} alt="Ascending" />
+              ) : (
+                <img src={desc} className={styles.sortIcon} alt="Descending" />
+              )}
+              Name
+              </button>
             <div className={styles.dropDown} ref={dropDownRef}>
               <button className={styles.sort}>File Size</button>
               <button className={styles.sort}>Date Modified</button>

@@ -32,7 +32,10 @@
 
 }
 
-.name {
+.sortButton {
+  display: flex;
+  align-items: center;
+  gap: 2px;
   background-color: transparent;
   border: none;
   border-radius: 5px;
@@ -41,7 +44,11 @@
   padding: 0.1rem 0.12rem;
 }
 
-.name:hover {
+.sortIcon{
+  height: 15px;
+}
+
+.sortButton:hover {
   background-color: #d1d1d1;
 }
 
