@@ -167,6 +167,7 @@ height: 50px;}
 
 .containerButton {
   display: flex;
+  flex-direction: column;
   align-items: center;
   border: none;
   gap: 0.5rem;
@@ -176,18 +177,23 @@ height: 50px;}
   padding: 0.75rem 1rem;
   border-radius: 10px;
   transition: background-color 0.3s ease;
+  width: 120px;
 }
 
 .containerButton:hover {
-  background-color: white;
+  background-color: #E0E0E0;
 }
 
 .fileUploadContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px;
-  border-radius: 10px 10px 0 0;
+  height: 150px;
+}
+
+.addItemDialog{
+  border-radius: 20px;
+  border: none;
 }
 
 /* More dialog */

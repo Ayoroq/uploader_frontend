@@ -166,7 +166,6 @@ export default function MobileView({
         </button>
       </div>
       <dialog className={styles.addItemDialog} ref={addItemRef} closedby="any">
-        <div className={styles.container}>
           <div className={styles.fileUploadContainer}>
             <button
               onClick={() => dialog.current.showModal()}
@@ -201,7 +200,6 @@ export default function MobileView({
               onChange={handleFileChange}
             />
           </div>
-        </div>
       </dialog>
       <dialog className={styles.moreDialog} ref={moreDialogRef} closedby="any">
         {content && (
