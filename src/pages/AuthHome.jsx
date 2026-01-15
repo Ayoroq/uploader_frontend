@@ -353,6 +353,9 @@ export default function AuthHome() {
         loading={loading}
         filesFolders={filesFolders}
         previewFile={previewFile}
+        handleDownload={handleFileDownload}
+        handleDelete={handleFileFolderDelete}
+        handleShare={handleShare}
       />
       <MobileView
         className={styles.mobileView}

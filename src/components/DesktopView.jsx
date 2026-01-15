@@ -13,7 +13,11 @@ export default function DesktopView({
   handleFolderClick,
   loading,
   filesFolders,
-  previewFile
+  previewFile,
+  handleDownload,
+  handleShare,
+  handleDelete,
+  handleRename,
 }) {
   return (
     <main className={styles.authhome}>
@@ -104,6 +108,10 @@ export default function DesktopView({
                     item={item}
                     onFolderClick={handleFolderClick}
                     onFilePreview={previewFile}
+                    onDownload={handleDownload}
+                    onShare={handleShare}
+                    onRename={handleRename}
+                    onDelete={handleDelete}
                   />
                 ))}
               </tbody>
