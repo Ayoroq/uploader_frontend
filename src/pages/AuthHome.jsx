@@ -357,6 +357,7 @@ export default function AuthHome() {
         handleMobileNav={handleMobileNav}
         handleDownload={handleFileDownload}
         handleDelete={handleFileFolderDelete}
+        getSignedUrl={getSignedUrl}
       />
       <UploadFileDialog
         ref={fileDialog}

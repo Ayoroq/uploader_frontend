@@ -26,11 +26,12 @@ export default function MobileView({
   handleKeyDown,
   handleMobileNav,
   handleDownload,
-  handleDelete
+  handleDelete,
+  getSignedUrl,
 }) {
   const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
   const moreDialogRef = useRef(null);
-  const renameRef = useRef(null)
+  const renameRef = useRef(null);
   const [content, setContent] = useState(null);
 
   useEffect(() => {
@@ -54,6 +55,18 @@ export default function MobileView({
       moreDialogRef.current.showModal();
     }
   }, [isMoreDialogOpen]);
+
+  async function handleShare(id) {
+    try {
+      const data = await getSignedUrl(id);
+      const signedUrl = data.signedUrl;
+      navigator.clipboard.writeText(signedUrl);
+      alert("Link copied to clipboard");
+    } catch (error) {
+      console.error("Failed to copy link: ", error);
+      alert("Failed to copy link");
+    }
+  }
 
   return (
     <main className={`${styles.mobileView} ${className || ""}`}>
@@ -220,15 +233,54 @@ export default function MobileView({
               </div>
             </div>
             <div className={styles.moreDialogButtons}>
-                {content.type === 'file' && <button className={`${styles.shareButton} ${styles.moreDialogButton}`}>Share</button>}
-                <button onClick={() => {handleDelete(content); moreDialogRef.current.close()}} className={`${styles.deleteButton} ${styles.moreDialogButton}`}>Delete</button>
-                <button onClick={() => {handleDownload(content.id); moreDialogRef.current.close()}} className={`${styles.downloadButton} ${styles.moreDialogButton}`}>Download</button>
-                <button onClick={() => {moreDialogRef.current.close(); renameRef.current.showModal()}} className={`${styles.renameButton} ${styles.moreDialogButton}`}>Rename</button>
-              </div>
+              {content.type === "file" && (
+                <button
+                  onClick={() => {
+                    handleShare(content.id);
+                    moreDialogRef.current.close();
+                  }}
+                  className={`${styles.shareButton} ${styles.moreDialogButton}`}
+                >
+                  Share
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  handleDelete(content);
+                  moreDialogRef.current.close();
+                }}
+                className={`${styles.deleteButton} ${styles.moreDialogButton}`}
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => {
+                  handleDownload(content.id);
+                  moreDialogRef.current.close();
+                }}
+                className={`${styles.downloadButton} ${styles.moreDialogButton}`}
+              >
+                Download
+              </button>
+              <button
+                onClick={() => {
+                  moreDialogRef.current.close();
+                  renameRef.current.showModal();
+                }}
+                className={`${styles.renameButton} ${styles.moreDialogButton}`}
+              >
+                Rename
+              </button>
+            </div>
           </div>
         )}
       </dialog>
-      <RenameDialog content={content} ref={renameRef} filesFolders={filesFolders} setFilesFolders={setFileFolders} />
+      <RenameDialog
+        content={content}
+        ref={renameRef}
+        filesFolders={filesFolders}
+        setFilesFolders={setFileFolders}
+      />
     </main>
   );
 }
