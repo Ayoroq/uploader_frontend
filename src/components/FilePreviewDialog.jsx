@@ -33,7 +33,7 @@ const FilePreviewDialog = forwardRef(
 
     async function handleDelete() {
       try {
-        await onDelete(file.id);
+        await onDelete(file);
         // Close the dialog after deleting
         if (ref.current) {
           ref.current.close();
