@@ -235,9 +235,13 @@ export default function MobileView({
             <div className={styles.moreDialogButtons}>
               {content.type === "file" && (
                 <button
-                  onClick={() => {
-                    handleShare(content.id);
-                    moreDialogRef.current.close();
+                  onClick={async () => {
+                    try {
+                      await handleShare(content.id);
+                      moreDialogRef.current.close();
+                    } catch (error) {
+                      console.error("Share failed:", error);
+                    }
                   }}
                   className={`${styles.shareButton} ${styles.moreDialogButton}`}
                 >
@@ -245,18 +249,26 @@ export default function MobileView({
                 </button>
               )}
               <button
-                onClick={() => {
-                  handleDelete(content);
-                  moreDialogRef.current.close();
+                onClick={async () => {
+                  try {
+                    await handleDelete(content);
+                    moreDialogRef.current.close();
+                  } catch (error) {
+                    console.error("Delete failed:", error);
+                  }
                 }}
                 className={`${styles.deleteButton} ${styles.moreDialogButton}`}
               >
                 Delete
               </button>
               <button
-                onClick={() => {
-                  handleDownload(content.id);
-                  moreDialogRef.current.close();
+                onClick={async () => {
+                  try {
+                    await handleDownload(content.id);
+                    moreDialogRef.current.close();
+                  } catch (error) {
+                    console.error("Download failed:", error);
+                  }
                 }}
                 className={`${styles.downloadButton} ${styles.moreDialogButton}`}
               >
