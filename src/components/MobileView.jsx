@@ -32,6 +32,7 @@ export default function MobileView({
   const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
   const moreDialogRef = useRef(null);
   const renameRef = useRef(null);
+  const addItemRef = useRef(null)
   const [content, setContent] = useState(null);
 
   useEffect(() => {
@@ -159,12 +160,12 @@ export default function MobileView({
         />
         <button
           className={styles.addButton}
-          onClick={() => fileInput.current.click()}
+          onClick={() => (addItemRef.current.showModal())}
         >
           <img className={styles.addIcon} src={addIcon} alt="Add" />
         </button>
       </div>
-      <dialog>
+      <dialog className={styles.addItemDialog} ref={addItemRef} closedby="any">
         <div className={styles.container}>
           <div className={styles.fileUploadContainer}>
             <button
