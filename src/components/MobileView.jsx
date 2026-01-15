@@ -28,7 +28,7 @@ export default function MobileView({
   handleMobileNav,
   handleDownload,
   handleDelete,
-  getSignedUrl,
+  handleShare,
 }) {
   const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
   const moreDialogRef = useRef(null);
@@ -61,19 +61,7 @@ export default function MobileView({
     }
   }, [isMoreDialogOpen]);
 
-  async function handleShare(id) {
-    try {
-      const data = await getSignedUrl(id);
-      const signedUrl = data.signedUrl;
-      navigator.clipboard.writeText(signedUrl);
-      alert("Link copied to clipboard");
-    } catch (error) {
-      console.error("Failed to copy link: ", error);
-      alert("Failed to copy link");
-    }
-  }
-
-  function toggleDropdown(){
+function toggleDropdown(){
     if(isDropDownOpen){
       setIsDropDownOpen(false)
       dropDownRef.current.style.display = 'none'

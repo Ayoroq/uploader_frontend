@@ -216,6 +216,21 @@ export default function AuthHome() {
     return data.url;
   }
 
+  // This is used to share a file
+  async function handleShare(id) {
+    try {
+      const data = await getSignedUrl(id);
+      if (data) {
+        const signedUrl = data.signedUrl;
+        await navigator.clipboard.writeText(signedUrl);
+        alert("Link copied to clipboard");
+      }
+    } catch (error) {
+      console.error("Failed to copy link: ", error);
+      alert("Failed to copy link");
+    }
+  }
+
   // This is used to preview a file
   async function previewFile(id) {
     const fileData = await getSignedUrl(id);
@@ -357,7 +372,7 @@ export default function AuthHome() {
         handleMobileNav={handleMobileNav}
         handleDownload={handleFileDownload}
         handleDelete={handleFileFolderDelete}
-        getSignedUrl={getSignedUrl}
+        handleShare={handleShare}
       />
       <UploadFileDialog
         ref={fileDialog}
@@ -379,6 +394,8 @@ export default function AuthHome() {
         onClose={() => previewDialog.current.close()}
         setPreviewData={setPreviewData}
         onDownload={handleFileDownload}
+        onDelete={handleFileFolderDelete}
+        onShare={handleShare}
       />
     </>
   );
