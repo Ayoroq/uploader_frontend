@@ -32,6 +32,17 @@ transition: background-color 0.3s ease;
     gap: 0.5rem;
 }
 
+.more {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+.moreIcon{
+    width: 30px;
+    height: 30px;
+}
+
 /* The items */
 .folder,.file{
     cursor: pointer;

@@ -94,6 +94,7 @@ export default function DesktopView({
                   <th>Name</th>
                   <th>Modified</th>
                   <th>File Size</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
