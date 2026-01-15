@@ -220,7 +220,7 @@ export default function MobileView({
               </div>
             </div>
             <div className={styles.moreDialogButtons}>
-                <button className={`${styles.shareButton} ${styles.moreDialogButton}`}>Share</button>
+                {content.type === 'file' && <button className={`${styles.shareButton} ${styles.moreDialogButton}`}>Share</button>}
                 <button onClick={() => {handleDelete(content); moreDialogRef.current.close()}} className={`${styles.deleteButton} ${styles.moreDialogButton}`}>Delete</button>
                 <button onClick={() => {handleDownload(content.id); moreDialogRef.current.close()}} className={`${styles.downloadButton} ${styles.moreDialogButton}`}>Download</button>
                 <button onClick={() => {moreDialogRef.current.close(); renameRef.current.showModal()}} className={`${styles.renameButton} ${styles.moreDialogButton}`}>Rename</button>

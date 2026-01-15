@@ -208,6 +208,10 @@
   gap: 1rem;
 }
 
+.moreDialogButton:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .moreDialogButton {
   cursor: pointer;
   border: none;
