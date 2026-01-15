@@ -1,5 +1,6 @@
 import { useState, useEffect, forwardRef } from "react";
 import { useNavigate } from "react-router";
+import styles from "./RenameDialog.module.css";
 
 const RenameDialog = forwardRef(
   ({ content, filesFolders, setFilesFolders }, ref) => {
@@ -82,9 +83,9 @@ const RenameDialog = forwardRef(
     }
 
     return (
-      <dialog ref={ref} closedby="any">
-        <div>
-          <h1>Rename</h1>
+      <dialog ref={ref} closedby="any" className={styles.renameDialog}>
+        <div className={styles.title}>
+          <p>Rename</p>
         </div>
         <div>
           <input
@@ -95,9 +96,9 @@ const RenameDialog = forwardRef(
             autoFocus
           />
         </div>
-        <div>
-          <button onClick={() => ref.current?.close()}>Cancel</button>
-          <button onClick={handleRename} disabled={loading}>
+        <div className={styles.buttons}>
+          <button className={`${styles.cancel} ${styles.button}`} onClick={() => ref.current?.close()}>Cancel</button>
+          <button className={`${styles.confirm} ${styles.button}`} onClick={handleRename} disabled={loading}>
             {loading ? "Renaming..." : "Confirm"}
           </button>
         </div>

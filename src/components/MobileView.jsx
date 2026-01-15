@@ -168,7 +168,7 @@ export default function MobileView({
       <dialog className={styles.addItemDialog} ref={addItemRef} closedby="any">
           <div className={styles.fileUploadContainer}>
             <button
-              onClick={() => dialog.current.showModal()}
+              onClick={() => {addItemRef.current.close();dialog.current.showModal()}}
               className={`${styles.containerButton} ${styles.fileUploadButton}`}
             >
               <img
@@ -181,7 +181,7 @@ export default function MobileView({
             <button
               className={`${styles.containerButton} ${styles.fileUploadButton}`}
               aria-label="Upload files"
-              onClick={() => fileInput.current.click()}
+              onClick={() => {fileInput.current.click();addItemRef.current.close();}}
             >
               <img
                 src={addFileIcon}
