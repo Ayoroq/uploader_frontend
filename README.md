@@ -6,24 +6,27 @@ A modern, responsive cloud storage application built with React that allows user
 
 - **Authentication System** - Secure login and signup with session management
 - **Folder Management** - Create nested folders and navigate through directory structures
-- **File Upload** - Multi-file upload
-- **File Preview** - In-app preview for various file types
+- **File Upload** - Multi-file upload with drag-and-drop support
+- **File Preview** - In-app preview for various file types (images, PDFs, videos)
 - **File Sharing** - Generate shareable links with one click
 - **Download Files** - Download files directly to your device
-- **Rename** - Rename files and folders
-- **Delete** - Remove files and folders
-- **Sorting** - Sort by name, date modified, or file size
-- **Responsive Design** - Optimized for both desktop and mobile devices
+- **Rename** - Rename files and folders inline
+- **Delete** - Remove files and folders with confirmation
+- **Search** - Real-time search across files and folders
+- **Sorting** - Sort by name, date modified, or file size (ascending/descending)
+- **Breadcrumb Navigation** - Easy navigation through folder hierarchy
+- **Responsive Design** - Fully optimized for desktop, tablet, and mobile devices
 - **Smooth Animations** - GSAP and Lottie animations for enhanced UX
+- **Modern UI** - Clean, intuitive interface with modal dialogs
 
 ## Tech Stack
 
-- **React 19** - UI library
-- **React Router 7** - Client-side routing
-- **Vite** - Build tool and dev server
-- **GSAP** - Animation library
-- **Lottie** - Vector animations
-- **Lenis** - Smooth scrolling
+- **React 19** - Modern UI library with latest features
+- **React Router 7** - Client-side routing and navigation
+- **Vite 7** - Lightning-fast build tool and dev server
+- **GSAP** - Professional-grade animation library
+- **Lottie** - Lightweight vector animations
+- **Lenis** - Smooth scrolling experience
 
 ## Prerequisites
 
@@ -83,30 +86,38 @@ uploader_frontend/
 
 ## Key Components
 
-- **AuthHome** - Main authenticated dashboard
-- **DesktopView** - Desktop layout with table view
-- **MobileView** - Mobile-optimized layout
-- **FileTableRow** - Individual file/folder row
-- **CreateFolderDialog** - Folder creation modal
-- **UploadFileDialog** - File upload modal
-- **FilePreviewDialog** - File preview modal
-- **RenameDialog** - Rename modal
+- **AuthHome** - Main authenticated dashboard with state management
+- **DesktopView** - Desktop layout with sortable table view
+- **MobileView** - Mobile-optimized card layout with touch gestures
+- **FileTableRow** - Individual file/folder row with context menu
+- **Card** - Mobile card component for files and folders
+- **CreateFolderDialog** - Modal for folder creation
+- **UploadFileDialog** - Multi-file upload modal with preview
+- **FilePreviewDialog** - Full-screen file preview modal
+- **RenameDialog** - Inline rename modal for files and folders
 
 ## API Integration
 
 The app expects a backend API with the following endpoints:
 
+### Authentication
 - `POST /auth/register` - User registration
 - `POST /auth/login` - User login
 - `POST /auth/logout` - User logout
 - `GET /auth/me` - Get current user
+
+### Files & Folders
 - `GET /api/all` - Get root files/folders
 - `GET /api/folders/folder/:id` - Get folder contents
-- `GET /api/folders/folder/:id/path` - Get folder path
-- `POST /api/folders/create/folder` - Create folder
+- `GET /api/folders/folder/:id/path` - Get folder breadcrumb path
+- `POST /api/folders/create/folder` - Create new folder
+- `POST /api/folders/create/folder/:id` - Create subfolder
+- `PATCH /api/folders/update/folder/:id` - Rename folder
 - `DELETE /api/folders/delete/folder/:id` - Delete folder
-- `POST /api/upload` - Upload files
-- `GET /api/files/:id/preview` - Get file preview URL
+- `POST /api/upload` - Upload files to root
+- `POST /api/upload/:id` - Upload files to folder
+- `GET /api/files/:id/preview` - Get file preview/download URL
+- `PATCH /api/files/:id` - Rename file
 - `DELETE /api/files/:id` - Delete file
 
 ## Environment Variables
@@ -114,6 +125,14 @@ The app expects a backend API with the following endpoints:
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `VITE_API_URL` | Backend API URL | `http://localhost:8000` |
+
+## Performance
+
+- Optimized with React.memo and useCallback hooks
+- Lazy loading for better initial load times
+- Efficient state management
+- Minimal re-renders
+- Production build size: ~1.1MB (gzipped: ~235KB)
 
 ## Browser Support
 
