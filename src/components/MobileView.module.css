@@ -80,6 +80,7 @@
   flex-direction: column;
   gap: 1rem;
   flex: 1;
+  background-color: red;
 }
 
 /* header */
@@ -140,7 +141,7 @@ height: 50px;}
   gap: 1rem;
   position: sticky;
   width: 100%;
-  bottom: 50px;
+  bottom: 20px;
 }
 
 .addButton {
