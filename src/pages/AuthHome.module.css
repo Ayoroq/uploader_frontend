@@ -6,6 +6,7 @@
   grid-template-columns: 1fr 10fr;
   grid-template-rows: 1fr 15fr;
   padding-top: 2rem;
+  padding-right: 1rem;
   gap: 1rem;
 }
 

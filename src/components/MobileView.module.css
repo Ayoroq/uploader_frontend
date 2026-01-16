@@ -5,10 +5,11 @@
   position: relative;
   background-color: white;
   padding: 0 0.5rem;
+  margin-top: 1rem;
 }
 
 .nav {
-  padding: 2rem 0;
+  padding: 1rem 0;
   display: flex;
   justify-content: space-between;
 }
@@ -83,7 +84,7 @@
 
 /* header */
 .backButtonContainer {
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 
 .backButton {
@@ -169,13 +170,12 @@ height: 50px;}
 }
 
 .search {
-  /* display: none; */
   flex: 1;
   padding: 0 15px;
   height: 50px;
   max-width: 400px;
   border-radius: 20px;
-  border: 1px solid black;
+  border: 1px solid #C7C7C7;
 }
 
 /* The add folder/file */
