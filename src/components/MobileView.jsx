@@ -89,7 +89,7 @@ function toggleDropdown(){
       if (
         dropDownRef.current &&
         !dropDownRef.current.contains(event.target) &&
-        !event.target.closest(`.${styles.name}`)
+        !event.target.closest(`.${styles.sortButton}`)
       ) {
         setIsDropDownOpen(false);
         dropDownRef.current.style.display = 'none'
