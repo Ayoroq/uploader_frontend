@@ -26,6 +26,13 @@ td {
   background-color: rgb(246, 245, 245);
 }
 
+/* cells */
+.nameCell,.dateCell,.sizeCell,.moreCellContent{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 .rowItem {
   display: flex;
   align-items: center;
