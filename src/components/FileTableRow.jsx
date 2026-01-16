@@ -59,7 +59,7 @@ export default function FileTableRow({ item, onFolderClick, onFilePreview, onRen
         <td>{formatFileSize(item.size)}</td>
       )}
       <td className={styles.moreCell}>
-        <button onClick={() => {setItem(item);setShowMenu(!showMenu);renameRef.current.showModal()}} ref={moreButtonRef} className={styles.more}>
+        <button onClick={() => {setShowMenu(!showMenu)}} ref={moreButtonRef} className={styles.more}>
           <svg className={styles.moreIcon} xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#1f1f1f"><path d="M207.86-432Q188-432 174-446.14t-14-34Q160-500 174.14-514t34-14Q228-528 242-513.86t14 34Q256-460 241.86-446t-34 14Zm272 0Q460-432 446-446.14t-14-34Q432-500 446.14-514t34-14Q500-528 514-513.86t14 34Q528-460 513.86-446t-34 14Zm272 0Q732-432 718-446.14t-14-34Q704-500 718.14-514t34-14Q772-528 786-513.86t14 34Q800-460 785.86-446t-34 14Z"/></svg>
         </button>
         {showMenu && (
@@ -67,7 +67,7 @@ export default function FileTableRow({ item, onFolderClick, onFilePreview, onRen
             {item.type === "folder" ? null : (
               <button onClick={() => { onShare(item.id); setShowMenu(false); }}>Share</button>
             )}
-            <button onClick={() => { onRename(item); setShowMenu(false); }}>Rename</button>
+            <button onClick={() => { setItem(item); setShowMenu(false);renameRef.current.showModal() }}>Rename</button>
             {item.type === "folder" ? null : <button onClick={() => { onDownload(item.id); setShowMenu(false); }}>Download</button>}
             <button onClick={() => { onDelete(item); setShowMenu(false); }}>Delete</button>
           </div>

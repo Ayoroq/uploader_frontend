@@ -18,7 +18,7 @@ export default function DesktopView({
   handleFolderClick,
   loading,
   filesFolders,
-  setFileFolders,
+  setFilesFolders,
   previewFile,
   handleDownload,
   handleShare,
@@ -152,7 +152,7 @@ export default function DesktopView({
           )}
         </div>
       </section>
-      <RenameDialog ref={renameRef} content={item} filesFolders={filesFolders} setFilesFolders={setFileFolders} />
+      <RenameDialog ref={renameRef} content={item} filesFolders={filesFolders} setFilesFolders={setFilesFolders} />
     </main>
   );
 }

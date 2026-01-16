@@ -66,6 +66,7 @@ const RenameDialog = forwardRef(
         const data = await response.json();
 
         // Update the specific item in fileFolder array
+        console.log(content)
         const updatedFileFolder = filesFolders.map((item) =>
           item.id === content.id ? { ...item, name: finalName } : item
         );
