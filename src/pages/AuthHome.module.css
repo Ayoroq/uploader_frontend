@@ -270,7 +270,9 @@ background-color: rgb(224, 224, 224);;
 .desktopSearch{
   padding: 0;
   border: none;
-  min-width: 400px;
+  width: 100%;
+  max-width: 400px;
+  min-width: 250px;
   padding-left: 0.5rem;
   padding-top: 0.125rem;
   padding-right: 0.25rem;
@@ -290,11 +292,5 @@ background-color: rgb(224, 224, 224);;
   .leftNavText {
     display: none;
   }
-  .breadCrumbs {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .breadCrumbs span {
-    display: none;
-  }
+
 }
