@@ -18,6 +18,10 @@ export default function DesktopView({
   handleShare,
   handleDelete,
   handleRename,
+  setSortBy,
+  setSortOrder,
+  sortBy,
+  sortOrder
 }) {
   return (
     <main className={styles.authhome}>
@@ -75,10 +79,6 @@ export default function DesktopView({
                 </div>
               )}
             </div>
-          </div>
-          <div className={styles.sortView}>
-            <p>Sort</p>
-            <p>View</p>
           </div>
         </div>
         <div className={styles.contentContainer}>
