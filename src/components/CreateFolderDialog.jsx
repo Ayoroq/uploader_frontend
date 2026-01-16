@@ -2,7 +2,7 @@ import { forwardRef, useCallback, useEffect, useRef } from "react";
 import styles from "./CreateFolderDialog.module.css";
 import cancelIcon from '/assets/cancel.svg'
 
-const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNameChange, onFolderCreate },ref) => {
+const CreateFolderDialog = forwardRef(({ folderName, setFolderName, folderNameError, onFolderNameChange, onFolderCreate, error, setError },ref) => {
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -11,13 +11,22 @@ const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNa
         inputRef.current?.focus();
       };
 
+      function handleClose() {
+        setError(null);
+        setFolderName("");
+      };
+
       if (dialog) {
         dialog.addEventListener('open', handleOpen);
-        return () => dialog.removeEventListener('open', handleOpen);
+        dialog.addEventListener('close', handleClose);
+        return () => {
+          dialog.removeEventListener('open', handleOpen);
+          dialog.removeEventListener('close', handleClose);
+        };
       }
-    }, [ref]);
+    }, [ref, setError,setFolderName]);
 
-    const handleClose = useCallback(() => {
+    const handleCloseClick = useCallback(() => {
       ref.current.close();
     }, [ref]);
 
@@ -26,7 +35,7 @@ const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNa
         <div className={styles.header}>
           <h2 className={styles.title}>Create Folder</h2>
           <button
-            onClick={handleClose}
+            onClick={handleCloseClick}
             className={styles.closeButton}
             aria-label="Close"
           >
@@ -51,12 +60,13 @@ const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNa
             {folderNameError && !folderName && (
               <p className={styles.error}>{folderNameError}</p>
             )}
+            {error && <p className={styles.error}>{error}</p>}
           </div>
         </div>
         <div className={styles.footer}>
           <button
             className={styles.cancelButton}
-            onClick={handleClose}
+            onClick={handleCloseClick}
           >
             Cancel
           </button>

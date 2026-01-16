@@ -18,6 +18,7 @@ export default function AuthHome() {
   const [files, setFiles] = useState([]);
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
+  const [error, setError] = useState(null)
   const [folderName, setFolderName] = useState("");
   const [folderPath, setFolderPath] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -207,6 +208,11 @@ export default function AuthHome() {
       if (statusRoutes[response.status]) {
         navigate(statusRoutes[response.status]);
         return;
+      }
+
+      if(!response.ok){
+        let data = await response.json()
+        setError(data.message);
       }
 
       let data = await response.json();
@@ -423,6 +429,9 @@ export default function AuthHome() {
         folderNameError={folderNameError}
         onFolderNameChange={handleFolderNameChange}
         onFolderCreate={handleCreateFolder}
+        error={error}
+        setError={setError}
+        setFolderName={setFolderName}
       />
       <FilePreviewDialog
         ref={previewDialog}
