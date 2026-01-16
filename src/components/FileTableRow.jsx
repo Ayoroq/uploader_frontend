@@ -7,7 +7,7 @@ import renameIcon from '/assets/rename.svg'
 import { getFileExtension, convertDate, formatFileSize } from '../utils/utils.js';
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 
-export default function FileTableRow({ item, onFolderClick, onFilePreview, onRename, onDelete, onDownload,onShare, setItem, renameRef }) {
+export default function FileTableRow({ item, onFolderClick, onFilePreview, onDelete, onDownload,onShare, setItem, renameRef }) {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
   const moreButtonRef = useRef(null)

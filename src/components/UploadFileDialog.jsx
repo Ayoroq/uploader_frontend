@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect } from "react";
 import styles from "./UploadFileDialog.module.css";
 import { formatFileSize } from "../utils/utils.js";
 import cancelIcon from '/assets/cancel.svg'

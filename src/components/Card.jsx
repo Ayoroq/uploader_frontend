@@ -10,7 +10,6 @@ export default function Card({
   fileFolder,
   onFolderClick,
   onFilePreview,
-  onFileDownload,
   setIsMoreDialogOpen,
   setContent
 }) {

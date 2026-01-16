@@ -23,7 +23,6 @@ export default function AuthHome() {
   const [folderName, setFolderName] = useState("");
   const [folderPath, setFolderPath] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [deleteLoading, setDeleteLoading] = useState(true);
   const [previewData, setPreviewData] = useState(null);
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState("asc");
@@ -303,7 +302,6 @@ export default function AuthHome() {
   async function handleFileFolderDelete(fileFolder) {
     try {
       if (!fileFolder?.id) return;
-      setDeleteLoading(true);
       const url =
         fileFolder?.type === "folder"
           ? `${import.meta.env.VITE_API_URL}/api/folders/delete/folder/${
@@ -321,7 +319,6 @@ export default function AuthHome() {
       const statusRoutes = { 401: "/login", 403: "/403" };
       if (statusRoutes[response.status]) {
         navigate(statusRoutes[response.status]);
-        setDeleteLoading(false);
         return;
       }
 
@@ -329,7 +326,6 @@ export default function AuthHome() {
         const data = await response.json();
         const errorMsg = data.errors?.[0]?.msg || data.message || 'Failed to delete';
         alert(errorMsg);
-        setDeleteLoading(false);
         return;
       }
 
@@ -339,11 +335,9 @@ export default function AuthHome() {
         );
         setFilesFolders(updatedFileFolder);
       }
-      setDeleteLoading(false);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       alert('An error occurred while deleting');
-      setDeleteLoading(false);
     }
   }
 
