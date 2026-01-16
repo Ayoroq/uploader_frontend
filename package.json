@@ -1,8 +1,24 @@
 {
-  "name": "uploader_frontend",
+  "name": "uploader",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "A modern, responsive cloud storage application built with React for uploading, organizing, and managing files and folders",
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ayoroq/uploader_frontend.git"
+  },
+  "keywords": [
+    "react",
+    "file-upload",
+    "cloud-storage",
+    "file-manager",
+    "vite",
+    "gsap",
+    "lottie"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -30,5 +46,9 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "vite": "^7.2.4"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   }
 }
