@@ -1,6 +1,5 @@
 import "./reset.css";
 import { useEffect, useRef } from "react";
-import "./App.css";
 import { Outlet, useLocation } from "react-router";
 import { gsap } from "gsap";
 import { ReactLenis } from "lenis/react";
