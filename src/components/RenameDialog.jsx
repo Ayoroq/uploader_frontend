@@ -6,7 +6,7 @@ const RenameDialog = forwardRef(
   ({ content, filesFolders, setFilesFolders }, ref) => {
     const [newName, setNewName] = useState("");
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState({});
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
     const inputRef = useRef(null);
 
@@ -39,7 +39,7 @@ const RenameDialog = forwardRef(
 
       function handleClose() {
         setLoading(false);
-        setErrors({});
+        setError(null);
         setNewName("");
       }
 
@@ -86,12 +86,21 @@ const RenameDialog = forwardRef(
         setFilesFolders(updatedFileFolder);
 
         ref.current?.close();
+        setLoading(false);
+        return;
       }
-      if (response.status === 401) navigate("/login");
-      if (response.status === 403) navigate("/403");
+
+      const statusRoutes = { 401: "/login", 403: "/403" };
+      if (statusRoutes[response.status]) {
+        navigate(statusRoutes[response.status]);
+        setLoading(false);
+        return;
+      }
+
       if (!response.ok) {
         const data = await response.json();
-        setErrors(data.message);
+        const errorMsg = data.errors?.[0]?.msg || data.message || 'Failed to rename';
+        setError(errorMsg);
       }
       setLoading(false);
     }
@@ -145,8 +154,8 @@ const RenameDialog = forwardRef(
               onChange={onFolderNameChange}
               className={styles.input}
             />
-            {errors && errors.message && (
-              <p className={styles.error}>{errors.message}</p>
+            {error && (
+              <p className={styles.error}>{error}</p>
             )}
           </div>
         </div>

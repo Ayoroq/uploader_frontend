@@ -18,7 +18,8 @@ export default function AuthHome() {
   const [files, setFiles] = useState([]);
   const [filesFolders, setFilesFolders] = useState([]);
   const [folderNameError, setFolderNameError] = useState(null);
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
+  const [uploadError, setUploadError] = useState(null);
   const [folderName, setFolderName] = useState("");
   const [folderPath, setFolderPath] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -317,20 +318,31 @@ export default function AuthHome() {
         },
       });
 
+      const statusRoutes = { 401: "/login", 403: "/403" };
+      if (statusRoutes[response.status]) {
+        navigate(statusRoutes[response.status]);
+        setDeleteLoading(false);
+        return;
+      }
+
+      if (!response.ok) {
+        const data = await response.json();
+        const errorMsg = data.errors?.[0]?.msg || data.message || 'Failed to delete';
+        alert(errorMsg);
+        setDeleteLoading(false);
+        return;
+      }
+
       if (response.ok) {
         const updatedFileFolder = filesFolders.filter(
           (item) => item.id !== fileFolder.id
         );
         setFilesFolders(updatedFileFolder);
       }
-      if (response.status === 401) navigate("/login");
-      if (response.status === 403) navigate("/403");
-      if (!response.ok) {
-        const data = await response.json();
-      }
       setDeleteLoading(false);
     } catch (error) {
       console.error(error);
+      alert('An error occurred while deleting');
       setDeleteLoading(false);
     }
   }
@@ -357,6 +369,14 @@ export default function AuthHome() {
           navigate(statusRoutes[response.status]);
           return;
         }
+
+        if (!response.ok) {
+          const data = await response.json();
+          const errorMsg = data.errors?.[0]?.msg || data.message || 'Failed to upload files';
+          setUploadError(errorMsg);
+          return;
+        }
+
         if (response.ok) {
           fileDialog.current.close();
           setFiles([]);
@@ -368,6 +388,7 @@ export default function AuthHome() {
         }
       } catch (error) {
         console.error(error);
+        setUploadError('An error occurred while uploading files');
       }
     }
   }
@@ -424,6 +445,8 @@ export default function AuthHome() {
         handleFileRemove={handleFileRemove}
         setFiles={setFiles}
         handleUpload={handleFileUpload}
+        error={uploadError}
+        setError={setUploadError}
       />
       <CreateFolderDialog
         ref={dialog}

@@ -1,10 +1,10 @@
-import { forwardRef, useEffect } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import styles from "./UploadFileDialog.module.css";
 import { formatFileSize } from "../utils/utils.js";
 import cancelIcon from '/assets/cancel.svg'
 
 const UploadFileDialog = forwardRef(
-  ({ files, handleFileRemove, setFiles, handleUpload }, ref) => {
+  ({ files, handleFileRemove, setFiles, handleUpload, error, setError }, ref) => {
     useEffect(() => {
       if (files.length === 0) {
         ref.current.close();
@@ -15,13 +15,14 @@ const UploadFileDialog = forwardRef(
       const dialogElement = ref.current;
       function handleClose() {
         setFiles([]);
+        setError(null);
       }
 
       if (dialogElement) {
         dialogElement.addEventListener("close", handleClose);
         return () => dialogElement.removeEventListener("close", handleClose);
       }
-    }, [ref, setFiles]);
+    }, [ref, setFiles, setError]);
     return (
       <dialog
         closedby="any"
@@ -37,6 +38,7 @@ const UploadFileDialog = forwardRef(
         <div className={styles.fileCount}>
           {files.length} {files.length === 1 ? 'file' : 'files'} selected
         </div>
+        {error && <p className={styles.error}>{error}</p>}
         <ul className={styles.fileList}>
           {files.map((file, index) => (
             <li key={`${index}-${file.name}`} className={styles.fileItem}>

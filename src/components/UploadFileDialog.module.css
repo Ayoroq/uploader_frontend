@@ -54,6 +54,15 @@
   border-bottom: 1px solid #e5e5e5;
 }
 
+.error {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  color: #e53e3e;
+  background: #fee;
+  border-bottom: 1px solid #fcc;
+  margin: 0;
+}
+
 .fileList {
   list-style: none;
   padding: 0;
