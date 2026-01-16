@@ -7,6 +7,10 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import folderIcon from "/assets/Folder.svg";
 import addIcon from "/assets/add.svg";
 import addFileIcon from "/assets/add-file.svg";
+import shareIcon from "/assets/share.svg";
+import downloadIcon from "/assets/download.svg";
+import deleteIcon from "/assets/delete.svg";
+import renameIcon from "/assets/rename.svg"
 import RenameDialog from "./RenameDialog.jsx";
 import activeIcon from '/assets/check.svg'
 
@@ -258,18 +262,12 @@ function toggleDropdown(){
                   alt="File Icon"
                 />
               )}
-              <div>{content.name}</div>
-              <div>
-                <p>
-                  {content.adjustedDate}
-                  {" . "}
-                  {content.type === "folder"
-                    ? `${
-                        content._count.files + content._count.subfolders
-                      } Items`
-                    : content.adjustedSize}
-                </p>
-              </div>
+              <h3 className={styles.moreDialogName}>{content.name}</h3>
+              <p className={styles.moreDialogInfo}>
+                {content.adjustedDate} • {content.type === "folder"
+                  ? `${content._count.files + content._count.subfolders} ${content._count.files + content._count.subfolders === 1 ? 'item' : 'items'}`
+                  : content.adjustedSize}
+              </p>
             </div>
             <div className={styles.moreDialogButtons}>
               {content.type === "file" && (
@@ -284,7 +282,34 @@ function toggleDropdown(){
                   }}
                   className={`${styles.shareButton} ${styles.moreDialogButton}`}
                 >
+                  <img src={shareIcon} alt="Share" />
                   Share
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  moreDialogRef.current.close();
+                  renameRef.current.showModal();
+                }}
+                className={`${styles.renameButton} ${styles.moreDialogButton}`}
+              >
+                <img src={renameIcon} alt="Rename" />
+                Rename
+              </button>
+              {content.type === 'file' && (
+                <button
+                  onClick={async () => {
+                    try {
+                      await handleDownload(content.id);
+                      moreDialogRef.current.close();
+                    } catch (error) {
+                      console.error("Download failed:", error);
+                    }
+                  }}
+                  className={`${styles.downloadButton} ${styles.moreDialogButton}`}
+                >
+                  <img src={downloadIcon} alt="Download" />
+                  Download
                 </button>
               )}
               <button
@@ -298,29 +323,8 @@ function toggleDropdown(){
                 }}
                 className={`${styles.deleteButton} ${styles.moreDialogButton}`}
               >
+                <img src={deleteIcon} alt="Delete" />
                 Delete
-              </button>
-              {content.type === 'file' && ( <button
-                onClick={async () => {
-                  try {
-                    await handleDownload(content.id);
-                    moreDialogRef.current.close();
-                  } catch (error) {
-                    console.error("Download failed:", error);
-                  }
-                }}
-                className={`${styles.downloadButton} ${styles.moreDialogButton}`}
-              >
-                Download
-              </button>)}
-              <button
-                onClick={() => {
-                  moreDialogRef.current.close();
-                  renameRef.current.showModal();
-                }}
-                className={`${styles.renameButton} ${styles.moreDialogButton}`}
-              >
-                Rename
               </button>
             </div>
           </div>
