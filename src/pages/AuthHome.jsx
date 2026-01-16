@@ -211,8 +211,10 @@ export default function AuthHome() {
       }
 
       if(!response.ok){
-        let data = await response.json()
-        setError(data.message);
+        const data = await response.json();
+        const errorMsg = data.errors?.[0]?.msg || data.message || 'Failed to create folder';
+        setError(errorMsg);
+        return;
       }
 
       let data = await response.json();
