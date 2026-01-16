@@ -106,10 +106,11 @@ export default function DesktopView({
           <div>
             <input
               type="search"
-              className={styles.search}
+              className={styles.desktopSearch}
               placeholder="Search your files"
               value={searchTerm}
               onChange={handleInputChange}
+              autoFocus
             />
           </div>
         </div>
