@@ -3,6 +3,8 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import FileTableRow from "./FileTableRow";
 import folderIcon from '/assets/Folder.svg';
 import addFileIcon from '/assets/add-file.svg';
+import descIcon from '/assets/down.svg';
+import ascIcon from '/assets/up.svg';
 
 export default function DesktopView({
   fileInput,
@@ -95,9 +97,9 @@ export default function DesktopView({
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Modified</th>
-                  <th>File Size</th>
+                  <th onClick={() => setSortBy('name')}><div className={styles.th}>Name {sortBy === 'name' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
+                  <th onClick={() => setSortBy('date')} ><div className={styles.th}>Modified {sortBy === 'date' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
+                  <th onClick={() => setSortBy('size')} ><div className={styles.th}>File Size {sortBy === 'size' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
                   <th></th>
                 </tr>
               </thead>

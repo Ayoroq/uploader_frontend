@@ -28,9 +28,15 @@
   justify-content: space-between;
 }
 
-.sortView {
+.th {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
+}
+
+.sortIcon {
+  width: 15px;
 }
 
 .leftNavButton {
@@ -108,7 +114,7 @@
   min-height: 100vh;
 }
 
-.contentContainer{
+.contentContainer {
   background-color: white;
   border-radius: 5px;
   flex: 1;
