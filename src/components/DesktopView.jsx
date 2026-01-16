@@ -25,6 +25,16 @@ export default function DesktopView({
   sortBy,
   sortOrder
 }) {
+
+  function handleSortChange(newSortBy) {
+    if (newSortBy === sortBy) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortBy(newSortBy);
+      setSortOrder('asc');
+    }
+  }
+
   return (
     <main className={styles.authhome}>
       <section className={styles.leftSide}>
@@ -97,9 +107,9 @@ export default function DesktopView({
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th onClick={() => setSortBy('name')}><div className={styles.th}>Name {sortBy === 'name' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
-                  <th onClick={() => setSortBy('date')} ><div className={styles.th}>Modified {sortBy === 'date' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
-                  <th onClick={() => setSortBy('size')} ><div className={styles.th}>File Size {sortBy === 'size' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
+                  <th onClick={() => handleSortChange('name')}><div className={styles.th}>Name {sortBy === 'name' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
+                  <th onClick={() => handleSortChange('date')} ><div className={styles.th}>Modified {sortBy === 'date' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
+                  <th onClick={() => handleSortChange('size')} ><div className={styles.th}>File Size {sortBy === 'size' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
                   <th></th>
                 </tr>
               </thead>
