@@ -158,55 +158,6 @@
   border-collapse: collapse;
 }
 
-.dialog:open {
-  width: 500px;
-  min-height: 250px;
-  max-height: 300px;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 10px;
-}
-
-.dialogHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.closeDialogButton {
-  background-color: transparent;
-  cursor: pointer;
-  border: none;
-}
-
-.dialog input {
-  width: 100%;
-  border: 1px solid black;
-  padding: 0.5rem;
-  padding-bottom: 2px;
-}
-
-.createFolderButtonContainer {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.createFolderButton {
-  padding: 0.4rem 1.8rem;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.createFolderButton:hover{
-background-color: rgb(224, 224, 224);;
-}
-
 .error {
   color: red;
 }

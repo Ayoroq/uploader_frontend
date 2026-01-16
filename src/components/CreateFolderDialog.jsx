@@ -1,68 +1,71 @@
-import { forwardRef, useCallback } from "react";
-import styles from "../pages/AuthHome.module.css";
+import { forwardRef, useCallback, useEffect, useRef } from "react";
+import styles from "./CreateFolderDialog.module.css";
+import cancelIcon from '/assets/cancel.svg'
 
 const CreateFolderDialog = forwardRef(({ folderName, folderNameError, onFolderNameChange, onFolderCreate },ref) => {
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+      const dialog = ref.current;
+      const handleOpen = () => {
+        inputRef.current?.focus();
+      };
+
+      if (dialog) {
+        dialog.addEventListener('open', handleOpen);
+        return () => dialog.removeEventListener('open', handleOpen);
+      }
+    }, [ref]);
+
     const handleClose = useCallback(() => {
       ref.current.close();
     }, [ref]);
 
     return (
       <dialog ref={ref} className={styles.dialog} closedby="any">
-        <div className={styles.dialogHeader}>
-          <p>Create a folder</p>
+        <div className={styles.header}>
+          <h2 className={styles.title}>Create Folder</h2>
           <button
             onClick={handleClose}
-            className={styles.closeDialogButton}
+            className={styles.closeButton}
+            aria-label="Close"
           >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 10 10"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g id="Group 5">
-                <line
-                  id="Line 10"
-                  x1="0.5"
-                  y1="8.58782"
-                  x2="8.58782"
-                  y2="0.5"
-                  stroke="black"
-                  strokeLinecap="round"
-                />
-                <line
-                  id="Line 11"
-                  x1="1.20711"
-                  y1="0.5"
-                  x2="9.29492"
-                  y2="8.58782"
-                  stroke="black"
-                  strokeLinecap="round"
-                />
-              </g>
-            </svg>
+            <img className={styles.cancelIcon} src={cancelIcon} alt="Close" />
           </button>
         </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Enter your folder name"
-            value={folderName}
-            required
-            onChange={onFolderNameChange}
-            autoFocus
-          />
-          {folderNameError && !folderName && (
-            <p className={styles.error}>{folderNameError}</p>
-          )}
+        <div className={styles.content}>
+          <div className={styles.inputWrapper}>
+            <label htmlFor="folderName" className={styles.label}>
+              Folder Name
+            </label>
+            <input
+              ref={inputRef}
+              id="folderName"
+              type="text"
+              placeholder="Enter folder name"
+              value={folderName}
+              required
+              onChange={onFolderNameChange}
+              className={styles.input}
+            />
+            {folderNameError && !folderName && (
+              <p className={styles.error}>{folderNameError}</p>
+            )}
+          </div>
         </div>
-        <div className={styles.createFolderButtonContainer}>
+        <div className={styles.footer}>
           <button
-            className={styles.createFolderButton}
-            onClick={onFolderCreate}
+            className={styles.cancelButton}
+            onClick={handleClose}
           >
-            Create
+            Cancel
+          </button>
+          <button
+            className={styles.createButton}
+            onClick={onFolderCreate}
+            disabled={!folderName.trim()}
+          >
+            Create Folder
           </button>
         </div>
       </dialog>
