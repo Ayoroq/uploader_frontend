@@ -6,14 +6,14 @@
 }
 
 .logo{
-    font-size: clamp(30px, 8vw, 90px);
+    font-size: 20px;
     cursor: pointer;
     color: #0F6CBD;
 }
 
 .navbarbuttons{
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
     align-items: center;
 }
 
@@ -30,6 +30,11 @@
 
 .navbarbutton:hover{
     background-color: var(--hover);
+}
+
+.logout{
+    width: 20px;
+    height: 20px;
 }
 
 .logout,.username{
@@ -61,8 +66,5 @@
     }
     .navbarbutton:hover{
         background-color: transparent;
-    }
-    .logout{
-        width: 30px;
     }
 }
