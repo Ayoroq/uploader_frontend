@@ -3,10 +3,10 @@
 }
 .authhome {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 10fr;
   grid-template-rows: 1fr 15fr;
   padding-top: 2rem;
-  row-gap: 1rem;
+  gap: 1rem;
 }
 
 .leftSide {
@@ -286,10 +286,10 @@ background-color: rgb(224, 224, 224);;
   .leftSide {
     width: fit-content;
   }
-  /* .leftNavText {
+  .leftNavText {
     display: none;
-  } */
-   .leftNavButton{
-    flex-direction: column;
-   }
+  }
+  .authhome{
+    grid-template-columns: 1fr 20fr
+  }
 }
