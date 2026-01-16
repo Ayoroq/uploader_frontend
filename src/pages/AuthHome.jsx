@@ -21,29 +21,35 @@ export default function AuthHome() {
   const [folderName, setFolderName] = useState("");
   const [folderPath, setFolderPath] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [deleteLoading,setDeleteLoading] = useState(true)
+  const [deleteLoading, setDeleteLoading] = useState(true);
   const [previewData, setPreviewData] = useState(null);
-  const [sortBy, setSortBy] = useState('name');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortBy, setSortBy] = useState("name");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const sortedFilesFolders = [...filesFolders].sort((a, b) => {
-    if (sortBy === 'name') {
-      return sortOrder === 'asc' 
+    if (sortBy === "name") {
+      return sortOrder === "asc"
         ? a.name.localeCompare(b.name)
         : b.name.localeCompare(a.name);
     }
-    if (sortBy === 'date') {
-      return sortOrder === 'asc'
+    if (sortBy === "date") {
+      return sortOrder === "asc"
         ? new Date(a.updatedAt) - new Date(b.updatedAt)
         : new Date(b.updatedAt) - new Date(a.updatedAt);
     }
-    if (sortBy === 'size') {
+    if (sortBy === "size") {
       const aSize = a.size || 0;
       const bSize = b.size || 0;
-      return sortOrder === 'asc' ? aSize - bSize : bSize - aSize;
+      return sortOrder === "asc" ? aSize - bSize : bSize - aSize;
     }
     return 0;
   });
+
+  const displayedFilesFolders = searchTerm
+    ? sortedFilesFolders.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : sortedFilesFolders;
 
   // This is for when trying to upload files
   function handleFileChange(e) {
@@ -56,15 +62,6 @@ export default function AuthHome() {
 
   function handleInputChange(e) {
     setSearchTerm(e.target.value);
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      if (searchTerm.trim() === "") {
-        return;
-      }
-    }
   }
 
   function handleFileRemove(index) {
@@ -266,9 +263,9 @@ export default function AuthHome() {
   }
 
   // This is used to download a file
-  async function handleFileDownload(id, fileUrl=null, fileName=null) {
+  async function handleFileDownload(id, fileUrl = null, fileName = null) {
     try {
-      if(id && (!fileUrl || !fileName)) {
+      if (id && (!fileUrl || !fileName)) {
         const response = await getSignedUrl(id);
         fileUrl = response.signedUrl;
         fileName = response.name;
@@ -289,9 +286,9 @@ export default function AuthHome() {
     }
   }
 
-  async function handleFileFolderDelete(fileFolder){
+  async function handleFileFolderDelete(fileFolder) {
     try {
-      if(!fileFolder?.id) return;
+      if (!fileFolder?.id) return;
       setDeleteLoading(true);
       const url =
         fileFolder?.type === "folder"
@@ -372,7 +369,7 @@ export default function AuthHome() {
         navigate={navigate}
         handleFolderClick={handleFolderClick}
         loading={loading}
-        filesFolders={sortedFilesFolders}
+        filesFolders={displayedFilesFolders}
         setFilesFolders={setFilesFolders}
         previewFile={previewFile}
         handleDownload={handleFileDownload}
@@ -392,12 +389,11 @@ export default function AuthHome() {
         navigate={navigate}
         handleFolderClick={handleFolderClick}
         loading={loading}
-        filesFolders={sortedFilesFolders}
+        filesFolders={displayedFilesFolders}
         setFilesFolders={setFilesFolders}
         previewFile={previewFile}
         searchTerm={searchTerm}
         handleInputChange={handleInputChange}
-        handleKeyDown={handleKeyDown}
         handleMobileNav={handleMobileNav}
         handleDownload={handleFileDownload}
         handleDelete={handleFileFolderDelete}

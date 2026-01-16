@@ -25,7 +25,6 @@ export default function MobileView({
   previewFile,
   searchTerm,
   handleInputChange,
-  handleKeyDown,
   handleMobileNav,
   handleDownload,
   handleDelete,
@@ -198,7 +197,6 @@ function toggleDropdown(){
           placeholder="Search your files"
           value={searchTerm}
           onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
         />
         <button
           className={styles.addButton}
