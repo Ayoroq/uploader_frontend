@@ -27,6 +27,11 @@ export default function AuthHome() {
   const [sortOrder, setSortOrder] = useState("asc");
 
   const sortedFilesFolders = [...filesFolders].sort((a, b) => {
+    // This allows folders to come first
+    if (a.type === "folder" && b.type !== "folder") return -1;
+    if (a.type !== "folder" && b.type === "folder") return 1;
+
+    // Then sort by selected criteria
     if (sortBy === "name") {
       return sortOrder === "asc"
         ? a.name.localeCompare(b.name)
