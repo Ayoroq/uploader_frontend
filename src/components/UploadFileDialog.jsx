@@ -1,5 +1,5 @@
 import { forwardRef, useEffect } from "react";
-import styles from "../pages/AuthHome.module.css";
+import styles from "./UploadFileDialog.module.css";
 
 const UploadFileDialog = forwardRef(
   ({ files, handleFileRemove, setFiles, handleUpload }, ref) => {
