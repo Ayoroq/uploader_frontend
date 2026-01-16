@@ -1,5 +1,7 @@
 import { forwardRef, useEffect } from "react";
 import styles from "./UploadFileDialog.module.css";
+import { formatFileSize } from "../utils/utils.js";
+import cancelIcon from '/assets/cancel.svg'
 
 const UploadFileDialog = forwardRef(
   ({ files, handleFileRemove, setFiles, handleUpload }, ref) => {
@@ -24,26 +26,43 @@ const UploadFileDialog = forwardRef(
       <dialog
         closedby="any"
         ref={ref}
-        className={`${styles.fileUploadDialog} ${styles.dialog}`}
+        className={styles.dialog}
       >
-        <h2 className={styles.fileUploadTitle}>Upload Files</h2>
+        <div className={styles.header}>
+          <h2 className={styles.title}>Upload Files</h2>
+          <button className={styles.closeButton} onClick={() => ref.current?.close()}>
+            <img className={styles.closeIcon} src={cancelIcon} alt="Close" />
+          </button>
+        </div>
+        <div className={styles.fileCount}>
+          {files.length} {files.length === 1 ? 'file' : 'files'} selected
+        </div>
         <ul className={styles.fileList}>
           {files.map((file, index) => (
             <li key={`${index}-${file.name}`} className={styles.fileItem}>
-              <p>{file.name}</p>
-              <p>{file.size} bytes</p>
+              <div className={styles.fileIcon}>📄</div>
+              <div className={styles.fileInfo}>
+                <p className={styles.fileName}>{file.name}</p>
+                <p className={styles.fileSize}>{formatFileSize(file.size)}</p>
+              </div>
               <button
-                className={styles.delete}
+                className={styles.removeButton}
                 onClick={() => handleFileRemove(index)}
+                aria-label="Remove file"
               >
-                x
+                <img src={cancelIcon} alt="Remove" />
               </button>
             </li>
           ))}
         </ul>
-        <button className={styles.upload} onClick={handleUpload}>
-          Upload
-        </button>
+        <div className={styles.footer}>
+          <button className={styles.cancelButton} onClick={() => ref.current?.close()}>
+            Cancel
+          </button>
+          <button className={styles.uploadButton} onClick={handleUpload}>
+            Upload {files.length} {files.length === 1 ? 'file' : 'files'}
+          </button>
+        </div>
       </dialog>
     );
   }

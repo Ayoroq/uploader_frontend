@@ -1,66 +1,189 @@
-.dialog:open {
-  width: 500px;
-  min-height: 250px;
-  max-height: 300px;
+.dialog {
   border: none;
+  border-radius: 12px;
+  padding: 0;
+  width: 90%;
+  max-width: 550px;
+  max-height: 80vh;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.header {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  border-radius: 10px;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e5e5;
 }
 
-.fileUploadDialog {
-  gap: 1rem;
-}
-
-.fileUploadTitle {
+.title {
   margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.fileCount {
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
+  color: #666;
+  background: #f9f9f9;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .fileList {
-  padding: 0;
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .fileItem {
   display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 0;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
 }
 
-.delete {
-  cursor: pointer;
+.fileItem:hover {
+  background: #fafafa;
+}
+
+.fileItem:last-child {
+  border-bottom: none;
+}
+
+.fileIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.fileInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.fileName {
+  margin: 0 0 0.25rem 0;
+  font-weight: 500;
+  color: #1a1a1a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileSize {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.removeButton {
+  background: transparent;
   border: none;
-  background-color: rgb(255, 67, 67);
-  padding: 0 1rem;
-  text-align: center;
-  color: white;
-  transition: background-color 0.3s ease-in, transform 0.3s ease-in;
-  border-radius: 5px;
-}
-
-.delete:hover {
-  background-color: rgb(254, 106, 106);
-  transform: translateY(-3px);
-}
-
-.upload {
   cursor: pointer;
-  width: fit-content;
-  align-self: center;
-  padding: 0.25rem 2.5rem;
+  padding: 0.5rem;
+  color: #999;
   font-size: 1.2rem;
-  border: none;
-  background-color: rgb(114, 170, 30);
-  color: white;
-  border-radius: 5px;
-  transition: background-color 0.3s ease-in, transform 0.3s ease-in;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
-.upload:hover {
-  background-color: rgb(93, 139, 25);
-  transform: translateY(-3px);
+.removeButton:hover {
+  background: #fee;
+  color: #e53e3e;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border-top: 1px solid #e5e5e5;
+  background: #fafafa;
+}
+
+.closeIcon{
+  width: 20px;
+}
+
+.cancelButton,
+.uploadButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelButton {
+  background: transparent;
+  color: #666;
+}
+
+.cancelButton:hover {
+  background: #e5e5e5;
+  color: #1a1a1a;
+}
+
+.uploadButton {
+  background: #0078D4;
+  color: white;
+}
+
+.uploadButton:hover {
+  background: #005a9e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
+}
+
+.uploadButton:active {
+  transform: translateY(0);
+}
+
+/* Scrollbar styling */
+.fileList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.fileList::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+.fileList::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.fileList::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }
