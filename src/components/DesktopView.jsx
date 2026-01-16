@@ -1,13 +1,12 @@
 import styles from "../pages/AuthHome.module.css";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import FileTableRow from "./FileTableRow";
-import folderIcon from '/assets/Folder.svg';
-import addFileIcon from '/assets/add-file.svg';
-import descIcon from '/assets/down.svg';
-import ascIcon from '/assets/up.svg';
+import folderIcon from "/assets/Folder.svg";
+import addFileIcon from "/assets/add-file.svg";
+import descIcon from "/assets/down.svg";
+import ascIcon from "/assets/up.svg";
 import RenameDialog from "./RenameDialog";
 import { useRef, useState } from "react";
-
 
 export default function DesktopView({
   fileInput,
@@ -27,18 +26,19 @@ export default function DesktopView({
   setSortBy,
   setSortOrder,
   sortBy,
-  sortOrder
+  sortOrder,
+  handleInputChange,
+  searchTerm,
 }) {
-
-  const renameRef = useRef(null)
-  const [item,setItem] = useState(null)
+  const renameRef = useRef(null);
+  const [item, setItem] = useState(null);
 
   function handleSortChange(newSortBy) {
     if (newSortBy === sortBy) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
       setSortBy(newSortBy);
-      setSortOrder('asc');
+      setSortOrder("asc");
     }
   }
 
@@ -57,7 +57,11 @@ export default function DesktopView({
           aria-label="Upload files"
           onClick={() => fileInput.current.click()}
         >
-          <img src={addFileIcon} alt={"Add File Icon"} className={styles.fileUploadIcon} />
+          <img
+            src={addFileIcon}
+            alt={"Add File Icon"}
+            className={styles.fileUploadIcon}
+          />
           <p className={styles.leftNavText}>Files Upload</p>
         </button>
         <input
@@ -99,6 +103,15 @@ export default function DesktopView({
               )}
             </div>
           </div>
+          <div>
+            <input
+              type="search"
+              className={styles.search}
+              placeholder="Search your files"
+              value={searchTerm}
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
         <div className={styles.contentContainer}>
           {loading ? (
@@ -114,9 +127,63 @@ export default function DesktopView({
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th onClick={() => handleSortChange('name')}><div className={styles.th}>Name {sortBy === 'name' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
-                  <th onClick={() => handleSortChange('date')} ><div className={styles.th}>Modified {sortBy === 'date' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
-                  <th onClick={() => handleSortChange('size')} ><div className={styles.th}>File Size {sortBy === 'size' && (sortOrder === 'asc' ? <img className={styles.sortIcon} src={ascIcon} alt="asc" /> : <img src={descIcon} className={styles.sortIcon} alt="desc" />)}</div></th>
+                  <th onClick={() => handleSortChange("name")}>
+                    <div className={styles.th}>
+                      Name{" "}
+                      {sortBy === "name" &&
+                        (sortOrder === "asc" ? (
+                          <img
+                            className={styles.sortIcon}
+                            src={ascIcon}
+                            alt="asc"
+                          />
+                        ) : (
+                          <img
+                            src={descIcon}
+                            className={styles.sortIcon}
+                            alt="desc"
+                          />
+                        ))}
+                    </div>
+                  </th>
+                  <th onClick={() => handleSortChange("date")}>
+                    <div className={styles.th}>
+                      Modified{" "}
+                      {sortBy === "date" &&
+                        (sortOrder === "asc" ? (
+                          <img
+                            className={styles.sortIcon}
+                            src={ascIcon}
+                            alt="asc"
+                          />
+                        ) : (
+                          <img
+                            src={descIcon}
+                            className={styles.sortIcon}
+                            alt="desc"
+                          />
+                        ))}
+                    </div>
+                  </th>
+                  <th onClick={() => handleSortChange("size")}>
+                    <div className={styles.th}>
+                      File Size{" "}
+                      {sortBy === "size" &&
+                        (sortOrder === "asc" ? (
+                          <img
+                            className={styles.sortIcon}
+                            src={ascIcon}
+                            alt="asc"
+                          />
+                        ) : (
+                          <img
+                            src={descIcon}
+                            className={styles.sortIcon}
+                            alt="desc"
+                          />
+                        ))}
+                    </div>
+                  </th>
                   <th></th>
                 </tr>
               </thead>
@@ -152,7 +219,12 @@ export default function DesktopView({
           )}
         </div>
       </section>
-      <RenameDialog ref={renameRef} content={item} filesFolders={filesFolders} setFilesFolders={setFilesFolders} />
+      <RenameDialog
+        ref={renameRef}
+        content={item}
+        filesFolders={filesFolders}
+        setFilesFolders={setFilesFolders}
+      />
     </main>
   );
 }

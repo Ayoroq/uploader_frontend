@@ -384,6 +384,8 @@ export default function AuthHome() {
         setSortOrder={setSortOrder}
         sortBy={sortBy}
         sortOrder={sortOrder}
+        searchTerm={searchTerm}
+        handleInputChange={handleInputChange}
       />
       <MobileView
         className={styles.mobileView}
