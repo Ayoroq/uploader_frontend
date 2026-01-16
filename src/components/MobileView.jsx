@@ -21,7 +21,7 @@ export default function MobileView({
   handleFolderClick,
   loading,
   filesFolders,
-  setFileFolders,
+  setFilesFolders,
   previewFile,
   searchTerm,
   handleInputChange,
@@ -332,7 +332,7 @@ function toggleDropdown(){
         content={content}
         ref={renameRef}
         filesFolders={filesFolders}
-        setFilesFolders={setFileFolders}
+        setFilesFolders={setFilesFolders}
       />
     </main>
   );

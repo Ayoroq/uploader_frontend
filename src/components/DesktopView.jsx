@@ -5,6 +5,9 @@ import folderIcon from '/assets/Folder.svg';
 import addFileIcon from '/assets/add-file.svg';
 import descIcon from '/assets/down.svg';
 import ascIcon from '/assets/up.svg';
+import RenameDialog from "./RenameDialog";
+import { useRef, useState } from "react";
+
 
 export default function DesktopView({
   fileInput,
@@ -15,6 +18,7 @@ export default function DesktopView({
   handleFolderClick,
   loading,
   filesFolders,
+  setFileFolders,
   previewFile,
   handleDownload,
   handleShare,
@@ -25,6 +29,9 @@ export default function DesktopView({
   sortBy,
   sortOrder
 }) {
+
+  const renameRef = useRef(null)
+  const [item,setItem] = useState(null)
 
   function handleSortChange(newSortBy) {
     if (newSortBy === sortBy) {
@@ -124,6 +131,8 @@ export default function DesktopView({
                     onShare={handleShare}
                     onRename={handleRename}
                     onDelete={handleDelete}
+                    setItem={setItem}
+                    renameRef={renameRef}
                   />
                 ))}
               </tbody>
@@ -143,6 +152,7 @@ export default function DesktopView({
           )}
         </div>
       </section>
+      <RenameDialog ref={renameRef} content={item} filesFolders={filesFolders} setFilesFolders={setFileFolders} />
     </main>
   );
 }

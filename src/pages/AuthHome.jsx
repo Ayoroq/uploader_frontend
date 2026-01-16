@@ -373,6 +373,7 @@ export default function AuthHome() {
         handleFolderClick={handleFolderClick}
         loading={loading}
         filesFolders={sortedFilesFolders}
+        setFilesFolders={setFilesFolders}
         previewFile={previewFile}
         handleDownload={handleFileDownload}
         handleDelete={handleFileFolderDelete}
@@ -392,7 +393,7 @@ export default function AuthHome() {
         handleFolderClick={handleFolderClick}
         loading={loading}
         filesFolders={sortedFilesFolders}
-        setFileFolders={setFilesFolders}
+        setFilesFolders={setFilesFolders}
         previewFile={previewFile}
         searchTerm={searchTerm}
         handleInputChange={handleInputChange}
@@ -432,7 +433,3 @@ export default function AuthHome() {
     </>
   );
 }
-// TODO: complete the mobile view implementation
-// TODO: add the edit, delete and share functionality
-// TODO: add the sort and filter
-//TODO: Add checks and better error handling e.t.c
