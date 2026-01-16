@@ -47,10 +47,10 @@ export default function Card({
         <div>
           {fileFolder.name}
           <p className={styles.info}>
-            Modified <span>{convertDate(fileFolder.updatedAt)}</span> .
+            Modified <span>{convertDate(fileFolder.updatedAt)}</span> — 
             {fileFolder.type === "folder" ? (
               <span>
-                {fileFolder._count.files + fileFolder._count.subfolders} items
+                {" "}{fileFolder._count.files + fileFolder._count.subfolders} {fileFolder._count.files + fileFolder._count.subfolders === 1 ? "item" : "items"}
               </span>
             ) : (
               <span> {formatFileSize(fileFolder.size)}</span>
