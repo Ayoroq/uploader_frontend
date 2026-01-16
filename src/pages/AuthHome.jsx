@@ -23,6 +23,27 @@ export default function AuthHome() {
   const [loading, setLoading] = useState(true);
   const [deleteLoading,setDeleteLoading] = useState(true)
   const [previewData, setPreviewData] = useState(null);
+  const [sortBy, setSortBy] = useState('name');
+  const [sortOrder, setSortOrder] = useState('asc');
+
+  const sortedFilesFolders = [...filesFolders].sort((a, b) => {
+    if (sortBy === 'name') {
+      return sortOrder === 'asc' 
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name);
+    }
+    if (sortBy === 'date') {
+      return sortOrder === 'asc'
+        ? new Date(a.updatedAt) - new Date(b.updatedAt)
+        : new Date(b.updatedAt) - new Date(a.updatedAt);
+    }
+    if (sortBy === 'size') {
+      const aSize = a.size || 0;
+      const bSize = b.size || 0;
+      return sortOrder === 'asc' ? aSize - bSize : bSize - aSize;
+    }
+    return 0;
+  });
 
   // This is for when trying to upload files
   function handleFileChange(e) {
@@ -351,11 +372,15 @@ export default function AuthHome() {
         navigate={navigate}
         handleFolderClick={handleFolderClick}
         loading={loading}
-        filesFolders={filesFolders}
+        filesFolders={sortedFilesFolders}
         previewFile={previewFile}
         handleDownload={handleFileDownload}
         handleDelete={handleFileFolderDelete}
         handleShare={handleShare}
+        setSortBy={setSortBy}
+        setSortOrder={setSortOrder}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
       />
       <MobileView
         className={styles.mobileView}
@@ -366,7 +391,7 @@ export default function AuthHome() {
         navigate={navigate}
         handleFolderClick={handleFolderClick}
         loading={loading}
-        filesFolders={filesFolders}
+        filesFolders={sortedFilesFolders}
         setFileFolders={setFilesFolders}
         previewFile={previewFile}
         searchTerm={searchTerm}
@@ -376,6 +401,10 @@ export default function AuthHome() {
         handleDownload={handleFileDownload}
         handleDelete={handleFileFolderDelete}
         handleShare={handleShare}
+        setSortBy={setSortBy}
+        setSortOrder={setSortOrder}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
       />
       <UploadFileDialog
         ref={fileDialog}

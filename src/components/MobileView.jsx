@@ -8,6 +8,8 @@ import folderIcon from "/assets/Folder.svg";
 import addIcon from "/assets/add.svg";
 import addFileIcon from "/assets/add-file.svg";
 import RenameDialog from "./RenameDialog.jsx";
+import activeIcon from '/assets/check.svg'
+
 import { useRef, useState, useEffect } from "react";
 
 export default function MobileView({
@@ -16,7 +18,6 @@ export default function MobileView({
   dialog,
   handleFileChange,
   folderPath,
-  navigate,
   handleFolderClick,
   loading,
   filesFolders,
@@ -29,6 +30,10 @@ export default function MobileView({
   handleDownload,
   handleDelete,
   handleShare,
+  setSortBy,
+  setSortOrder,
+  sortBy,
+  sortOrder
 }) {
   const [isMoreDialogOpen, setIsMoreDialogOpen] = useState(null);
   const moreDialogRef = useRef(null);
@@ -37,7 +42,12 @@ export default function MobileView({
   const [content, setContent] = useState(null);
   const [isDropDownOpen,setIsDropDownOpen] = useState(false)
   const dropDownRef = useRef(null)
-  const [sortDirection, setSortDirection] = useState('asc')
+  const sortOptions = [
+    {value:'name', label:'Name'},
+    {value:'size', label:'File Size'},
+    {value:'date', label:'Date Modified'}
+  ]
+  const sortTerm = sortOptions.find(option => option.value === sortBy)?.label || 'Name';
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -124,20 +134,35 @@ function toggleDropdown(){
         <nav className={styles.nav}>
           <div className={styles.sortContainer}>
             <button onClick={toggleDropdown} className={styles.sortButton}>
-              {sortDirection === 'asc' ? (
+              {sortOrder === 'asc' ? (
                 <img src={asc} className={styles.sortIcon} alt="Ascending" />
               ) : (
                 <img src={desc} className={styles.sortIcon} alt="Descending" />
               )}
-              Name
+              {sortTerm}
               </button>
             <div className={styles.dropDown} ref={dropDownRef}>
-              <button className={styles.sort}>File Size</button>
-              <button className={styles.sort}>Date Modified</button>
-              <button className={styles.sort}>Date Created</button>
+              <button onClick={() => { setSortBy('name'); toggleDropdown(); }} className={styles.sort}>
+                {sortOptions[0].label}
+                {sortBy === 'name' && <img className={styles.activeIcon} src={activeIcon} alt="active"/>}
+              </button>
+              <button onClick={() => { setSortBy('size'); toggleDropdown(); }} className={styles.sort}>
+                {sortOptions[1].label}
+                {sortBy === 'size' && <img className={styles.activeIcon} src={activeIcon} alt="active"/>}
+              </button>
+              <button onClick={() => { setSortBy('date'); toggleDropdown(); }} className={styles.sort}>
+                {sortOptions[2].label}
+                {sortBy === 'date' && <img className={styles.activeIcon} src={activeIcon} alt="active"/>}
+              </button>
               <hr />
-              <button className={styles.sort}>ASC - DESC</button>
-              <button className={styles.sort}> DESC - ASC</button>
+              <button onClick={() => { setSortOrder('asc'); toggleDropdown(); }} className={styles.sort}>
+                Asc
+                {sortOrder === 'asc' && <img className={styles.activeIcon} src={activeIcon} alt="active"/>}
+              </button>
+              <button onClick={() => { setSortOrder('desc'); toggleDropdown(); }} className={styles.sort}>
+                Desc
+                {sortOrder === 'desc' && <img className={styles.activeIcon} src={activeIcon} alt="active"/>}
+              </button>
             </div>
           </div>
         </nav>
