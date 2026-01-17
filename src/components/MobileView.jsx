@@ -180,20 +180,22 @@ function toggleDropdown(){
           <p>Upload files or create folders to access them from any device</p>
         </div>
       )}
-      <div className={styles.cards}>
-        {filesFolders.map((fileFolder) => {
-          return (
-            <Card
-              key={fileFolder.id}
-              fileFolder={fileFolder}
-              onFolderClick={handleFolderClick}
-              onFilePreview={previewFile}
-              setIsMoreDialogOpen={setIsMoreDialogOpen}
-              setContent={setContent}
-            />
-          );
-        })}
-      </div>
+      {!loading && filesFolders.length > 0 && (
+        <div className={styles.cards}>
+          {filesFolders.map((fileFolder) => {
+            return (
+              <Card
+                key={fileFolder.id}
+                fileFolder={fileFolder}
+                onFolderClick={handleFolderClick}
+                onFilePreview={previewFile}
+                setIsMoreDialogOpen={setIsMoreDialogOpen}
+                setContent={setContent}
+              />
+            );
+          })}
+        </div>
+      )}
       <div className={styles.addContainer}>
         <input
           type="search"
