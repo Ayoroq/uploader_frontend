@@ -60,6 +60,11 @@
     position: relative;
 }
 
+.avatar{
+    width: 60px;
+    cursor: pointer;
+}
+
 .dropdown {
     position: absolute;
     top: 100%;

@@ -3,6 +3,8 @@ import styles from "./Navbar.module.css";
 import { useAuth } from "../context/AuthContext";
 import { useState, useRef, useEffect } from "react";
 import logoutIcon from '/assets/logout.svg'
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -38,11 +40,13 @@ export default function Navbar() {
       <div className={styles.navbarbuttons}>
         {user ? (
           <div className={styles.userSection} ref={dropdownRef}>
-            <p 
+            <DotLottieReact
+              src="/assets/humans.lottie"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            >
-              {user.user.username}
-            </p>
+              className={styles.avatar}
+              autoplay
+              loop
+            />
             {isDropdownOpen && (
               <div className={styles.dropdown}>
                 <p className={styles.username} >{user.user.username}</p>
