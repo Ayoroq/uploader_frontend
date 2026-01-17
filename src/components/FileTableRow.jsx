@@ -55,7 +55,7 @@ export default function FileTableRow({ item, onFolderClick, onFilePreview, onDel
           ) : (
             <img src={getFileExtension(item.name)} alt="File" className={styles.icon} />
           )}
-          {item.name}
+         <p className={styles.itemName}>{item.name}</p>
         </div>
       </td>
       <td><div className={styles.dateCell}>{convertDate(item.updatedAt)}</div></td>

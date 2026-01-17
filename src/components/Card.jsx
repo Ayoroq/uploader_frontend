@@ -43,8 +43,8 @@ export default function Card({
             />
           )}
         </div>
-        <div>
-          {fileFolder.name}
+        <div className={styles.textDetails}>
+          <p className={styles.name}>{fileFolder.name}</p>
           <p className={styles.info}>
             Modified <span>{convertDate(fileFolder.updatedAt)}</span> — 
             {fileFolder.type === "folder" ? (

@@ -8,14 +8,35 @@ export default function Home() {
   return (
     <div className={styles.home}>
       <section className={styles.hero}>
-        <DotLottieReact className={styles.animation} src="/assets/upload.lottie" autoplay />
+        <DotLottieReact
+          className={styles.animation}
+          src="/assets/upload.lottie"
+          autoplay
+        />
       </section>
       <section className={styles.details}>
         <p className={styles.appName}>Uploader</p>
-        <button className={styles.signInButton} onClick={() => navigate('/login')}>Sign In</button>
-        <p className={styles.tagLine}>Store, organize, and access your files from anywhere, across multiple devices.</p>
+        <button
+          className={styles.signInButton}
+          onClick={() => navigate("/login")}
+        >
+          Sign In
+        </button>
+        <p className={styles.tagLine}>
+          Store, organize, and access your files from anywhere, across multiple
+          devices.
+        </p>
       </section>
-
+      <section className={styles.cta}>
+          <h2>Ready to get started?</h2>
+          <p>Join now and start storing your files today</p>
+          <button
+            className={styles.ctaButton}
+            onClick={() => navigate("/signup")}
+          >
+            Create Free Account
+          </button>
+        </section>
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <div className={styles.footerLinks}>

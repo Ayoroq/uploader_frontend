@@ -19,9 +19,21 @@
   height: 25px;
 }
 
-.moreContainer{
-    display: flex;
-    align-items: center;
+.textDetails{
+  font-size: small;
+}
+
+.name{
+  font-weight: 500;
+}
+
+.info{
+  font-weight: 200;
+}
+
+.moreContainer {
+  display: flex;
+  align-items: center;
 }
 
 .more {
@@ -30,7 +42,7 @@
   cursor: pointer;
   background-color: transparent;
 }
-.moreIcon{
-    width: 30px;
-    height: 30px;
+.moreIcon {
+  width: 30px;
+  height: 30px;
 }
