@@ -20,7 +20,7 @@
 }
 
 .video {
-  max-width: 500px;
+  width: clamp(250px, 50vw, 500px);
 }
 
 /* details section */
@@ -66,7 +66,7 @@
 }
 
 .tagLine {
-  max-width: 600px;
+  max-width: 1000px;
   text-align: center;
   font-size: clamp(24px, 5vw, 40px);
   font-weight: 600;
