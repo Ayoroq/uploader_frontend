@@ -27,6 +27,9 @@ export default function Home() {
           devices.
         </p>
       </section>
+      <section className={styles.empty}>
+
+      </section>
       <section className={styles.cta}>
           <h2>Ready to get started?</h2>
           <p>Join now and start storing your files today</p>

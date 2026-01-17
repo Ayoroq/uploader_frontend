@@ -1,5 +1,8 @@
 .home {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 /* hero */
 .hero{
@@ -26,7 +29,8 @@
   line-height: 1.2;
 }
 
-.signInButton {
+/* buttons */
+.signInButton,.ctaButton {
   font-size: 19px;
   font-weight: 600;
   line-height: 20px;
@@ -41,11 +45,11 @@
   transition: background-color 0.3s ease;
 }
 
-.signInButton:hover{
+.signInButton:hover,.ctaButton:hover{
   background-color: rgb(80, 80, 80);
 }
 
-.signInButton:active{
+.signInButton:active,.ctaButton:active{
   background-color: gray;
 }
 
@@ -55,6 +59,20 @@
   font-size: clamp(24px,5vw,40px);
   font-weight: 600;
   line-height: 1.2;
+}
+
+/* empty */
+.empty{
+  background-color: black;
+  height: 400px;
+}
+
+/* cta */
+.cta{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 /* footer */
