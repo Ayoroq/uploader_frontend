@@ -20,6 +20,8 @@ export default function AuthHome() {
   const [folderNameError, setFolderNameError] = useState(null);
   const [error, setError] = useState(null);
   const [uploadError, setUploadError] = useState(null);
+  const [uploadLoading, setUploadLoading] = useState(false);
+  const [createFolderLoading, setCreateFolderLoading] = useState(false);
   const [folderName, setFolderName] = useState("");
   const [folderPath, setFolderPath] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -170,6 +172,7 @@ export default function AuthHome() {
     }
 
     try {
+      setCreateFolderLoading(true);
       const url = folderId
         ? `${
             import.meta.env.VITE_API_URL
@@ -210,6 +213,8 @@ export default function AuthHome() {
       setFilesFolders((prevFilesFolders) => [...prevFilesFolders, data]);
     } catch (error) {
       console.error(error);
+    } finally {
+      setCreateFolderLoading(false);
     }
   }
 
@@ -332,6 +337,7 @@ export default function AuthHome() {
       });
 
       try {
+        setUploadLoading(true);
         const uploadUrl = folderId
           ? `${import.meta.env.VITE_API_URL}/api/upload/${folderId}`
           : `${import.meta.env.VITE_API_URL}/api/upload`;
@@ -366,6 +372,8 @@ export default function AuthHome() {
       } catch (error) {
         console.error(error);
         setUploadError('An error occurred while uploading files');
+      } finally {
+        setUploadLoading(false);
       }
     }
   }
@@ -424,6 +432,7 @@ export default function AuthHome() {
         handleUpload={handleFileUpload}
         error={uploadError}
         setError={setUploadError}
+        loading={uploadLoading}
       />
       <CreateFolderDialog
         ref={dialog}
@@ -434,6 +443,7 @@ export default function AuthHome() {
         error={error}
         setError={setError}
         setFolderName={setFolderName}
+        loading={createFolderLoading}
       />
       <FilePreviewDialog
         ref={previewDialog}

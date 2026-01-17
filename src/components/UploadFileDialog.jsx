@@ -4,7 +4,7 @@ import { formatFileSize } from "../utils/utils.js";
 import cancelIcon from '/assets/cancel.svg'
 
 const UploadFileDialog = forwardRef(
-  ({ files, handleFileRemove, setFiles, handleUpload, error, setError }, ref) => {
+  ({ files, handleFileRemove, setFiles, handleUpload, error, setError, loading }, ref) => {
     useEffect(() => {
       if (files.length === 0) {
         ref.current.close();
@@ -61,8 +61,8 @@ const UploadFileDialog = forwardRef(
           <button className={styles.cancelButton} onClick={() => ref.current?.close()}>
             Cancel
           </button>
-          <button className={styles.uploadButton} onClick={handleUpload}>
-            Upload {files.length} {files.length === 1 ? 'file' : 'files'}
+          <button className={styles.uploadButton} onClick={handleUpload} disabled={loading}>
+            {loading ? 'Uploading...' : `Upload ${files.length} ${files.length === 1 ? 'file' : 'files'}`}
           </button>
         </div>
       </dialog>

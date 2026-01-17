@@ -2,7 +2,7 @@ import { forwardRef, useCallback, useEffect, useRef } from "react";
 import styles from "./CreateFolderDialog.module.css";
 import cancelIcon from '/assets/cancel.svg'
 
-const CreateFolderDialog = forwardRef(({ folderName, setFolderName, folderNameError, onFolderNameChange, onFolderCreate, error, setError },ref) => {
+const CreateFolderDialog = forwardRef(({ folderName, setFolderName, folderNameError, onFolderNameChange, onFolderCreate, error, setError, loading },ref) => {
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -73,9 +73,9 @@ const CreateFolderDialog = forwardRef(({ folderName, setFolderName, folderNameEr
           <button
             className={styles.createButton}
             onClick={onFolderCreate}
-            disabled={!folderName.trim()}
+            disabled={!folderName.trim() || loading}
           >
-            Create Folder
+            {loading ? 'Creating...' : 'Create Folder'}
           </button>
         </div>
       </dialog>
