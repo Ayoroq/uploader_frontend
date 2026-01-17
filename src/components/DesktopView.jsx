@@ -66,8 +66,8 @@ export default function DesktopView({
         </button>
         <input
           type="file"
-          id="fileInput"
-          name="fileInput"
+          id="desktopFileInput"
+          name="desktopFileInput"
           ref={fileInput}
           className={styles.fileInput}
           multiple
@@ -105,6 +105,8 @@ export default function DesktopView({
         <div>
           <input
             type="search"
+            id="desktopSearch"
+            name="desktopSearch"
             className={styles.desktopSearch}
             placeholder="Search your files"
             value={searchTerm}
@@ -221,6 +223,7 @@ export default function DesktopView({
         content={item}
         filesFolders={filesFolders}
         setFilesFolders={setFilesFolders}
+        dialogId="desktopRename"
       />
     </main>
   );

@@ -39,6 +39,7 @@ export default function Signup() {
         <form onSubmit={handleSubmit} className={styles.signupform}>
           <input
             type="text"
+            id="signupUsername"
             name="username"
             placeholder="Username"
             value={formData.username}
@@ -48,6 +49,7 @@ export default function Signup() {
           />
           <input
             type="password"
+            id="signupPassword"
             name="password"
             placeholder="Password"
             value={formData.password}
@@ -57,6 +59,7 @@ export default function Signup() {
           />
           <input
             type="password"
+            id="signupConfirmPassword"
             name="confirmPassword"
             placeholder="Confirm Password"
             value={formData.confirmPassword}

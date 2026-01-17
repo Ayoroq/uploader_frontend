@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import styles from "./RenameDialog.module.css";
 
 const RenameDialog = forwardRef(
-  ({ content, filesFolders, setFilesFolders }, ref) => {
+  ({ content, filesFolders, setFilesFolders, dialogId = "rename" }, ref) => {
     const [newName, setNewName] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -139,12 +139,13 @@ const RenameDialog = forwardRef(
         </div>
         <div className={styles.content}>
           <div className={styles.inputWrapper}>
-            <label htmlFor="renameName" className={styles.label}>
+            <label htmlFor={`${dialogId}Input`} className={styles.label}>
               New Name
             </label>
             <input
               ref={inputRef}
-              id="renameName"
+              id={`${dialogId}Input`}
+              name={`${dialogId}Input`}
               type="text"
               value={newName}
               required

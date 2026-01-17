@@ -197,6 +197,8 @@ function toggleDropdown(){
       <div className={styles.addContainer}>
         <input
           type="search"
+          id="mobileSearch"
+          name="mobileSearch"
           className={styles.search}
           placeholder="Search your files"
           value={searchTerm}
@@ -236,8 +238,8 @@ function toggleDropdown(){
             </button>
             <input
               type="file"
-              id="fileInput"
-              name="fileInput"
+              id="mobileFileInput"
+              name="mobileFileInput"
               ref={fileInput}
               className={styles.fileInput}
               multiple
@@ -335,6 +337,7 @@ function toggleDropdown(){
         ref={renameRef}
         filesFolders={filesFolders}
         setFilesFolders={setFilesFolders}
+        dialogId="mobileRename"
       />
     </main>
   );

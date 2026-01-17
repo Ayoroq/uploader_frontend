@@ -31,6 +31,7 @@ export default function Login(){
             <form className={styles.loginform} onSubmit={handleSubmit}>
                 <input  
                     type="text" 
+                    id="loginUsername"
                     name="username"
                     placeholder="Username" 
                     value={userData.username}
@@ -40,6 +41,7 @@ export default function Login(){
                 />
                 <input 
                     type="password" 
+                    id="loginPassword"
                     name="password"
                     placeholder="Password" 
                     value={userData.password}
