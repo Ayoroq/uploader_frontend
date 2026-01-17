@@ -7,7 +7,7 @@
 }
 
 @keyframes slideIn {
-  from{
+  from {
     opacity: 0;
     transform: translateY(100px);
   }
@@ -18,7 +18,8 @@
   justify-content: center;
   align-items: center;
 }
-.animation {
+
+.video {
   max-width: 500px;
 }
 
@@ -80,7 +81,7 @@
 }
 
 .image {
-  width: clamp(250px,40vw,500px);
+  width: clamp(250px, 40vw, 500px);
 }
 
 /* cta */
@@ -131,7 +132,7 @@
 }
 
 @media (max-width: 490px) {
-  .images{
+  .images {
     flex-direction: column;
   }
 }

@@ -1,13 +1,9 @@
 import { useNavigate } from "react-router";
 import {useEffect} from 'react'
 import styles from "./Home.module.css";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import upload from '/assets/Uploading.png'
 import download from '/assets/downloading.png'
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-
-gsap.registerPlugin(useGSAP);
+import video from '/assets/video.mp4'
 
 export default function Home() {
   const navigate = useNavigate();
@@ -19,11 +15,9 @@ export default function Home() {
   return (
     <div className={styles.home}>
       <section className={styles.hero}>
-        <DotLottieReact
-          className={styles.animation}
-          src="/assets/upload.lottie"
-          autoplay
-        />
+        <video autoPlay muted loop className={styles.video}>
+          <source src={video} type="video/mp4" />
+        </video>
       </section>
       <section className={styles.details}>
         <p className={styles.appName}>Uploader</p>
