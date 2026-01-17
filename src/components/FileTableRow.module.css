@@ -11,8 +11,8 @@ td {
   vertical-align: middle;
 }
 
-th {
-  border-bottom: 1px solid;
+thead {
+  border-bottom: 1px solid #C7C7C7 ;
 }
 
 td {
