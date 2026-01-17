@@ -15,6 +15,7 @@ A modern, responsive cloud storage application built with React that allows user
 - **Search** - Real-time search across files and folders
 - **Sorting** - Sort by name, date modified, or file size (ascending/descending)
 - **Breadcrumb Navigation** - Easy navigation through folder hierarchy
+- **User Menu** - Dropdown menu with logout functionality
 - **Responsive Design** - Fully optimized for desktop, tablet, and mobile devices
 - **Smooth Animations** - GSAP and Lottie animations for enhanced UX
 - **Modern UI** - Clean, intuitive interface with modal dialogs
@@ -38,7 +39,7 @@ A modern, responsive cloud storage application built with React that allows user
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Ayoroq/uploader_frontend.git
 cd uploader_frontend
 ```
 
@@ -87,8 +88,9 @@ uploader_frontend/
 ## Key Components
 
 - **AuthHome** - Main authenticated dashboard with state management
+- **Navbar** - Navigation bar with user menu and logout
 - **DesktopView** - Desktop layout with sortable table view
-- **MobileView** - Mobile-optimized card layout with touch gestures
+- **MobileView** - Mobile-optimized card layout with fixed bottom action bar
 - **FileTableRow** - Individual file/folder row with context menu
 - **Card** - Mobile card component for files and folders
 - **CreateFolderDialog** - Modal for folder creation
@@ -151,7 +153,7 @@ The app expects a backend API with the following endpoints:
 
 ## License
 
-This project is part of The Odin Project curriculum.
+MIT License - This project is part of The Odin Project curriculum.
 
 ## Acknowledgments
 
