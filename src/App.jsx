@@ -1,6 +1,6 @@
 import "./reset.css";
 import { useEffect, useRef } from "react";
-import { Outlet, useLocation } from "react-router";
+import { Outlet } from "react-router";
 import { gsap } from "gsap";
 import { ReactLenis } from "lenis/react";
 import Navbar from "./components/Navbar";
@@ -8,8 +8,7 @@ import { AuthProvider } from "./context/AuthContext";
 
 export default function App() {
   const lenisRef = useRef();
-  const location = useLocation();
-  const hideNavbar = ["/login", "/signup"].includes(location.pathname);
+  
 
   useEffect(() => {
     function update(time) {
@@ -24,7 +23,7 @@ export default function App() {
     <ReactLenis root options={{ autoRaf: false }} ref={lenisRef}>
       <AuthProvider>
         <>
-          {!hideNavbar && <Navbar />}
+          <Navbar />
           <Outlet />
         </>
       </AuthProvider>
