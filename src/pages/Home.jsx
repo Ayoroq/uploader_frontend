@@ -4,6 +4,10 @@ import styles from "./Home.module.css";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import upload from '/assets/Uploading.png'
 import download from '/assets/downloading.png'
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(useGSAP);
 
 export default function Home() {
   const navigate = useNavigate();
