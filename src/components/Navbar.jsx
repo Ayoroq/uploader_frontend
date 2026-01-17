@@ -46,7 +46,7 @@ export default function Navbar() {
             </svg>
           </>
         ) : (
-          <>
+          <div className={styles.authButtons}>
             <button
               onClick={() => navigate("/login")}
               className={`${styles.navbarbutton}`}
@@ -59,7 +59,7 @@ export default function Navbar() {
             >
               Signup
             </button>
-          </>
+          </div>
         )}
       </div>
     </nav>

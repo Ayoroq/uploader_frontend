@@ -10,8 +10,12 @@
 .logo{
     font-size: 20px;
     cursor: pointer;
-    color: #0F6CBD;
+    color: black;
     font-weight: 600;
+}
+
+.authButtons{
+    display: none;
 }
 
 .navbarbuttons{
