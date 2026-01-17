@@ -331,7 +331,7 @@ height: 50px;}
   height: 20px;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 768px) {
   .mobileView {
     display: flex;
   }
