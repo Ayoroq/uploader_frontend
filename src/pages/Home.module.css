@@ -5,12 +5,12 @@
   gap: 3rem;
 }
 /* hero */
-.hero{
+.hero {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.animation{
+.animation {
   max-width: 500px;
 }
 
@@ -30,7 +30,8 @@
 }
 
 /* buttons */
-.signInButton,.ctaButton {
+.signInButton,
+.ctaButton {
   font-size: 19px;
   font-weight: 600;
   line-height: 20px;
@@ -45,34 +46,43 @@
   transition: background-color 0.3s ease;
 }
 
-.signInButton:hover,.ctaButton:hover{
+.signInButton:hover,
+.ctaButton:hover {
   background-color: rgb(80, 80, 80);
 }
 
-.signInButton:active,.ctaButton:active{
+.signInButton:active,
+.ctaButton:active {
   background-color: gray;
 }
 
-.tagLine{
+.tagLine {
   max-width: 600px;
   text-align: center;
-  font-size: clamp(24px,5vw,40px);
+  font-size: clamp(24px, 5vw, 40px);
   font-weight: 600;
   line-height: 1.2;
 }
 
 /* empty */
-.empty{
-  background-color: black;
-  height: 400px;
+.images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  width: clamp(250px,40vw,500px);
 }
 
 /* cta */
-.cta{
+.cta {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
+  height: 200px;
 }
 
 /* footer */
@@ -112,5 +122,8 @@
   font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 490px) {
+  .images{
+    flex-direction: column;
+  }
 }

@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
 import styles from "./Home.module.css";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import upload from '/assets/Uploading.png'
+import download from '/assets/downloading.png'
 
 export default function Home() {
   const navigate = useNavigate();
@@ -27,8 +29,9 @@ export default function Home() {
           devices.
         </p>
       </section>
-      <section className={styles.empty}>
-
+      <section className={styles.images}>
+        <img src={upload} alt="upload" className={styles.image} />
+        <img src={download} alt="download" className={styles.image} />
       </section>
       <section className={styles.cta}>
           <h2>Ready to get started?</h2>
