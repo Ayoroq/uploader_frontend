@@ -1,5 +1,5 @@
 import styles from './Login.module.css'
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import { useNavigate } from 'react-router'
 import { useAuth } from '../context/AuthContext'   
 
@@ -18,6 +18,10 @@ export default function Login(){
             [e.target.name]: e.target.value
         })
     }
+
+    useEffect(() =>{
+        window.scrollTo(0,0)
+      },[])
 
     async function handleSubmit(e){
         e.preventDefault();

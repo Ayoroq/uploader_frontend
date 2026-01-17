@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import {useEffect} from 'react'
 import styles from "./Home.module.css";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import upload from '/assets/Uploading.png'
@@ -6,6 +7,10 @@ import download from '/assets/downloading.png'
 
 export default function Home() {
   const navigate = useNavigate();
+
+  useEffect(() =>{
+    window.scrollTo(0,0)
+  },[])
 
   return (
     <div className={styles.home}>

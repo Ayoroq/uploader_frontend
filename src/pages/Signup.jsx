@@ -1,5 +1,5 @@
 import { useAuth } from "../context/AuthContext";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from "react-router";
 import styles from "./Signup.module.css";
 
@@ -12,6 +12,10 @@ export default function Signup() {
     confirmPassword: "",
   });
   const [error, setError] = useState(null);
+
+  useEffect(() =>{
+    window.scrollTo(0,0)
+  },[])
 
   async function handleSubmit(e) {
     e.preventDefault();
