@@ -148,28 +148,8 @@ export default function AuthHome() {
   }, []);
 
   // this is used to handle folder click to navigate to the subfolder
-  async function handleFolderClick(folderId) {
+  function handleFolderClick(folderId) {
     if (folderId === "null") return;
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/folders/folder/${folderId}/path`,
-        {
-          credentials: "include",
-        }
-      );
-      const statusRoutes = { 401: "/login", 403: "/403", 404: "/404" };
-      if (statusRoutes[response.status]) {
-        navigate(statusRoutes[response.status]);
-        setLoading(false);
-        return;
-      }
-      const data = await response.json();
-      setFolderPath(data.path);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
     navigate(`/folders/${folderId}`);
   }
 
