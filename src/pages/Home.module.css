@@ -1,12 +1,22 @@
 .home {
   min-height: 100vh;
 }
+/* hero */
+.hero{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.animation{
+  max-width: 500px;
+}
 
 /* details section */
 .details {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2rem;
 }
 
 .appName {
@@ -38,6 +48,14 @@
 .signInButton:active{
   background-color: gray;
   color: white;
+}
+
+.tagLine{
+  max-width: 600px;
+  text-align: center;
+  font-size: clamp(24px,5vw,40px);
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 /* footer */

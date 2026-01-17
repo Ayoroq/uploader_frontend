@@ -8,11 +8,12 @@ export default function Home() {
   return (
     <div className={styles.home}>
       <section className={styles.hero}>
-        <DotLottieReact src="/assets/upload.lottie" autoplay />
+        <DotLottieReact className={styles.animation} src="/assets/upload.lottie" autoplay />
       </section>
       <section className={styles.details}>
         <p className={styles.appName}>Uploader</p>
         <button className={styles.signInButton} onClick={() => navigate('/login')}>Sign In</button>
+        <p className={styles.tagLine}>Store, organize, and access your files from anywhere, across multiple devices.</p>
       </section>
 
       <footer className={styles.footer}>
