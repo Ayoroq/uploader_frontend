@@ -21,6 +21,7 @@
 
 .video {
   width: clamp(250px, 50vw, 500px);
+  clip-path: inset(1px 1px);
 }
 
 /* details section */
