@@ -2,6 +2,12 @@
 
 A modern, responsive cloud storage application built with React that allows users to upload, organize, and manage files and folders with an intuitive interface.
 
+![Uploader App Screenshot](./public/home.png)
+
+## Live Demo
+
+[View Live Demo](https://cloud-uploader.vercel.app/)
+
 ## Features
 
 - **Authentication System** - Secure login and signup with session management
@@ -142,6 +148,19 @@ The app expects a backend API with the following endpoints:
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
+
+## Future Improvements
+
+- **Drag & Drop Upload** - Drag files directly into folders
+- **Bulk Operations** - Select multiple files/folders for batch actions
+- **File Versioning** - Track and restore previous file versions
+- **Advanced Search** - Filter by file type, size, and date range
+- **Folder Sharing** - Share entire folders with other users
+- **Storage Analytics** - Visual dashboard for storage usage
+- **Offline Mode** - Access recently viewed files offline
+- **Keyboard Shortcuts** - Quick actions via keyboard commands
+- **Dark Mode** - Theme toggle for better accessibility
+- **File Comments** - Add notes and comments to files
 
 ## Contributing
 
