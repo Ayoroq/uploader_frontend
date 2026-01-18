@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className={styles.home}>
       <section className={styles.hero}>
-        <video autoPlay muted loop className={styles.video}>
+        <video autoPlay muted loop playsInline className={styles.video}>
           <source src={video} type="video/mp4" />
         </video>
       </section>
